@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SignUP</title>
+</head>
+<body>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+{#    <input type="radio" id="customer" name="user_type" value="customer">#}
+{#    <label for="customer">Customer</label>#}
+{#    <input type="radio" id="employee" name="user_type" value="employee">#}
+{#    <label for="employee">Employee</label>#}
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>
