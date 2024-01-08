@@ -34,6 +34,11 @@ class User(AbstractUser):
         ('female', 'Female'),
         ('other', 'Other'),
     ]
+    USER_TYPE_CHOICES = [
+        ('customer', 'Customer'),
+        ('employee', 'Employee'),
+    ]
+    user_type = models.CharField(max_length=100, choices=USER_TYPE_CHOICES, default='customer')
     username = models.CharField(
         max_length=150,
         unique=True,
