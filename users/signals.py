@@ -1,17 +1,18 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
-from .models import Employee, Customer
+from .models import Employee, Customer, UserProfile
 from rest_framework.authtoken.models import Token
 from django.conf import settings
 
 @receiver(post_save, sender=get_user_model())
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        if instance.is_staff:
-            Employee.objects.create(user=instance, role='staff')  # Set the default role for staff
-        elif not instance.is_superuser:
-            Customer.objects.create(user=instance)  # Create a customer profile
+        if instance.user_type == 'employee':
+            Employee.objects.create(user=instance, role='staff')
+        elif instance.user_type == 'customer':
+            Customer.objects.create(user=instance)
+    UserProfile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
