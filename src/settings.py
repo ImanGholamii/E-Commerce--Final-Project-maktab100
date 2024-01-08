@@ -28,6 +28,7 @@ MY_APPS = [
 THIRD_PARTY_APPS = [
     'drf_yasg',
     'rest_framework',
+    'rest_framework.authtoken',
     #'rest_framework_simplejwt',
     # "debug_toolbar",
 ]
@@ -106,3 +107,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/' # home
 LOGOUT_REDIRECT_URL = '/' # home
+
+AUTH_USER_MODEL = 'users.User'
