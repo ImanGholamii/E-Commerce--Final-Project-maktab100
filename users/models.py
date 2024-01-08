@@ -38,12 +38,12 @@ class User(AbstractUser):
         ('customer', 'Customer'),
         ('employee', 'Employee'),
     ]
-    user_type = models.CharField(max_length=100, choices=USER_TYPE_CHOICES, default='customer')
     username = models.CharField(
         max_length=150,
         unique=True,
         null=True, blank=True
     )
+    user_type = models.CharField(max_length=100, choices=USER_TYPE_CHOICES, default='customer')
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=20)
     address = models.CharField(max_length=255)
