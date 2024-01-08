@@ -18,10 +18,10 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 MY_APPS = [
-    'core',
+    #'core',
     'users',
-    'products',
-    'orders',
+    #'products',
+    #'orders',
 
 ]
 
