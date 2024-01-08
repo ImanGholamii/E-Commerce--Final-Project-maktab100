@@ -43,7 +43,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=20)
     address = models.CharField(max_length=255)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(null=True, blank=True)
     registration_date = models.DateTimeField(auto_now_add=True)
 
     USERNAME_FIELD = 'email'
@@ -63,6 +63,9 @@ class Employee(models.Model):
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     role = models.CharField(max_length=100, choices=ROLE_CHOICES)
+    is_manager = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_customer_support = models.BooleanField(default=False)
 
 
 class Customer(models.Model):
@@ -72,7 +75,7 @@ class Customer(models.Model):
 
 
 class Address(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='addresses')
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
     street = models.CharField(max_length=255)
