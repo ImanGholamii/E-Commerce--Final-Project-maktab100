@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+<h1>User Profile</h1>
+<p>Bio: {{ user_profile.bio }}</p>
+
+<h2>Addresses:</h2>
+<ul>
+{% for address in user_addresses %}
+    <li>{{ address.city }}, {{ address.state }}, {{ address.street }}, {{ address.postal_code }}</li>
+    <li>{{ address.is_default }}</li>
+    <li>{{ address.additional_info }}</li>
+{% endfor %}
+</ul>
+
+</body>
+</html>
