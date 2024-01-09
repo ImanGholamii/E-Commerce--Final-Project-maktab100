@@ -9,10 +9,12 @@ from django.conf import settings
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         if instance.user_type == 'employee':
+            profile = UserProfile.objects.create(user=instance)
             Employee.objects.create(user=instance, role='staff')
         elif instance.user_type == 'customer':
+            profile = UserProfile.objects.create(user=instance)
             Customer.objects.create(user=instance)
-    UserProfile.objects.create(user=instance)
+
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
