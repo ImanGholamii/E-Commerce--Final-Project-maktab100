@@ -7,6 +7,6 @@ class customUserCreationForm(UserCreationForm):
     # user_type = forms.ChoiceField(choices=(('customer', 'Customer'), ('employee', 'Employee')))
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ['username', 'email', 'phone', 'address', 'gender', 'date_of_birth',
+        fields = ['username', 'email', 'phone', 'gender', 'date_of_birth',
                   'user_type', 'password1', 'password2'
                   ]
