@@ -46,7 +46,7 @@ class User(AbstractUser):
     user_type = models.CharField(max_length=100, choices=USER_TYPE_CHOICES, default='customer')
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=20)
-    address = models.CharField(max_length=255)
+    # address = models.CharField(max_length=255)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     date_of_birth = models.DateField(null=True, blank=True)
     registration_date = models.DateTimeField(auto_now_add=True)
@@ -94,3 +94,4 @@ class UserProfile(models.Model):
     bio = models.TextField()
     social_media = models.CharField(max_length=255, null=True, blank=True)
     interests = models.TextField(null=True, blank=True)
+    addresses = models.ManyToManyField(Address, related_name='user_profiles', blank=True)
