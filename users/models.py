@@ -95,3 +95,6 @@ class UserProfile(models.Model):
     social_media = models.CharField(max_length=255, null=True, blank=True)
     interests = models.TextField(null=True, blank=True)
     addresses = models.ManyToManyField(Address, related_name='user_profiles', blank=True)
+
+    def __str__(self):
+        return f"{self.user.username[0].upper()}{self.user.username[1:]}'s Profile"
