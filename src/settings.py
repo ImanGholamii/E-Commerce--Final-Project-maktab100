@@ -20,7 +20,7 @@ DJANGO_APPS = [
 MY_APPS = [
     'core',
     'users',
-    #'products',
+    'products',
     #'orders',
 
 ]
