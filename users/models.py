@@ -76,7 +76,7 @@ class Employee(models.Model):
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
-    is_subscribed = models.BooleanField(default=False)
+    is_subscribed = models.BooleanField(default=False) # to send news
 
 
 class Address(models.Model):
@@ -85,7 +85,7 @@ class Address(models.Model):
     state = models.CharField(max_length=100)
     street = models.CharField(max_length=255)
     postal_code = models.CharField(max_length=20)
-    is_default = models.BooleanField(default=False)
+    is_default = models.BooleanField(default=False) # to choose default
     additional_info = models.TextField(blank=True)
 
 
