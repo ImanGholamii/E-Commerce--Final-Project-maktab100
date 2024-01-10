@@ -18,7 +18,7 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 MY_APPS = [
-    #'core',
+    'core',
     'users',
     #'products',
     #'orders',
@@ -30,7 +30,6 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     #'rest_framework_simplejwt',
-    # "debug_toolbar",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS + THIRD_PARTY_APPS
