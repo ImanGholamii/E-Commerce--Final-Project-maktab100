@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractUser
 from django.utils.translation import gettext_lazy as _
+from core.validators import Validator
 
 
 class CustomUserManager(BaseUserManager):
@@ -45,8 +46,8 @@ class User(AbstractUser):
     )
     user_type = models.CharField(max_length=100, choices=USER_TYPE_CHOICES, default='customer')
     email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=20)
-    # address = models.CharField(max_length=255)
+    phone = models.CharField(max_length=20, validators=[Validator.phone_validator()],
+                             help_text=_("Enter your phone number."))
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     date_of_birth = models.DateField(null=True, blank=True)
     registration_date = models.DateTimeField(auto_now_add=True)
@@ -76,7 +77,7 @@ class Employee(models.Model):
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
-    is_subscribed = models.BooleanField(default=False) # to send news
+    is_subscribed = models.BooleanField(default=False)  # to send news
 
 
 class Address(models.Model):
@@ -85,7 +86,7 @@ class Address(models.Model):
     state = models.CharField(max_length=100)
     street = models.CharField(max_length=255)
     postal_code = models.CharField(max_length=20)
-    is_default = models.BooleanField(default=False) # to choose default
+    is_default = models.BooleanField(default=False)  # to choose default
     additional_info = models.TextField(blank=True)
 
 
