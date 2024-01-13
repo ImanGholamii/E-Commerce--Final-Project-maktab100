@@ -88,234 +88,234 @@ msgstr "در حال پردازش"
 
 #: orders/models.py:12
 msgid "Completed"
-msgstr ""
+msgstr "تکمیل شده"
 
 #: orders/models.py:13
 msgid "Cancelled"
-msgstr ""
+msgstr "لغو شده"
 
 #: orders/models.py:17 users/admin.py:30 users/admin.py:33 users/forms.py:8
 #: users/models.py:40 users/views.py:26
 msgid "Employee"
-msgstr ""
+msgstr "کارمند"
 
 #: orders/models.py:19 orders/models.py:39 users/admin.py:29 users/admin.py:32
 #: users/forms.py:8 users/models.py:39 users/views.py:24
 msgid "Customer"
-msgstr ""
+msgstr "مشتری"
 
 #: orders/models.py:20
 msgid "Order Date"
-msgstr ""
+msgstr "تاریخ سفارش"
 
 #: orders/models.py:21 orders/models.py:40
 msgid "Status"
-msgstr ""
+msgstr "تاریخ سفارش"
 
 #: orders/models.py:28 orders/models.py:38
 msgid "Order"
-msgstr ""
+msgstr "سفارش"
 
 #: orders/models.py:30
 msgid "Quantities"
-msgstr ""
+msgstr "تعداد"
 
 #: orders/models.py:41
 msgid "Created Time"
-msgstr ""
+msgstr "زمان ایجاد"
 
 #: orders/models.py:42
 msgid "Modified Time"
-msgstr ""
+msgstr "زمان ویرایش"
 
 #: products/models.py:9 products/models.py:17 products/models.py:28
 msgid "Name"
-msgstr ""
+msgstr "نام"
 
 #: products/models.py:10 products/models.py:18 products/models.py:29
 msgid "Description"
-msgstr ""
+msgstr "توضیحات"
 
 #: products/models.py:21 products/models.py:87
 msgid "Parent"
-msgstr ""
+msgstr "والد"
 
 #: products/models.py:30 products/models.py:40
 msgid "Category"
-msgstr ""
+msgstr "دسته‌بندی"
 
 #: products/models.py:31
 msgid "Price"
-msgstr ""
+msgstr "قیمت"
 
 #: products/models.py:32
 msgid "Brand"
-msgstr ""
+msgstr "برند"
 
 #: products/models.py:44
 msgid "Product Category"
-msgstr ""
+msgstr "دسته بندی محصولات"
 
 #: products/models.py:45
 msgid "Product Categories"
-msgstr ""
+msgstr "دسته بندی های محصولات"
 
 #: products/models.py:50
 msgid "Percentage"
-msgstr ""
+msgstr "درصد"
 
 #: products/models.py:51
 msgid "Fixed"
-msgstr ""
+msgstr "مقدار ثابت"
 
 #: products/models.py:55
 msgid "Discount Type"
-msgstr ""
+msgstr "نوع تخفیف"
 
 #: products/models.py:56
 msgid "Value"
-msgstr ""
+msgstr "ارزش"
 
 #: products/models.py:57
 msgid "Max Amount"
-msgstr ""
+msgstr "حداکثر مقدار"
 
 #: products/models.py:65
 msgid "Discount"
-msgstr ""
+msgstr "تخفیف"
 
 #: products/models.py:66
 msgid "Code"
-msgstr ""
+msgstr "کد"
 
 #: products/models.py:67
 msgid "Valid From"
-msgstr ""
+msgstr "معتبر از تاریخ"
 
 #: products/models.py:68
 msgid "Valid To"
-msgstr ""
+msgstr "معتبر تا تاریخ"
 
 #: products/models.py:76
 msgid "valid_from must be before valid_to"
-msgstr ""
+msgstr "تاریخ شروع اعتبار باید قبل از تاریخ اتمام آن باشد!"
 
 #: products/models.py:80 users/models.py:72 users/models.py:82
 #: users/models.py:89 users/models.py:99
 msgid "User"
-msgstr ""
+msgstr "کاربر"
 
 #: products/models.py:81
 msgid "Content"
-msgstr ""
+msgstr "محتوا"
 
 #: products/models.py:88
 msgid "Child"
-msgstr ""
+msgstr "فرزند"
 
 #: products/models.py:89
 msgid "Depth"
-msgstr ""
+msgstr "عمق"
 
 #: products/models.py:93
 msgid "Parent-Child Comment"
-msgstr ""
+msgstr "کامنت یا نظر والد-فرزند"
 
 #: products/models.py:94
 msgid "Parent-Child Comments"
-msgstr ""
+msgstr "کامنت های والد-فرزند"
 
 #: src/settings.py:101
 msgid "Persian"
-msgstr ""
+msgstr "فارسی"
 
 #: src/settings.py:102
 msgid "English"
-msgstr ""
+msgstr "انگلیسی"
 
 #: users/models.py:10
 msgid "Email is required!"
-msgstr ""
+msgstr "ایمیل الزامی است!"
 
 #: users/models.py:23
 msgid "Superuser must have is_active=True."
-msgstr ""
+msgstr "کاربر ویژه باید دارای is_active=True باشد."
 
 #: users/models.py:25
 msgid "Superuser must have is_staff=True."
-msgstr ""
+msgstr "کاربر ویژه باید دارای is_staff=True باشد."
 
 #: users/models.py:27
 msgid "Superuser must have is_superuser=True."
-msgstr ""
+msgstr "کاربر ویژه باید دارای is_superuser=True باشد."
 
 #: users/models.py:34
 msgid "Male"
-msgstr ""
+msgstr "مرد"
 
 #: users/models.py:35
 msgid "Female"
-msgstr ""
+msgstr "زن"
 
 #: users/models.py:36
 msgid "Other"
-msgstr ""
+msgstr "سایر"
 
 #: users/models.py:46
 msgid "Username"
-msgstr ""
+msgstr "نام کاربری"
 
 #: users/models.py:49
 msgid "User Type"
-msgstr ""
+msgstr "نوع کاربر"
 
 #: users/models.py:50
 msgid "Email"
-msgstr ""
+msgstr "ایمیل"
 
 #: users/models.py:52
 msgid "Enter your phone number."
-msgstr ""
+msgstr "شماره تلفن خود را وارد کنید."
 
 #: users/models.py:52
 msgid "Phone"
-msgstr ""
+msgstr "تلفن"
 
 #: users/models.py:53
 msgid "Gender"
-msgstr ""
+msgstr "جنسیت"
 
 #: users/models.py:54
 msgid "Date of Birth"
-msgstr ""
+msgstr "تاریخ تولد"
 
 #: users/models.py:55
 msgid "Registration Date"
-msgstr ""
+msgstr "تاریخ ثبت نام"
 
 #: users/models.py:68
 msgid "Manager"
-msgstr ""
+msgstr "مدیر"
 
 #: users/models.py:69
 msgid "Staff"
-msgstr ""
+msgstr "کارمند"
 
 #: users/models.py:70
 msgid "Customer Support"
-msgstr ""
+msgstr "پشتیبانی مشتری"
 
 #: users/models.py:73
 msgid "Role"
-msgstr ""
+msgstr "نقش"
 
 #: users/models.py:74
 msgid "Is Manager"
-msgstr ""
+msgstr "مدیر است"
 
 #: users/models.py:75
 msgid "Is Staff"
-msgstr ""
+msgstr "کارمند است"
 
 #: users/models.py:76
 msgid "Is Customer Support"
