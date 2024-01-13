@@ -27,7 +27,6 @@ class Product(LogicalBaseModel, TimeStampBaseModel):
     description = models.TextField()
     category = models.ManyToManyField(Category, through='ProductCategory')
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(upload_to='product_images/')
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
