@@ -1,36 +1,34 @@
 from django.contrib.auth import get_user_model, logout, login, authenticate
-from django.contrib.auth.views import LoginView
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import CreateView
 from django.contrib.auth.models import Group
 from django.urls import reverse, reverse_lazy
-from users.forms import customUserCreationForm
+from users.forms import CustomUserCreationForm
 from users.models import UserProfile
+from django.utils.translation import gettext_lazy as _
 
 
-# Create your views here.
 class SignUpView(CreateView):
     model = get_user_model()
-    form_class = customUserCreationForm
+    form_class = CustomUserCreationForm
     template_name = 'users/sign_up.html'
     success_url = reverse_lazy('login')
 
     def form_valid(self, form):
         response = super().form_valid(form)
         user = form.save(commit=False)
-        # user_type = self.request.POST.get('user_type')
         user_type = form.cleaned_data['user_type']
-        # user_type = form['user_type'].value()
         if user_type == 'customer':
-            group = Group.objects.get(name='Customer')
+            group = Group.objects.get(name=_('Customer'))
         elif user_type == 'employee':
-            group = Group.objects.get(name='Employee')
+            group = Group.objects.get(name=_('Employee'))
 
         user.save()
         user.groups.add(group)
         return response
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -62,6 +60,7 @@ class Logout(View):
             response = redirect('home')
             response.set_cookie('latest_user_login', latest_user_login)
             return response
+
 
 def profile_view(request):
     user_profile = UserProfile.objects.get(user=request.user)
