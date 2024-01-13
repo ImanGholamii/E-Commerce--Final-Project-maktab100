@@ -22,7 +22,8 @@ MY_APPS = [
     'core',
     'users',
     'products',
-    #'orders',
+    'orders',
+    'imagess',
 
 ]
 
