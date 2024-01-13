@@ -21,7 +21,7 @@ class Order(TimeStampBaseModel, LogicalBaseModel):
 class OrderItem(TimeStampBaseModel, LogicalBaseModel):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField()
+    quantities = models.PositiveIntegerField()
 
     def __str__(self):
         return f"Order #{self.order.id} - {self.product.name} - Quantity: {self.quantity}"
