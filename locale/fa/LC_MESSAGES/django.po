@@ -19,72 +19,72 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 #: core/models.py:6
 msgid "Created time"
-msgstr ""
+msgstr "زمان ایجاد:"
 
 #: core/models.py:7
 msgid "Created at this time"
-msgstr ""
+msgstr "ایجاد شده در:"
 
 #: core/models.py:8
 msgid "Modified time"
-msgstr ""
+msgstr "بروز شده در:"
 
 #: core/models.py:9
 msgid "Modified at this time"
-msgstr ""
+msgstr "بروز شده در:"
 
 #: core/models.py:35
 msgid "Active status"
-msgstr ""
+msgstr "وضعیت: فعال"
 
 #: core/models.py:36
 msgid "This is active status"
-msgstr ""
+msgstr "وضعیت: فعال است"
 
 #: core/models.py:37
 msgid "Status: Deleted"
-msgstr ""
+msgstr "وضعیت: حذف شده"
 
 #: core/models.py:38
 msgid "Status is deleted"
-msgstr ""
+msgstr "وضعیت: حذف شده"
 
 #: core/validators.py:9
 msgid "Phone number must be start with +98 or 0 in IR format."
-msgstr ""
+msgstr "شماره تلفن باید با 0 و یا 98+ آغاز شود"
 
 #: core/validators.py:10
 msgid "invalid IR phone number"
-msgstr ""
+msgstr "شماره تلفن نامعتبر"
 
 #: imagess/models.py:7 orders/models.py:29 products/models.py:39
 #: products/models.py:54 products/models.py:82
 msgid "Product"
-msgstr ""
+msgstr "محصول"
 
 #: imagess/models.py:8 products/models.py:19
 msgid "Image"
-msgstr ""
+msgstr "تصویر"
 
 #: imagess/models.py:9 users/models.py:94
 msgid "Is Default"
-msgstr ""
+msgstr "پیش‌فرض است"
 
 #: imagess/models.py:15
 msgid "Product Image"
-msgstr ""
+msgstr "تصویر محصول"
 
 #: imagess/models.py:16
 msgid "Product Images"
-msgstr ""
+msgstr "تصاویر محصول"
 
 #: orders/models.py:10
 msgid "Pending"
-msgstr ""
+msgstr "در انتظار پردازش"
 
 #: orders/models.py:11
 msgid "Processing"
-msgstr ""
+msgstr "در حال پردازش"
 
 #: orders/models.py:12
 msgid "Completed"
