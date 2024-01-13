@@ -90,9 +90,9 @@ class Address(models.Model):
     state = models.CharField(max_length=100, verbose_name=_('State'))
     city = models.CharField(max_length=100, verbose_name=_('City'))
     street = models.CharField(max_length=255, verbose_name=_('Street'))
-    alley = models.CharField(max_length=50, verbose_name=_('Alley'))
-    no = models.CharField(max_length=50, verbose_name=_('NO'))
-    unit_number = models.CharField(max_length=50, verbose_name=_('Unit Number'))
+    alley = models.CharField(max_length=50, null=True, verbose_name=_('Alley'))
+    no = models.CharField(max_length=50, default=0, verbose_name=_('NO'))
+    unit_number = models.CharField(max_length=50, default=0, verbose_name=_('Unit Number'))
     postal_code = models.CharField(max_length=20, verbose_name=_('Postal Code'))
     is_default = models.BooleanField(default=False, verbose_name=_('Is Default'))  # to choose default
     additional_info = models.TextField(blank=True, verbose_name=_('Additional Info'))
