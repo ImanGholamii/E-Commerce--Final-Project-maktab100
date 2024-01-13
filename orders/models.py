@@ -38,7 +38,8 @@ class OrderHistory(TimeStampBaseModel, LogicalBaseModel):
                               verbose_name=_('Order'))
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name=_('Customer'))
     status = models.CharField(max_length=20, choices=Order.STATUS_CHOICES, verbose_name=_('Status'))
-    time = models.DateTimeField(auto_now_add=True, auto_now=True, verbose_name=_('Time'))
+    time = models.DateTimeField(auto_now_add=True, verbose_name=_('Created Time'))
+    modified = models.DateTimeField(auto_now=True, verbose_name=_('Modified Time'))
 
     def __str__(self):
-        return f"Order #{self.order.id} - Status: {self.status} - Timestamp: {self.time}"
+        return f"Order #{self.order.id} - Status: {self.status} - Time: {self.time}"
