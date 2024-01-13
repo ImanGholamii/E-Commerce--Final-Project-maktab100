@@ -319,48 +319,48 @@ msgstr "کارمند است"
 
 #: users/models.py:76
 msgid "Is Customer Support"
-msgstr ""
+msgstr "پشتیبانی مشتری است"
 
 #: users/models.py:84
 msgid "Profile Picture"
-msgstr ""
+msgstr "تصویر پروفایل"
 
 #: users/models.py:85
 msgid "Is Subscribed"
-msgstr ""
+msgstr "مشترک شذه است"
 
 #: users/models.py:90
 msgid "City"
-msgstr ""
+msgstr "شهر"
 
 #: users/models.py:91
 msgid "State"
-msgstr ""
+msgstr "استان"
 
 #: users/models.py:92
 msgid "Street"
-msgstr ""
+msgstr "خیابان"
 
 #: users/models.py:93
 msgid "Postal Code"
-msgstr ""
+msgstr "کد پستی"
 
 #: users/models.py:95
 msgid "Additional Info"
-msgstr ""
+msgstr "اطلاعات تکمیلی"
 
 #: users/models.py:100
 msgid "Bio"
-msgstr ""
+msgstr "بیوگرافی"
 
 #: users/models.py:101
 msgid "Social Media"
-msgstr ""
+msgstr "شبکه‌های اجتماعی"
 
 #: users/models.py:102
 msgid "Interests"
-msgstr ""
+msgstr "علایق"
 
 #: users/models.py:103
 msgid "Addresses"
-msgstr ""
+msgstr "آدرس ها"
