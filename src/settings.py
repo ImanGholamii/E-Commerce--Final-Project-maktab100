@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -86,17 +87,31 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# SETTINGS FOR PERSIAN
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Tehran'
-
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
+
+LANGUAGES = [
+    ('fa', _('Persian')),
+    ('en', _('English')),
+]
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
+
+# STATIC
 
 STATIC_URL = 'static/'
 # STATIC_ROOT = 'all_statics'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# MEDIA
 
 MEDIA_URL = '/media/'
 # MEDIA_ROOT = BASE_DIR / 'media'
