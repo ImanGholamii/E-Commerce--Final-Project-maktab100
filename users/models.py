@@ -87,9 +87,12 @@ class Customer(models.Model):
 
 class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='addresses', verbose_name=_('User'))
-    city = models.CharField(max_length=100, verbose_name=_('City'))
     state = models.CharField(max_length=100, verbose_name=_('State'))
+    city = models.CharField(max_length=100, verbose_name=_('City'))
     street = models.CharField(max_length=255, verbose_name=_('Street'))
+    alley = models.CharField(max_length=50, verbose_name=_('Alley'))
+    no = models.CharField(max_length=50, verbose_name=_('NO'))
+    unit_number = models.CharField(max_length=50, verbose_name=_('Unit Number'))
     postal_code = models.CharField(max_length=20, verbose_name=_('Postal Code'))
     is_default = models.BooleanField(default=False, verbose_name=_('Is Default'))  # to choose default
     additional_info = models.TextField(blank=True, verbose_name=_('Additional Info'))
