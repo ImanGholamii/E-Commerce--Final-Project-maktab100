@@ -17,7 +17,7 @@ class Category(LogicalBaseModel, TimeStampBaseModel):
     name = models.CharField(max_length=100, verbose_name=_('Name'))
     description = models.TextField(verbose_name=_('Description'))
     image = models.ImageField(upload_to="category_images/", verbose_name=_('Image'))
-    parent = models.ForeignKey('self', null=True, on_delete=models.SET_NULL, related_name='child',
+    parent = models.ForeignKey('self',blank=True, null=True, on_delete=models.SET_NULL, related_name='child',
                                verbose_name=_('Parent'))
 
     def __str__(self):
