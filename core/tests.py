@@ -17,7 +17,7 @@ class ValidatorTest(TestCase):
 
     def test_phone_validator_invalid_format(self):
         phone_validator = Validator.phone_validator()
-        invalid_phone_number = '+14155552671'  # US phone number
+        invalid_phone_number = '+14155552671' # + without 98
 
         with self.assertRaises(ValidationError) as context:
             phone_validator(invalid_phone_number)
