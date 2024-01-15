@@ -12,7 +12,7 @@ class Order(TimeStampBaseModel, LogicalBaseModel):
         ('completed', _('Completed')),
         ('cancelled', _('Cancelled')),
     ]
-
+    products = models.ManyToManyField(Product, through='OrderItem')
     employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, related_name='employee_orders',
                                  verbose_name=_('Employee'))
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer_orders',
@@ -25,8 +25,8 @@ class Order(TimeStampBaseModel, LogicalBaseModel):
 
 
 class OrderItem(TimeStampBaseModel, LogicalBaseModel):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items', verbose_name=_('Order'))
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name=_('Product'))
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items', verbose_name=_('Order'))
     quantities = models.PositiveIntegerField(verbose_name=_('Quantities'))
 
     def __str__(self):
