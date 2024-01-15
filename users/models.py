@@ -86,7 +86,8 @@ class Customer(models.Model):
     is_subscribed = models.BooleanField(default=False, verbose_name=_('Is Subscribed'))  # to send news
 
     def __str__(self):
-        return f"customer: {self.user.username[0].upper()}{self.user.username[1:]}  {10*'_'}id: {self.user.id}"
+        return f"customer: {self.user.username[0].upper()}{self.user.username[1:]}  {10 * '_'}id: {self.user.id}"
+
 
 class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='addresses', verbose_name=_('User'))
@@ -99,6 +100,21 @@ class Address(models.Model):
     postal_code = models.CharField(max_length=20, verbose_name=_('Postal Code'))
     is_default = models.BooleanField(default=False, verbose_name=_('Is Default'))  # to choose default
     additional_info = models.TextField(blank=True, verbose_name=_('Additional Info'))
+
+    def __str__(self):
+        addresses_list = []
+
+        if self.is_default:
+            default_str = f"{self.user.username}, {self.state}, {self.city}, {self.street},{self.alley}, {self.no}, {self.unit_number}, {self.postal_code} (Default)"
+            addresses_list.append(default_str)
+
+        other_addresses = [
+            f"{addr.user.username}, {addr.state}, {addr.city}, {addr.street}, {addr.alley}, {addr.no}, {addr.unit_number}, {addr.postal_code} (Default)" if addr.is_default else f"{addr.user.username}, {addr.state}, {addr.city}, {addr.street}, {addr.alley}, {addr.no}, {addr.unit_number}, {addr.postal_code}"
+            for addr in self.user.addresses.filter(is_default=False)]
+
+        addresses_list.extend(other_addresses)
+
+        return '\n'.join(addresses_list)
 
 
 class UserProfile(models.Model):
