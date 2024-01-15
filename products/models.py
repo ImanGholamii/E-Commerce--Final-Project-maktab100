@@ -17,8 +17,18 @@ class Category(LogicalBaseModel, TimeStampBaseModel):
     name = models.CharField(max_length=100, verbose_name=_('Name'))
     description = models.TextField(verbose_name=_('Description'))
     image = models.ImageField(upload_to="category_images/", verbose_name=_('Image'))
-    parent = models.ForeignKey('self',blank=True, null=True, on_delete=models.SET_NULL, related_name='child',
+    parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.SET_NULL, related_name='child',
                                verbose_name=_('Parent'))
+
+    def get_full_path(self):
+        path = [self.name]
+        current_category = self
+
+        while current_category.parent:
+            path.insert(0, current_category.parent.name)
+            current_category = current_category.parent
+
+        return ' > '.join(path)
 
     def __str__(self):
         return self.name
