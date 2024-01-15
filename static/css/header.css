@@ -14,6 +14,58 @@ body, html {
     justify-content: center;
 }
 
-.shopping_cart {
+/* در فایل CSS یا در تگ <style> در تمپلیت HTML */
+img.shopping_cart {
     filter: brightness(170%) contrast(150%);
+    border-radius: 50%;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgb(255, 174, 0);
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+img.shopping_cart:hover {
+    background: linear-gradient(to right, #4f4f4f, #676060);
+}
+
+.user {
+    width: 30px;
+    height: auto;
+    border-radius: 50%;
+}
+@font-face {
+    font-family: 'irsans.com.ttf';
+    src: url('static/fonts/irsans.com.ttf');
+}
+.p-detail-box{
+    font-family: 'irsans.com.ttf'!important;
+    font-size: 40px !important;
+    background: linear-gradient(to right, #ffbd2e, #FFD700) !important;
+    -webkit-background-clip: text !important;
+    color: transparent !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8) !important;
+    display: inline-block !important;
+}
+
+@font-face {
+    font-family: 'KhatKhati.ttf';
+    src: url('../fonts/KhatKhati.ttf');
+}
+.h2-menu{
+    font-family: 'KhatKhati.ttf'!important;
+    font-size: 35px !important;
+}
+
+button.nav_search-btn {
+    background-color: #FFD700 !important;
+    border: none !important;
+    color: white !important;
+    padding: 6px 13px !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s ease !important;
+}
+
+button.nav_search-btn:hover {
+    background-color: #C0C0C0 !important;
 }
