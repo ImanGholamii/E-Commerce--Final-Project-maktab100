@@ -5,6 +5,9 @@
     <title>Cart</title>
 </head>
 <body>
+{% for cart_item in cart_items %}
+    {{ cart_item.product.name }} - Quantity: {{ cart_item.quantity }} <br>
+{% endfor %}
 
 </body>
 </html>
