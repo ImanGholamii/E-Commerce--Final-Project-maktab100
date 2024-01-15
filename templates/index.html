@@ -36,7 +36,7 @@
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/favicon.png" type="">
 
-  <title> Feane </title>
+  <title> Fast Foodia </title>
 
   <!-- bootstrap core css -->
     {% load static %}
@@ -74,7 +74,7 @@
         <nav class="navbar navbar-expand-lg custom_nav-container ">
           <a class="navbar-brand" href="index.html">
             <span>
-              Feane
+              Fast Foodia
             </span>
           </a>
 
@@ -99,7 +99,7 @@
             </ul>
             <div class="user_option">
               <a href="" class="user_link">
-                <i class="fa fa-user" aria-hidden="true"></i>
+                <i><img class="user" src="{% static 'images/user.png' %}" alt=""></i>
               </a>
               <a class="cart_link" href="#">
                   <!-- در تمپلیت HTML -->
@@ -184,8 +184,8 @@
                     <h1>
                       Fast Foodid Restaurant
                     </h1>
-                    <p>
-                      Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
+                    <p  class="p-detail-box">
+                      سلام به فست فودیا خوش آمدید
                     </p>
                     <div class="btn-box">
                       <a href="" class="btn1">
@@ -205,8 +205,8 @@
                     <h1>
                       Fast Foodia Restaurant
                     </h1>
-                    <p>
-                      Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
+                    <p class="p-detail-box">
+                    اینجا با ما لذت طعم های جذاب رو تجربه کنید
                     </p>
                     <div class="btn-box">
                       <a href="" class="btn1">
@@ -226,8 +226,8 @@
                     <h1>
                       Fast Foodia Restaurant
                     </h1>
-                    <p>
-                      Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
+                    <p class="p-detail-box">
+                      منیو های کاملا متفاوت و متنوع
                     </p>
                     <div class="btn-box">
                       <a href="" class="btn1">
@@ -411,6 +411,9 @@
       <div class="heading_container heading_center">
         <h2>
           Our Menu
+        </h2>
+        <h2 class="h2-menu">
+          منیو ما
         </h2>
       </div>
 
