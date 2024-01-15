@@ -57,9 +57,7 @@
 
     <!-- Responsive style -->
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
-
-    <!-- Image loading -->
-    <img src="{% static 'images/hero-bg.jpg' %}" alt="Hero Background Image">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
 
     </head>
 
@@ -67,7 +65,8 @@
 
   <div class="hero_area">
     <div class="bg-box">
-      <img src="images/hero-bg.jpg" alt="">
+{#      <img src="images/hero-bg.jpg" alt="" class="hero-bg">#}
+      <img src="" alt="" class="hero-bg">
     </div>
     <!-- header section strats -->
     <header class="header_section">
@@ -103,7 +102,10 @@
                 <i class="fa fa-user" aria-hidden="true"></i>
               </a>
               <a class="cart_link" href="#">
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                  <!-- در تمپلیت HTML -->
+                    <img class="shopping_cart" src="{% static 'images/shopping_cart_image.jpg' %}" alt="Shopping Cart" width="30" height="auto">
+
+{#                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">#}
                   <g>
                     <g>
                       <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
