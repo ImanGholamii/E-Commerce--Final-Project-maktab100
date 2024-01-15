@@ -75,8 +75,9 @@ class Employee(models.Model):
     is_staff = models.BooleanField(default=False, verbose_name=_('Is Staff'))
     is_customer_support = models.BooleanField(default=False, verbose_name=_('Is Customer Support'))
 
+    def __str__(self):
+        return f"{self.user.username} employee type: {self.role}"
 
-# ...
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, verbose_name=_('User'))
@@ -84,6 +85,8 @@ class Customer(models.Model):
                                         verbose_name=_('Profile Picture'))
     is_subscribed = models.BooleanField(default=False, verbose_name=_('Is Subscribed'))  # to send news
 
+    def __str__(self):
+        return f"customer: {self.user.username[0].upper()}{self.user.username[1:]}  {10*'_'}id: {self.user.id}"
 
 class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='addresses', verbose_name=_('User'))
