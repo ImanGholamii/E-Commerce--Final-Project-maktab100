@@ -25,7 +25,8 @@ urlpatterns = [
     # ADMIN
     path('admin/', admin.site.urls),
     # APP
-    path('', include('users.urls')),
+    path('', include('products.urls')),
+    path('users/', include('users.urls')),
 
     # API
 
