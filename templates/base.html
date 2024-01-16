@@ -15,7 +15,6 @@
     <meta name="author" content=""/>
     <link rel="shortcut icon" href="images/favicon.png" type="">
 
-    <title> Fast Foodia </title>
 
     <!-- bootstrap core css -->
     {% load static %}
@@ -41,6 +40,7 @@
     <!-- Responsive style -->
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}"/>
     {% comment %} my own{% endcomment %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <link rel="stylesheet" href="{% static 'css/content.css' %}">
     <link rel="stylesheet" href="{% static 'css/body.css' %}">
@@ -63,7 +63,7 @@
                 <nav class="navbar navbar-expand-lg custom_nav-container ">
                     <a class="navbar-brand" href="index.html">
             <span>
-              Fast Foodia
+              <img class="logo" src="{% static 'images/fastfoodia.jpg' %}" alt="logo"> Fast Foodia
             </span>
                     </a>
 
@@ -179,19 +179,19 @@
                             </h4>
                             <div class="contact_link_box">
                                 <a href="">
-                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    <i><img src={% static "images/contact-icon1.png" %} alt="map"></i>
                                     <span>
                   Location
                 </span>
                                 </a>
                                 <a href="">
-                                    <i class="fa fa-phone" aria-hidden="true"></i>
+                                    <i><img src={% static "images/contact-icon2.png" %} alt="phone"></i>
                                     <span>
                   Call +01 1234567890
                 </span>
                                 </a>
                                 <a href="">
-                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    <i><img src={% static "images/contact-icon3.png" %} alt="email"></i>
                                     <span>
                   demo@gmail.com
                 </span>
@@ -202,27 +202,27 @@
                     <div class="col-md-4 footer-col">
                         <div class="footer_detail">
                             <a href="" class="footer-logo">
-                                Feane
+                                Fast Foodia
                             </a>
                             <p>
                                 Necessary, making this the first true generator on the Internet. It uses a dictionary of
                                 over 200 Latin words, combined with
                             </p>
                             <div class="footer_social">
-                                <a href="">
-                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                <a href="" class="gold">
+                                    <i class="fa fa-facebook blue" aria-hidden="true"></i>
                                 </a>
-                                <a href="">
-                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                <a href="" class="gold">
+                                    <i class="fa fa-twitter blue" aria-hidden="true"></i>
                                 </a>
-                                <a href="">
-                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                <a href="" class="gold">
+                                    <i class="fa fa-linkedin blue" aria-hidden="true"></i>
                                 </a>
-                                <a href="">
-                                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                                <a href="" class="gold">
+                                    <i class="fa fa-instagram red" aria-hidden="true"></i>
                                 </a>
-                                <a href="">
-                                    <i class="fa fa-pinterest" aria-hidden="true"></i>
+                                <a href="" class="gold">
+                                    <i class="fa fa-pinterest red" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </div>
@@ -244,7 +244,7 @@
                         &copy; <span id="displayYear"></span> All Rights Reserved By
                         <a href="https://html.design/">Free Html Templates</a><br><br>
                         &copy; <span id="displayYear"></span> Distributed By
-                        <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+                        <a href="https://themewagon.com/" target="_blank">Maybe a Good Person</a>
                     </p>
                 </div>
             </div>
