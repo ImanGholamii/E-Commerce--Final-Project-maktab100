@@ -20,3 +20,13 @@
     font-family: 'KhatKhati.ttf'!important;
     font-size: 35px !important;
 }
+.gold{
+    background-color: rgba(255, 232, 181, 0.93) !important;
+}
+.blue{
+    color: #005ca9;
+}
+
+.red{
+    color: #ff0000;
+}
