@@ -1,8 +1,5 @@
 from django.conf import settings
 from django.test import TestCase
-from django.core.exceptions import ValidationError
-from core.validators import Validator
-from django.utils.translation import gettext_lazy as _
 from products.models import Brand, Category
 
 
