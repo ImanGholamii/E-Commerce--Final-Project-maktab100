@@ -20,6 +20,8 @@ class Category(LogicalBaseModel, TimeStampBaseModel):
     parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.SET_NULL, related_name='child',
                                verbose_name=_('Parent'))
 
+    class Meta:
+        verbose_name_plural = "categories"
     def get_full_path(self):
         path = [self.name]
         current_category = self
@@ -53,6 +55,9 @@ class ProductCategory(models.Model):
         db_table = 'custom_product_category'
         verbose_name = _('Product Category')
         verbose_name_plural = _('Product Categories')
+
+    def __str__(self):
+        return f"{self.category.name}"
 
 
 class Discount(LogicalBaseModel, TimeStampBaseModel):
