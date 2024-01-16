@@ -3,7 +3,13 @@ from django.views.generic import DetailView
 from .models import Product
 
 
+def template_render(request):
+    """Temporary view just to show home page"""
+    return render(request, 'index.html')
+
+
 class ProductDetailView(DetailView):
+    """to show product details probably in details page"""
     model = Product
     template_name = 'products/product_detail.html'
 
