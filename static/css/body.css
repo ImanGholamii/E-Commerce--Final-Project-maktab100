@@ -1,0 +1,22 @@
+@font-face {
+    font-family: 'irsans.com.ttf';
+    src: url('static/fonts/irsans.com.ttf');
+}
+.p-detail-box{
+    font-family: 'irsans.com.ttf'!important;
+    font-size: 40px !important;
+    background: linear-gradient(to right, #ffbd2e, #FFD700) !important;
+    -webkit-background-clip: text !important;
+    color: transparent !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8) !important;
+    display: inline-block !important;
+}
+
+@font-face {
+    font-family: 'KhatKhati.ttf';
+    src: url('../fonts/KhatKhati.ttf');
+}
+.h2-menu{
+    font-family: 'KhatKhati.ttf'!important;
+    font-size: 35px !important;
+}
