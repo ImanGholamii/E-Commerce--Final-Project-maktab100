@@ -23,6 +23,11 @@ class Order(TimeStampBaseModel, LogicalBaseModel):
     def __str__(self):
         return f"Order #{self.id} - {self.status}"
 
+    def calculate_total_price(self):
+        """calculated total price"""
+        total_price = sum(item.product.price * item.quantities for item in self.order_items.all())
+        return total_price
+
 
 class OrderItem(TimeStampBaseModel, LogicalBaseModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name=_('Product'))
@@ -31,9 +36,11 @@ class OrderItem(TimeStampBaseModel, LogicalBaseModel):
 
     def __str__(self):
         return f"Order #{self.order.id} - {self.product.name} - Quantity: {self.quantities}"
+
     class Meta:
         verbose_name = _("Order Item")
         verbose_name_plural = _("Order Item")
+
 
 class OrderHistory(TimeStampBaseModel, LogicalBaseModel):
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, blank=True, related_name='order_history',
