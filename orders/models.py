@@ -1,7 +1,7 @@
 from django.db import models
 from users.models import Customer, Employee
-from apps.products.models import Product
-from core import TimeStampBaseModel, LogicalBaseModel
+from products.models import Product
+from core.models import TimeStampBaseModel, LogicalBaseModel
 from django.utils.translation import gettext_lazy as _
 
 
