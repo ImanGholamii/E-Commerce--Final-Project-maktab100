@@ -57,7 +57,7 @@ class ProductCategory(models.Model):
         verbose_name_plural = _('Product Categories')
 
     def __str__(self):
-        return f"{self.category.name}"
+        return f"{self.category.parent} >> {self.category.name} >> {self.product}"
 
 
 class Discount(LogicalBaseModel, TimeStampBaseModel):
