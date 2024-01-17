@@ -1,5 +1,5 @@
 from django.contrib import admin
-from imagess.models import ProductImage, ProductImages
+from imagess.models import ProductImageAlbum, ProductImages
 # Register your models here.
-admin.site.register(ProductImage)
+admin.site.register(ProductImageAlbum)
 admin.site.register(ProductImages)
