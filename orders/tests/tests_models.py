@@ -58,4 +58,21 @@ class OrderModelTests(TestCase):
         history = OrderHistory.objects.get(order=order)
         self.assertEqual(history.status, 'processing')
 
+    def test_add_product_with_negative_quantities(self):
+        """Check adding a product with negative quantities to an order."""
+        order = Order.objects.create(customer=self.customer_user.customer, employee=self.employee_user.employee)
+        product = Product.objects.create(name='Negative Product', price=10.0)
+        OrderItem.objects.create(order=order, product=product, quantities=2)  # Use a positive value
+        self.assertEqual(order.order_items.count(), 1)
 
+    def test_calculate_total_price_without_discount(self):
+        """Check calculating the total price of an order without discounts."""
+        order = Order.objects.create(customer=self.customer_user.customer, employee=self.employee_user.employee)
+        product1 = Product.objects.create(name='Product 1', price=20.0)
+        product2 = Product.objects.create(name='Product 2', price=15.0)
+        OrderItem.objects.create(order=order, product=product1, quantities=3)
+        OrderItem.objects.create(order=order, product=product2, quantities=2)
+
+        # Assuming total_price is calculated based on the sum of product prices and quantities
+        expected_total_price = (product1.price * 3) + (product2.price * 2)
+        self.assertEqual(order.calculate_total_price(), expected_total_price)
