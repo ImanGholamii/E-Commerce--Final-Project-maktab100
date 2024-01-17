@@ -150,11 +150,16 @@
                                 </g>
                                 </svg>
                             </a>
-                            <form class="form-inline">
-                                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                        <li class="search">
+                            {% block search %}
+                            <form class="d-flex">
+                                <input type="text" class="form-control ms-1 sea-btn" name="q" placeholder="Search ...">
+                                <button class="btn btn-warning  search-btn" type="submit">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </button>
                             </form>
+                            {% endblock search %}
+                        </li>
                             <a href="" class="order_online">
                                 Order Online
                             </a>
