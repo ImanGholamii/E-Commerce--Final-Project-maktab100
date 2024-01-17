@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from products.models import Product
+from apps.products.models import Product
 
 
 class ProductImageAlbum(models.Model):
@@ -23,6 +23,7 @@ class ProductImageAlbum(models.Model):
 class ProductImages(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images', verbose_name=_('Product'))
     image = models.ForeignKey(ProductImageAlbum, on_delete=models.CASCADE, verbose_name=_('Image'))
+    # image = models.ManyToManyField(ProductImageAlbum, verbose_name=_('Image')) # بپرسم اگه لازم بود تغییر بدم
 
     def __str__(self):
         return f"Image for {self.product.name}"

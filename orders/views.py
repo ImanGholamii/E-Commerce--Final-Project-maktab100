@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Order, OrderItem, OrderHistory
-from products.models import Product
+from .models import Order, OrderItem
+from apps.products.models import Product
 from django.conf import settings
 
 
