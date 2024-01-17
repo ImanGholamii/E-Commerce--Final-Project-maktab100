@@ -52,3 +52,20 @@ button.nav_search-btn:hover {
     border-radius: 50%;
 }
 
+.search{
+    margin-top: 4px !important;
+    margin-left: 4px !important;
+    height: auto;
+    width: 180px;
+
+}
+
+.search-btn{
+    font-size: 12px !important;
+    padding: 8px 10px !important;
+    margin-bottom: 5px !important;
+    margin-left: 1px !important;
+
+}
+
+
