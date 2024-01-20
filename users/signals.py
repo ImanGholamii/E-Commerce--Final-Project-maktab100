@@ -8,10 +8,10 @@ from django.conf import settings
 @receiver(post_save, sender=get_user_model())
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        if instance.user_type == 'employee':
+        if instance.is_employee == True:
             profile = UserProfile.objects.create(user=instance)
             Employee.objects.create(user=instance, role='staff')
-        elif instance.user_type == 'customer':
+        elif instance.is_customer == True:
             profile = UserProfile.objects.create(user=instance)
             Customer.objects.create(user=instance)
 
