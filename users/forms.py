@@ -5,10 +5,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class CustomUserCreationForm(UserCreationForm):
-    user_type = forms.ChoiceField(choices=(('customer', _('Customer')), ('employee', _('Employee'))))
 
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ['username', 'email', 'phone', 'gender', 'date_of_birth',
-                  'user_type', 'password1', 'password2'
+        fields = [_('username'), _('email'), _('phone'), _('password1'), _('password2')
                   ]
