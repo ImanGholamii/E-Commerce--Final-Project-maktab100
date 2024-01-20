@@ -5,16 +5,18 @@ from core.validators import Validator
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, password, **extra_fields):
+    def create_user(self, email, phone, password, **extra_fields):
         if not email:
             raise ValueError(_("Email is required!"))
+        if not phone:
+            raise ValueError(_("Phone is required!"))
         email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        user = self.model(email=email, phone=phone, **extra_fields)
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, email, phone, password, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_active", True)
         extra_fields.setdefault("is_superuser", True)
@@ -26,33 +28,23 @@ class CustomUserManager(BaseUserManager):
         if not extra_fields.get("is_superuser"):
             raise ValueError(_("Superuser must have is_superuser=True."))
 
-        return self.create_user(email, password, **extra_fields)
+        return self.create_user(email, phone, password, **extra_fields)
 
 
 class User(AbstractUser):
-    GENDER_CHOICES = [
-        ('male', _('Male')),
-        ('female', _('Female')),
-        ('other', _('Other')),
-    ]
-    USER_TYPE_CHOICES = [
-        ('customer', _('Customer')),
-        ('employee', _('Employee')),
-    ]
     username = models.CharField(
         max_length=150,
         unique=True,
         null=True, blank=True,
         verbose_name=_('Username')
     )
-    user_type = models.CharField(max_length=100, choices=USER_TYPE_CHOICES, default='customer',
-                                 verbose_name=_('User Type'))
+
     email = models.EmailField(unique=True, verbose_name=_('Email'))
     phone = models.CharField(max_length=20, validators=[Validator.phone_validator()],
-                             help_text=_("Enter your phone number."), verbose_name=_('Phone'))
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, verbose_name=_('Gender'))
-    date_of_birth = models.DateField(null=True, blank=True, verbose_name=_('Date of Birth'))
+                             help_text=_("Enter your phone number."), verbose_name=_('Phone'), unique=True)
     registration_date = models.DateTimeField(auto_now_add=True, verbose_name=_('Registration Date'))
+    is_customer = models.BooleanField(default=True)
+    is_employee = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -118,7 +110,14 @@ class Address(models.Model):
 
 
 class UserProfile(models.Model):
+    GENDER_CHOICES = [
+        ('male', _('Male')),
+        ('female', _('Female')),
+        ('other', _('Other')),
+    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, verbose_name=_('User'))
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, verbose_name=_('Gender'), null=True)
+    date_of_birth = models.DateField(null=True, blank=True, verbose_name=_('Date of Birth'))
     bio = models.TextField(verbose_name=_('Bio'))
     social_media = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Social Media'))
     interests = models.TextField(null=True, blank=True, verbose_name=_('Interests'))
