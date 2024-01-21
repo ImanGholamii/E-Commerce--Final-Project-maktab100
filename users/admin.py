@@ -16,15 +16,31 @@ class AddressAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'city', 'state', 'street', 'postal_code', 'is_default')
     search_fields = ('id', 'user__username', 'city', 'state', 'street', 'postal_code', 'is_default')
     list_filter = ('is_default',)
+# ==========================
+
+class AddressInline(admin.TabularInline):
+    model = UserProfile.addresses.through
+    extra = 1
+
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ['user', 'gender', 'date_of_birth', 'bio', 'social_media', 'interests']
+    inlines = [AddressInline]
+
+    def get_inline_instances(self, request, obj=None):
+        if not obj:
+            return list()
+        return super().get_inline_instances(request, obj)
+
+
 
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Employee)
 admin.site.register(Customer)
-admin.site.register(UserProfile)
+admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Address, AddressAdmin)
 
-admin.site.unregister(Group)  # این کد گروه‌های از پیش تعریف شده django را از admin panel حذف می‌کند
+admin.site.unregister(Group)
 
 Group.objects.get_or_create(name=_('Customer'))
 Group.objects.get_or_create(name=_('Employee'))
