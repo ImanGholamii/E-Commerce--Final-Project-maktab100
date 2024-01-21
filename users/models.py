@@ -96,11 +96,12 @@ class Address(models.Model):
     is_default = models.BooleanField(default=False, verbose_name=_('Is Default'))  # to choose default
     additional_info = models.TextField(blank=True, verbose_name=_('Additional Info'))
 
+
     def __str__(self):
         addresses_list = []
 
         if self.is_default:
-            default_str = f"{self.user.username}, {self.state}, {self.city}, {self.street},{self.alley}, {self.no}, {self.unit_number}, {self.postal_code} (Default)"
+            default_str = f"{self.user.username}, {self.state}, {self.city}, {self.street},{self.alley}, {self.no}, {self.unit_number}, {self.postal_code} (Default پیش فرض)"
             addresses_list.append(default_str)
 
         other_addresses = [
@@ -109,7 +110,9 @@ class Address(models.Model):
 
         addresses_list.extend(other_addresses)
 
-        return '\n'.join(addresses_list)
+        # return '\n'.join(addresses_list)
+        for address in addresses_list:
+            return str(address)
 
 
 class UserProfile(models.Model):
@@ -124,7 +127,8 @@ class UserProfile(models.Model):
     bio = models.TextField(verbose_name=_('Bio'))
     social_media = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Social Media'))
     interests = models.TextField(null=True, blank=True, verbose_name=_('Interests'))
-    addresses = models.ManyToManyField(Address, related_name='user_profiles', blank=True, verbose_name=_('Addresses'))
+    # addresses = models.ManyToManyField(Address, related_name='user_profiles', blank=True, verbose_name=_('Addresses'))
+    addresses = models.ForeignKey(Address, on_delete=models.CASCADE, related_name='user_profiles',null=True, blank=True, verbose_name=_('Addresses'))
 
     def __str__(self):
         return f"{self.user.username[0].upper()}{self.user.username[1:]}'s Profile"
