@@ -12,23 +12,20 @@ class UserAdmin(admin.ModelAdmin):
     ordering = ('-date_joined',)
 
 
+# ==========================
 class AddressAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'city', 'state', 'street', 'postal_code', 'is_default')
     search_fields = ('id', 'user__username', 'city', 'state', 'street', 'postal_code', 'is_default')
     list_filter = ('is_default',)
+
+
 # ==========================
 
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'gender', 'date_of_birth', 'bio', 'social_media', 'interests', 'addresses']
 
 
-    def get_inline_instances(self, request, obj=None):
-        if not obj:
-            return list()
-        return super().get_inline_instances(request, obj)
-
-
-
+# ==========================
 admin.site.register(User, UserAdmin)
 admin.site.register(Employee)
 admin.site.register(Customer)
