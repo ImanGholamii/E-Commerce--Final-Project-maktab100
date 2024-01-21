@@ -18,19 +18,14 @@ class AddressAdmin(admin.ModelAdmin):
     list_filter = ('is_default',)
 # ==========================
 
-class AddressInline(admin.TabularInline):
-    model = UserProfile.addresses.through
-    extra = 1
-
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'gender', 'date_of_birth', 'bio', 'social_media', 'interests']
-    inlines = [AddressInline]
+    list_display = ['user', 'gender', 'date_of_birth', 'bio', 'social_media', 'interests', 'addresses']
+
 
     def get_inline_instances(self, request, obj=None):
         if not obj:
             return list()
         return super().get_inline_instances(request, obj)
-
 
 
 
