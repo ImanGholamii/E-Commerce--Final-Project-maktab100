@@ -45,6 +45,7 @@
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <link rel="stylesheet" href="{% static 'css/content.css' %}">
     <link rel="stylesheet" href="{% static 'css/body.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/messages.css' %}">
     {% block header %}
     {% endblock %}
 </head>
@@ -86,9 +87,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="about.html">{% trans "About" %}</a>
                             </li>
-                            {#              <li class="nav-item">#}
-                            {#                <a class="nav-link" href="book.html">Book Table</a>#}
-                            {#              </li>#}
+
                         </ul>
                         <div class="user_option">
                             <a href="" class="user_link">
@@ -165,6 +164,43 @@
                             <a href="" class="order_online">
                                 {% trans "Order Online" %}
                             </a>
+                        <li>
+                            <button id="openModalBtn">Sign Up</button>
+                            <!-- Bootstrap Modal -->
+                            <div class="modal" tabindex="-1" role="dialog" id="signupModal">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Sign Up</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Include the signup form here -->
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                {{ form.as_p }}
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                                <!-- Include jQuery and Bootstrap JS -->
+                                <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+                                <script>
+                                    // Open the modal when the button is clicked
+                                    $(document).ready(function () {
+                                        $("#openModalBtn").click(function () {
+                                            $("#signupModal").modal("show");
+                                        });
+                                    });
+                                </script>
+
                         </div>
                     </div>
                 </nav>
