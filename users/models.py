@@ -121,6 +121,8 @@ class UserProfile(TimeStampBaseModel):
         ('female', _('Female')),
         ('other', _('Other')),
     ]
+    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True,
+                                        verbose_name=_('Profile Picture'))
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, verbose_name=_('User'))
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, verbose_name=_('Gender'), null=True)
     date_of_birth = models.DateField(null=True, blank=True, verbose_name=_('Date of Birth'))
