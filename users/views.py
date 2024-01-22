@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model, logout, login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
@@ -19,10 +20,10 @@ class SignUpView(CreateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         user = form.save(commit=False)
-        user_type = form.cleaned_data['user_type']
-        if user_type == 'customer':
+        customer = form.cleaned_data['is_customer']
+        if customer == True:
             group = Group.objects.get(name=_('Customer'))
-        elif user_type == 'employee':
+        if not customer:
             group = Group.objects.get(name=_('Employee'))
 
         user.save()
@@ -31,6 +32,8 @@ class SignUpView(CreateView):
 
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('/')
     if request.method == 'POST':
         username = request.POST["username"]
         password = request.POST["password"]
@@ -41,7 +44,7 @@ def login_view(request):
             if next_url:
                 del request.session['next']
                 return redirect(next_url)
-            return redirect('/home')
+            return redirect('/')
         else:
             return render(request, 'users/login.html')
 
