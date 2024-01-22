@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.core.validators import RegexValidator, ValidationError
 from django.utils.translation import gettext_lazy as _
 
@@ -20,3 +21,14 @@ class Validator:
                 )
 
         return validate_password
+
+    @staticmethod
+    def email_validator():
+        def validate_email(value):
+            if get_user_model().objects.filter(email__iexact=value).exists():
+                raise ValidationError(
+                    _("This email is already in use. Please use a different email address."),
+                    code='duplicate_email'
+                )
+
+        return validate_email
