@@ -35,9 +35,14 @@ class CustomUserCreationForm(UserCreationForm):
         self.fields['phone'].help_text = ''
 
         self.fields['phone'].error_messages = {
-            'invalid': _('Invalid phone number. Please use the correct format.'),
+            'invalid': _('Invalid phone number. Please must be start with +98 or 0'),
             'duplicate_phone': _('This phone number is already in use. Please use a different phone number.'),
         }
+
+    def add_error(self, field, error):
+        super().add_error(field, error)
+        if field in self.errors:
+            self.fields[field].widget.attrs.update({'class': 'error-message'})
 
 
 class UserChangeForm(forms.ModelForm):
