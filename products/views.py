@@ -1,12 +1,24 @@
 from django.shortcuts import render
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
 from products.models import Product
+from users.forms import CustomUserCreationForm
+
 
 
 def template_render(request):
     """Temporary view just to show home page"""
     return render(request, 'index.html')
 
+class HomeView(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        form = CustomUserCreationForm()
+        context['form'] = form
+
+        return context
 
 class ProductDetailView(DetailView):
     """to show product details probably in details page"""
