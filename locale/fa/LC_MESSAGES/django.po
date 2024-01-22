@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-13 23:32+0330\n"
+"POT-Creation-Date: 2024-01-22 10:44+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
 #: core/models.py:6
 msgid "Created time"
 msgstr "زمان ایجاد:"
@@ -49,6 +50,7 @@ msgstr "وضعیت: حذف شده"
 msgid "Status is deleted"
 msgstr "وضعیت: حذف شده"
 
+#: core/tests/tests.py:15 core/tests/tests.py:25 core/tests/tests.py:35
 #: core/validators.py:9
 msgid "Phone number must be start with +98 or 0 in IR format."
 msgstr "شماره تلفن باید با 0 و یا 98+ آغاز شود"
@@ -57,26 +59,29 @@ msgstr "شماره تلفن باید با 0 و یا 98+ آغاز شود"
 msgid "invalid IR phone number"
 msgstr "شماره تلفن نامعتبر"
 
-#: imagess/models.py:7 orders/models.py:29 products/models.py:39
-#: products/models.py:54 products/models.py:82
-msgid "Product"
-msgstr "محصول"
-
-#: imagess/models.py:8 products/models.py:19
+#: imagess/models.py:7 imagess/models.py:25 products/admin.py:19
+#: products/models.py:19
 msgid "Image"
 msgstr "تصویر"
 
-#: imagess/models.py:9 users/models.py:94
+#: imagess/models.py:8 users/models.py:96
 msgid "Is Default"
 msgstr "پیش‌فرض است"
 
-#: imagess/models.py:15
+#: imagess/models.py:19 imagess/models.py:20
+#, fuzzy
+#| msgid "Product Images"
+msgid "Product Images Album"
+msgstr "تصاویر محصول"
+
+#: imagess/models.py:24 orders/models.py:33 products/models.py:51
+#: products/models.py:69 products/models.py:97
+msgid "Product"
+msgstr "محصول"
+
+#: imagess/models.py:33 imagess/models.py:34
 msgid "Product Image"
 msgstr "تصویر محصول"
-
-#: imagess/models.py:16
-msgid "Product Images"
-msgstr "تصاویر محصول"
 
 #: orders/models.py:10
 msgid "Pending"
@@ -94,13 +99,12 @@ msgstr "تکمیل شده"
 msgid "Cancelled"
 msgstr "لغو شده"
 
-#: orders/models.py:17 users/admin.py:30 users/admin.py:33 users/forms.py:8
-#: users/models.py:40 users/views.py:26
+#: orders/models.py:17 users/admin.py:38 users/admin.py:41 users/views.py:26
 msgid "Employee"
 msgstr "کارمند"
 
-#: orders/models.py:19 orders/models.py:39 users/admin.py:29 users/admin.py:32
-#: users/forms.py:8 users/models.py:39 users/views.py:24
+#: orders/models.py:19 orders/models.py:48 users/admin.py:37 users/admin.py:40
+#: users/views.py:24
 msgid "Customer"
 msgstr "مشتری"
 
@@ -108,259 +112,326 @@ msgstr "مشتری"
 msgid "Order Date"
 msgstr "تاریخ سفارش"
 
-#: orders/models.py:21 orders/models.py:40
+#: orders/models.py:21 orders/models.py:49
 msgid "Status"
 msgstr "تاریخ سفارش"
 
-#: orders/models.py:28 orders/models.py:38
+#: orders/models.py:34 orders/models.py:47
 msgid "Order"
 msgstr "سفارش"
 
-#: orders/models.py:30
+#: orders/models.py:35
 msgid "Quantities"
 msgstr "تعداد"
 
-#: orders/models.py:41
+#: orders/models.py:41 orders/models.py:42
+#, fuzzy
+#| msgid "Order Date"
+msgid "Order Item"
+msgstr "تاریخ سفارش"
+
+#: orders/models.py:50
 msgid "Created Time"
 msgstr "زمان ایجاد"
 
-#: orders/models.py:42
+#: orders/models.py:51
 msgid "Modified Time"
 msgstr "زمان ویرایش"
 
-#: products/models.py:9 products/models.py:17 products/models.py:28
+#: products/admin.py:25
+#, fuzzy
+#| msgid "Category"
+msgid "Categories"
+msgstr "دسته‌بندی"
+
+#: products/admin.py:31
+msgid "Switch to Persian"
+msgstr ""
+
+#: products/models.py:9 products/models.py:17 products/models.py:40
 msgid "Name"
 msgstr "نام"
 
-#: products/models.py:10 products/models.py:18 products/models.py:29
+#: products/models.py:10 products/models.py:18 products/models.py:41
 msgid "Description"
 msgstr "توضیحات"
 
-#: products/models.py:21 products/models.py:87
+#: products/models.py:21 products/models.py:102
 msgid "Parent"
 msgstr "والد"
 
-#: products/models.py:30 products/models.py:40
+#: products/models.py:42 products/models.py:52
 msgid "Category"
 msgstr "دسته‌بندی"
 
-#: products/models.py:31
+#: products/models.py:43
 msgid "Price"
 msgstr "قیمت"
 
-#: products/models.py:32
+#: products/models.py:44
 msgid "Brand"
 msgstr "برند"
 
-#: products/models.py:44
+#: products/models.py:56
 msgid "Product Category"
 msgstr "دسته بندی محصولات"
 
-#: products/models.py:45
+#: products/models.py:57
 msgid "Product Categories"
 msgstr "دسته بندی های محصولات"
 
-#: products/models.py:50
+#: products/models.py:65
 msgid "Percentage"
 msgstr "درصد"
 
-#: products/models.py:51
+#: products/models.py:66
 msgid "Fixed"
 msgstr "مقدار ثابت"
 
-#: products/models.py:55
+#: products/models.py:70
 msgid "Discount Type"
 msgstr "نوع تخفیف"
 
-#: products/models.py:56
+#: products/models.py:71
 msgid "Value"
 msgstr "ارزش"
 
-#: products/models.py:57
+#: products/models.py:72
 msgid "Max Amount"
 msgstr "حداکثر مقدار"
 
-#: products/models.py:65
+#: products/models.py:80
 msgid "Discount"
 msgstr "تخفیف"
 
-#: products/models.py:66
+#: products/models.py:81
 msgid "Code"
 msgstr "کد"
 
-#: products/models.py:67
+#: products/models.py:82
 msgid "Valid From"
 msgstr "معتبر از تاریخ"
 
-#: products/models.py:68
+#: products/models.py:83
 msgid "Valid To"
 msgstr "معتبر تا تاریخ"
 
-#: products/models.py:76
+#: products/models.py:91
 msgid "valid_from must be before valid_to"
 msgstr "تاریخ شروع اعتبار باید قبل از تاریخ اتمام آن باشد!"
 
-#: products/models.py:80 users/models.py:72 users/models.py:82
-#: users/models.py:89 users/models.py:99
+#: products/models.py:95 users/models.py:67 users/models.py:78
+#: users/models.py:88 users/models.py:124
 msgid "User"
 msgstr "کاربر"
 
-#: products/models.py:81
+#: products/models.py:96
 msgid "Content"
 msgstr "محتوا"
 
-#: products/models.py:88
+#: products/models.py:103
 msgid "Child"
 msgstr "فرزند"
 
-#: products/models.py:89
+#: products/models.py:104
 msgid "Depth"
 msgstr "عمق"
 
-#: products/models.py:93
+#: products/models.py:108
 msgid "Parent-Child Comment"
 msgstr "کامنت یا نظر والد-فرزند"
 
-#: products/models.py:94
+#: products/models.py:109
 msgid "Parent-Child Comments"
 msgstr "کامنت های والد-فرزند"
 
-#: src/settings.py:101
+#: src/settings.py:102
 msgid "Persian"
 msgstr "فارسی"
 
-#: src/settings.py:102
+#: src/settings.py:103
 msgid "English"
 msgstr "انگلیسی"
+
+#: users/forms.py:11
+#, fuzzy
+#| msgid "Username"
+msgid "username"
+msgstr "نام کاربری"
+
+#: users/forms.py:11
+#, fuzzy
+#| msgid "Email"
+msgid "email"
+msgstr "ایمیل"
+
+#: users/forms.py:11
+#, fuzzy
+#| msgid "Phone"
+msgid "phone"
+msgstr "تلفن"
+
+#: users/forms.py:11
+msgid "password1"
+msgstr "رمز"
+
+#: users/forms.py:11
+msgid "password2"
+msgstr "تکرار رمز"
 
 #: users/models.py:10
 msgid "Email is required!"
 msgstr "ایمیل الزامی است!"
 
-#: users/models.py:23
+#: users/models.py:12
+#, fuzzy
+#| msgid "Email is required!"
+msgid "Phone is required!"
+msgstr "ایمیل الزامی است!"
+
+#: users/models.py:26
 msgid "Superuser must have is_active=True."
 msgstr "کاربر ویژه باید دارای is_active=True باشد."
 
-#: users/models.py:25
+#: users/models.py:28
 msgid "Superuser must have is_staff=True."
 msgstr "کاربر ویژه باید دارای is_staff=True باشد."
 
-#: users/models.py:27
+#: users/models.py:30
 msgid "Superuser must have is_superuser=True."
 msgstr "کاربر ویژه باید دارای is_superuser=True باشد."
 
-#: users/models.py:34
-msgid "Male"
-msgstr "مرد"
+#: users/models.py:32
+#, fuzzy
+#| msgid "Superuser must have is_superuser=True."
+msgid "Employee must have is_employee=True."
+msgstr "کاربر ویژه باید دارای is_superuser=True باشد."
 
-#: users/models.py:35
-msgid "Female"
-msgstr "زن"
-
-#: users/models.py:36
-msgid "Other"
-msgstr "سایر"
-
-#: users/models.py:46
+#: users/models.py:42
 msgid "Username"
 msgstr "نام کاربری"
 
-#: users/models.py:49
-msgid "User Type"
-msgstr "نوع کاربر"
-
-#: users/models.py:50
+#: users/models.py:45
 msgid "Email"
 msgstr "ایمیل"
 
-#: users/models.py:52
+#: users/models.py:47
 msgid "Enter your phone number."
 msgstr "شماره تلفن خود را وارد کنید."
 
-#: users/models.py:52
+#: users/models.py:47
 msgid "Phone"
 msgstr "تلفن"
 
-#: users/models.py:53
-msgid "Gender"
-msgstr "جنسیت"
-
-#: users/models.py:54
-msgid "Date of Birth"
-msgstr "تاریخ تولد"
-
-#: users/models.py:55
+#: users/models.py:48
 msgid "Registration Date"
 msgstr "تاریخ ثبت نام"
 
-#: users/models.py:68
+#: users/models.py:63
 msgid "Manager"
 msgstr "مدیر"
 
-#: users/models.py:69
+#: users/models.py:64
 msgid "Staff"
 msgstr "کارمند"
 
-#: users/models.py:70
+#: users/models.py:65
 msgid "Customer Support"
 msgstr "پشتیبانی مشتری"
 
-#: users/models.py:73
+#: users/models.py:68
 msgid "Role"
 msgstr "نقش"
 
-#: users/models.py:74
+#: users/models.py:69
 msgid "Is Manager"
 msgstr "مدیر است"
 
-#: users/models.py:75
+#: users/models.py:70
 msgid "Is Staff"
 msgstr "کارمند است"
 
-#: users/models.py:76
+#: users/models.py:71
 msgid "Is Customer Support"
 msgstr "پشتیبانی مشتری است"
 
-#: users/models.py:84
+#: users/models.py:80
 msgid "Profile Picture"
 msgstr "تصویر پروفایل"
 
-#: users/models.py:85
+#: users/models.py:81
 msgid "Is Subscribed"
 msgstr "مشترک شذه است"
+
+#: users/models.py:89
+msgid "State"
+msgstr "استان"
 
 #: users/models.py:90
 msgid "City"
 msgstr "شهر"
 
 #: users/models.py:91
-msgid "State"
-msgstr "استان"
-
-#: users/models.py:92
 msgid "Street"
 msgstr "خیابان"
 
+#: users/models.py:92
+msgid "Alley"
+msgstr "کوچه"
+
 #: users/models.py:93
+msgid "NO"
+msgstr "پلاک"
+
+#: users/models.py:94
+msgid "Unit Number"
+msgstr "واحد"
+
+#: users/models.py:95
 msgid "Postal Code"
 msgstr "کد پستی"
 
-#: users/models.py:95
+#: users/models.py:97
 msgid "Additional Info"
 msgstr "اطلاعات تکمیلی"
 
-#: users/models.py:100
+#: users/models.py:120
+msgid "Male"
+msgstr "مرد"
+
+#: users/models.py:121
+msgid "Female"
+msgstr "زن"
+
+#: users/models.py:122
+msgid "Other"
+msgstr "سایر"
+
+#: users/models.py:125
+msgid "Gender"
+msgstr "جنسیت"
+
+#: users/models.py:126
+msgid "Date of Birth"
+msgstr "تاریخ تولد"
+
+#: users/models.py:127
 msgid "Bio"
 msgstr "بیوگرافی"
 
-#: users/models.py:101
+#: users/models.py:128
 msgid "Social Media"
 msgstr "شبکه‌های اجتماعی"
 
-#: users/models.py:102
+#: users/models.py:129
 msgid "Interests"
 msgstr "علایق"
 
-#: users/models.py:103
-msgid "Addresses"
+#: users/models.py:131
+#, fuzzy
+#| msgid "Addresses"
+msgid "Address"
 msgstr "آدرس ها"
+
+#~ msgid "User Type"
+#~ msgstr "نوع کاربر"
