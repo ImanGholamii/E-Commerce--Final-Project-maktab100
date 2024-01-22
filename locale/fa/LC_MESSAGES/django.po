@@ -435,3 +435,23 @@ msgstr "آدرس ها"
 
 #~ msgid "User Type"
 #~ msgstr "نوع کاربر"
+
+#: templates/base.html:81
+msgid "Home"
+msgstr "خانه"
+
+#: templates/base.html:84
+msgid "Menu"
+msgstr "منیو"
+
+#: templates/base.html:87
+msgid "About"
+msgstr "درباره ما"
+
+#: templates/base.html:166
+msgid "Order Online"
+msgstr "سفارش آنلاین"
+
+#: templates/index.html:47
+msgid "Order Now"
+msgstr "سفارش آنلاین"
