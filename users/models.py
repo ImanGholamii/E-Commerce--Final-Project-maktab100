@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractUser
 from django.utils.translation import gettext_lazy as _
 from core.validators import Validator
-
+from core.models import TimeStampBaseModel
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, phone, password, **extra_fields):
@@ -34,7 +34,7 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, phone, password, **extra_fields)
 
 
-class User(AbstractUser):
+class User(AbstractUser, TimeStampBaseModel):
     username = models.CharField(
         max_length=150,
         unique=True,
@@ -58,7 +58,7 @@ class User(AbstractUser):
         return self.username
 
 
-class Employee(models.Model):
+class Employee(TimeStampBaseModel):
     ROLE_CHOICES = [
         ('manager', _('Manager')),
         ('staff', _('Staff')),
@@ -74,7 +74,7 @@ class Employee(models.Model):
         return f"{self.user.username} employee type: {self.role}"
 
 
-class Customer(models.Model):
+class Customer(TimeStampBaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, verbose_name=_('User'))
     profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True,
                                         verbose_name=_('Profile Picture'))
@@ -115,7 +115,7 @@ class Address(models.Model):
             return str(address)
 
 
-class UserProfile(models.Model):
+class UserProfile(TimeStampBaseModel):
     GENDER_CHOICES = [
         ('male', _('Male')),
         ('female', _('Female')),
