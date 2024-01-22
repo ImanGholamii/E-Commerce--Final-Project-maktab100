@@ -22,6 +22,7 @@
 {#</html>{% endcomment %}#}
 {#================================================================================================================#}
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% block title %}Fast Foodia{% endblock %}
 {% block content %}
@@ -44,7 +45,7 @@
                     </p>
                     <div class="btn-box">
                       <a href="" class="btn1">
-                        Order Now
+                        {% trans 'Order Now' %}
                       </a>
                     </div>
                   </div>
