@@ -14,7 +14,8 @@ from django.utils.translation import gettext_lazy as _
 class SignUpView(CreateView):
     model = get_user_model()
     form_class = CustomUserCreationForm
-    template_name = 'users/sign_up.html'
+    # template_name = 'users/sign_up.html'
+    template_name = 'index.html'
     success_url = reverse_lazy('login')
 
     def form_valid(self, form):
