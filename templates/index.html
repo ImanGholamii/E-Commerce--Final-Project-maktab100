@@ -66,7 +66,7 @@
                     </p>
                     <div class="btn-box">
                       <a href="" class="btn1">
-                        Order Now
+                        {% trans 'Order Now' %}
                       </a>
                     </div>
                   </div>
@@ -87,7 +87,7 @@
                     </p>
                     <div class="btn-box">
                       <a href="" class="btn1">
-                        Order Now
+                        {% trans 'Order Now' %}
                       </a>
                     </div>
                   </div>
@@ -128,7 +128,7 @@
                   <span>20%</span> Off
                 </h6>
                 <a href="">
-                  Order Now <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                  {% trans 'Order Now' %} <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                     <g>
                       <g>
                         <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
@@ -164,7 +164,7 @@
                   <span>15%</span> Off
                 </h6>
                 <a href="">
-                  Order Now <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                  {% trans 'Order Now' %} <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                     <g>
                       <g>
                         <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
@@ -209,7 +209,7 @@
 
       <ul class="filters_menu">
     <li class="{% if not request.GET.category %}active{% endif %}">
-        <a href="?">All</a>
+        <a href="?">{% trans 'All' %}</a>
     </li>
     <li class="{% if request.GET.category == 'ساندویچ گرم' %}active{% endif %}">
         <a href="?category=ساندویچ گرم">{% trans 'Warm Sandwich' %}</a>
