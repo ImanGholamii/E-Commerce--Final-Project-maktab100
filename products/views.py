@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import DetailView, TemplateView, ListView
 from products.models import Product
 from users.forms import CustomUserCreationForm
 
@@ -19,6 +19,10 @@ class HomeView(TemplateView):
         context['form'] = form
 
         return context
+
+class ProductListView(ListView):
+    model = Product
+    template_name = 'index.html'
 
 class ProductDetailView(DetailView):
     """to show product details probably in details page"""
