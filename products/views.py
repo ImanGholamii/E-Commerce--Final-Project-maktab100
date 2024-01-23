@@ -30,9 +30,43 @@ class ProductDetailView(DetailView):
         return context
 
 
+# class HomeView(ListView):
+#     model = Product
+#     template_name = 'index.html'
+#     context_object_name = 'product_list'
+#
+#     def get_queryset(self):
+#         queryset = super().get_queryset()
+#         category = self.request.GET.get('category')
+#
+#         if category:
+#             queryset = queryset.filter(category__name=category)
+#
+#         return queryset
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#
+#         form = CustomUserCreationForm()
+#         context['form'] = form
+#
+#         return context
+#
+#     def post(self, request, *args, **kwargs):
+#         form = CustomUserCreationForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             print("User Registered Successfully!")
+#             print("Username:", form.cleaned_data['username'])
+#             print("Email:", form.cleaned_data['email'])
+#             print("Phone:", form.cleaned_data['phone'])
+#             print("Is Customer:", form.cleaned_data['is_customer'])
+#         context = {'form': form}
+#         return render(request, self.template_name, context)
+
 from django.contrib.auth.views import LoginView
 
-class HomeView(LoginView, ListView):
+class HomeView(ListView, LoginView):
     model = Product
     template_name = 'index.html'
     context_object_name = 'product_list'
@@ -57,15 +91,14 @@ class HomeView(LoginView, ListView):
         return context
 
     def post(self, request, *args, **kwargs):
-        # گرفتن اطلاعات از فرم ورود به سیستم
         form = self.get_form()
         if form.is_valid():
+            form.save()
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
 
     def form_valid(self, form):
-        # اجرای اعتبارسنجی ورود به سیستم
         login(self.request, form.get_user())
         return super().form_valid(form)
 
