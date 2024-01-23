@@ -139,13 +139,13 @@
                             {% trans "Order" %}
                         </a>
                         <li>
-                            <button id="openModalBtn" class="btn btn-warning signup">Sign Up</button>
+                            <button id="openModalBtn" class="btn btn-warning signup">{% trans 'Sign Up' %}</button>
                             <!-- Bootstrap Modal -->
                             <div class="modal" tabindex="-1" role="dialog" id="signupModal">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Sign Up</h5>
+                                            <h5 class="modal-title">{% trans 'Sign Up' %}</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -155,7 +155,7 @@
                                             <form method="POST">
                                                 {% csrf_token %}
                                                 {{ form.as_p }}
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
                                             </form>
                                         </div>
                                     </div>
@@ -192,7 +192,7 @@
                 <div class="col-md-4 footer-col">
                     <div class="footer_contact">
                         <h4>
-                            Contact Us
+                            {% trans 'Contact Us' %}
                         </h4>
                         <div class="contact_link_box">
                             <a href="">
@@ -246,7 +246,7 @@
                 </div>
                 <div class="col-md-4 footer-col">
                     <h4>
-                        Opening Hours
+                        {% trans 'Opening Hours' %}
                     </h4>
                     <p>
                         Everyday
