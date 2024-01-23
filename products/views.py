@@ -50,3 +50,15 @@ class HomeView(ListView):
 
         return context
 
+    def post(self, request, *args, **kwargs):
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print("User Registered Successfully!")
+            print("Username:", form.cleaned_data['username'])
+            print("Email:", form.cleaned_data['email'])
+            print("Phone:", form.cleaned_data['phone'])
+            print("Is Customer:", form.cleaned_data['is_customer'])
+        context = {'form': form}
+        return render(request, self.template_name, context)
+
