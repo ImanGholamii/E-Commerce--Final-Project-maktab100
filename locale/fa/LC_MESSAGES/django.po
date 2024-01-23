@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-23 20:00+0330\n"
+"POT-Creation-Date: 2024-01-23 20:15+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,19 +56,16 @@ msgid "Phone number must be start with +98 or 0 in IR format."
 msgstr "شماره تلفن باید با 0 و یا 98+ آغاز شود"
 
 #: core/validators.py:12 users/forms.py:39
-msgid ""
-"This phone number is already in use. Please use a different phone number."
-msgstr ""
+msgid"This phone number is already in use. Please use a different phone number."
+msgstr "این شماره تماس موجود است. لطفا از شماره تماس دیگری استفاده کنید"
 
 #: core/validators.py:30
-msgid ""
-"Your password must contain at least 8 characters and include both letters "
-"and numbers."
-msgstr ""
+msgid"Your password must contain at least 8 characters and include both letters and numbers."
+msgstr "رمز عبور شما باید حداقل 8 کاراکتر داشته باشد و شامل حروف و اعداد باشد."
 
 #: core/validators.py:41 users/forms.py:29
 msgid "This email is already in use. Please use a different email address."
-msgstr ""
+msgstr "این ایمیل در حال حاضر در حال استفاده است. لطفا از آدرس ایمیل دیگری استفاده کنید."
 
 #: imagess/models.py:7 imagess/models.py:25 products/admin.py:19
 #: products/models.py:19
@@ -157,7 +154,7 @@ msgstr "دسته‌بندی"
 
 #: products/admin.py:31
 msgid "Switch to Persian"
-msgstr ""
+msgstr "ترجمه به فارسی"
 
 #: products/models.py:9 products/models.py:17 products/models.py:40
 msgid "Name"
@@ -268,9 +265,32 @@ msgstr "انگلیسی"
 msgid "Menu"
 msgstr "منیو"
 
-#: templates/index.html:48
+#: templates/base.html:143 templates/base.html:149
+msgid "Sign Up"
+msgstr "ثبت نام"
+
+#: templates/base.html:159
+msgid "Submit"
+msgstr "ارسال"
+
+#: templates/base.html:196
+msgid "Contact Us"
+msgstr "ارتباط با ما"
+
+#: templates/base.html:250
+msgid "Opening Hours"
+msgstr "ساعات کاری"
+
+#: templates/index.html:48 templates/index.html:69 templates/index.html:90
+#: templates/index.html:131 templates/index.html:167
 msgid "Order Now"
 msgstr "سفارش آنلاین"
+
+#: templates/index.html:212
+#, fuzzy
+#| msgid "Alley"
+msgid "All"
+msgstr "کوچه"
 
 #: templates/index.html:215
 msgid "Warm Sandwich"
