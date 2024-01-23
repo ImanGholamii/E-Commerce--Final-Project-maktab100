@@ -202,7 +202,7 @@
         <h2>
           Our Menu
         </h2>
-        <h2 class="h2-menu">
+        <h2 class="h2-menu" id="filters_menu">
           منیو ما
         </h2>
       </div>
@@ -212,19 +212,19 @@
         <a href="?">All</a>
     </li>
     <li class="{% if request.GET.category == 'ساندویچ گرم' %}active{% endif %}">
-        <a href="?category=ساندویچ گرم">Warm Sandwich</a>
+        <a href="?category=ساندویچ گرم">{% trans 'Warm Sandwich' %}</a>
     </li>
     <li class="{% if request.GET.category == 'ساندویچ سرد' %}active{% endif %}">
-        <a href="?category=ساندویچ سرد">Cold Sandwich</a>
+        <a href="?category=ساندویچ سرد">{% trans 'Cold Sandwich' %}</a>
     </li>
     <li class="{% if request.GET.category == 'پیتزاها' %}active{% endif %}">
-        <a href="?category=پیتزاها">Pizza</a>
+        <a href="?category=پیتزاها">{% trans 'Pizza' %}</a>
     </li>
     <li class="{% if request.GET.category == 'برگر' %}active{% endif %}">
-        <a href="?category=برگر">Burger</a>
+        <a href="?category=برگر">{% trans 'Burger' %}</a>
     </li>
     <li class="{% if request.GET.category == 'پیش غذا - سالاد - نوشیدنی' %}active{% endif %}">
-        <a href="?category=پیش غذا - سالاد - نوشیدنی">salad, drink</a>
+        <a href="?category=پیش غذا - سالاد - نوشیدنی">{% trans 'salad, drink' %}</a>
     </li>
 </ul>
 
@@ -255,7 +255,7 @@
     </div>
       <div class="btn-box">
         <a href="">
-          View More
+          {% trans 'View More' %}
         </a>
       </div>
     </div>
@@ -269,7 +269,7 @@
     <div class="container">
       <div class="heading_container heading_center psudo_white_primary mb_45">
         <h2>
-          What Says Our Customers
+          {% trans 'What Says Our Customers' %}
         </h2>
       </div>
       <div class="carousel-wrap row ">
