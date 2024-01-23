@@ -1,5 +1,17 @@
-.signup{
+.signup {
     width: 70px !important;
     height: 35px !important;
     padding: 0px !important;
+}
+
+.s-form-label {
+    margin-top: 8px !important;
+}
+
+.s-form-label2 {
+    margin-top: 8px !important;
+}
+
+.form-pad {
+    padding: 10px !important;
 }
