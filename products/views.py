@@ -1,3 +1,5 @@
+from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render
 from django.views.generic import DetailView, TemplateView, ListView
 from products.models import Product
@@ -28,10 +30,13 @@ class ProductDetailView(DetailView):
         return context
 
 
-class HomeView(ListView):
+from django.contrib.auth.views import LoginView
+
+class HomeView(LoginView, ListView):
     model = Product
     template_name = 'index.html'
     context_object_name = 'product_list'
+    form_class = AuthenticationForm  # اضافه کردن فرم ورود به سیستم
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -45,20 +50,27 @@ class HomeView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        form = CustomUserCreationForm()
-        context['form'] = form
+        # اضافه کردن فرم ثبت‌نام به context
+        registration_form = CustomUserCreationForm()
+        context['registration_form'] = registration_form
 
         return context
 
     def post(self, request, *args, **kwargs):
-        form = CustomUserCreationForm(request.POST)
+        # گرفتن اطلاعات از فرم ورود به سیستم
+        form = self.get_form()
         if form.is_valid():
-            form.save()
-            print("User Registered Successfully!")
-            print("Username:", form.cleaned_data['username'])
-            print("Email:", form.cleaned_data['email'])
-            print("Phone:", form.cleaned_data['phone'])
-            print("Is Customer:", form.cleaned_data['is_customer'])
-        context = {'form': form}
-        return render(request, self.template_name, context)
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
+    def form_valid(self, form):
+        # اجرای اعتبارسنجی ورود به سیستم
+        login(self.request, form.get_user())
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        # اجرای اعتبارسنجی ناموفق
+        registration_form = CustomUserCreationForm()
+        context = {'registration_form': registration_form, 'login_form': form}
+        return self.render_to_response(self.get_context_data(**context))
