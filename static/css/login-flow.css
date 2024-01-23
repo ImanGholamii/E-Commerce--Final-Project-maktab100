@@ -1,0 +1,27 @@
+.modal {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+}
+
+/* تغییرات CSS برای سایز مدال */
+.modal-dialog {
+    width: 100%;
+    max-width: 300px; /* یک حداکثر سایز ممکن */
+    margin: auto;
+}
+
+/* تغییرات CSS برای استایل مدال */
+.modal-content {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+}
+
+/* تغییرات CSS برای استایل فرم داخل مدال */
+.modal-content .form-pad {
+    padding: 10px !important;
+    background-color: #f3f3f3;
+    width: 100% !important;
+    margin: auto;
+}
