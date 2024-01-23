@@ -68,4 +68,6 @@ button.nav_search-btn:hover {
 
 }
 
-
+li {
+    list-style: none!important;
+}
