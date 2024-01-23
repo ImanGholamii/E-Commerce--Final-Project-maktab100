@@ -28,8 +28,19 @@ class ProductDetailView(DetailView):
         return context
 
 
-class HomeView(TemplateView):
+class HomeView(ListView):
+    model = Product
     template_name = 'index.html'
+    context_object_name = 'product_list'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        category = self.request.GET.get('category')
+
+        if category:
+            queryset = queryset.filter(category__name=category)
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -37,7 +48,5 @@ class HomeView(TemplateView):
         form = CustomUserCreationForm()
         context['form'] = form
 
-        product_list = Product.objects.all()
-        context['product_list'] = product_list
-
         return context
+
