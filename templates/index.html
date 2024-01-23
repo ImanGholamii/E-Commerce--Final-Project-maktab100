@@ -208,12 +208,25 @@
       </div>
 
       <ul class="filters_menu">
-        <li class="active" data-filter="*">All</li>
-        <li data-filter=".burger">Burger</li>
-        <li data-filter=".pizza">Pizza</li>
-        <li data-filter=".pasta">Pasta</li>
-        <li data-filter=".fries">Fries</li>
-      </ul>
+    <li class="{% if not request.GET.category %}active{% endif %}">
+        <a href="?">All</a>
+    </li>
+    <li class="{% if request.GET.category == 'ساندویچ گرم' %}active{% endif %}">
+        <a href="?category=ساندویچ گرم">Warm Sandwich</a>
+    </li>
+    <li class="{% if request.GET.category == 'ساندویچ سرد' %}active{% endif %}">
+        <a href="?category=ساندویچ سرد">Cold Sandwich</a>
+    </li>
+    <li class="{% if request.GET.category == 'پیتزاها' %}active{% endif %}">
+        <a href="?category=پیتزاها">Pizza</a>
+    </li>
+    <li class="{% if request.GET.category == 'برگر' %}active{% endif %}">
+        <a href="?category=برگر">Burger</a>
+    </li>
+    <li class="{% if request.GET.category == 'پیش غذا - سالاد - نوشیدنی' %}active{% endif %}">
+        <a href="?category=پیش غذا - سالاد - نوشیدنی">salad, drink</a>
+    </li>
+</ul>
 
       <div class="filters-content">
         <div class="row grid">
@@ -228,7 +241,7 @@
                                 <h5>{{ product.name }}</h5>
                                 <p>{{ product.description }}</p>
                                 <div class="options">
-                                    <h6>${{ product.price }}</h6>
+                                    <h6>ریال{{ product.price }}</h6>
                                     <!-- Your other HTML content here -->
                                 </div>
                             </div>
