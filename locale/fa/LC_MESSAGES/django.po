@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-22 10:44+0330\n"
+"POT-Creation-Date: 2024-01-23 20:00+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,13 +51,24 @@ msgid "Status is deleted"
 msgstr "وضعیت: حذف شده"
 
 #: core/tests/tests.py:15 core/tests/tests.py:25 core/tests/tests.py:35
-#: core/validators.py:9
+#: core/validators.py:18
 msgid "Phone number must be start with +98 or 0 in IR format."
 msgstr "شماره تلفن باید با 0 و یا 98+ آغاز شود"
 
-#: core/validators.py:10
-msgid "invalid IR phone number"
-msgstr "شماره تلفن نامعتبر"
+#: core/validators.py:12 users/forms.py:39
+msgid ""
+"This phone number is already in use. Please use a different phone number."
+msgstr ""
+
+#: core/validators.py:30
+msgid ""
+"Your password must contain at least 8 characters and include both letters "
+"and numbers."
+msgstr ""
+
+#: core/validators.py:41 users/forms.py:29
+msgid "This email is already in use. Please use a different email address."
+msgstr ""
 
 #: imagess/models.py:7 imagess/models.py:25 products/admin.py:19
 #: products/models.py:19
@@ -99,12 +110,12 @@ msgstr "تکمیل شده"
 msgid "Cancelled"
 msgstr "لغو شده"
 
-#: orders/models.py:17 users/admin.py:38 users/admin.py:41 users/views.py:26
+#: orders/models.py:17 users/admin.py:38 users/admin.py:41 users/views.py:28
 msgid "Employee"
 msgstr "کارمند"
 
 #: orders/models.py:19 orders/models.py:48 users/admin.py:37 users/admin.py:40
-#: users/views.py:24
+#: users/forms.py:13 users/views.py:26
 msgid "Customer"
 msgstr "مشتری"
 
@@ -116,7 +127,7 @@ msgstr "تاریخ سفارش"
 msgid "Status"
 msgstr "تاریخ سفارش"
 
-#: orders/models.py:34 orders/models.py:47
+#: orders/models.py:34 orders/models.py:47 templates/base.html:140
 msgid "Order"
 msgstr "سفارش"
 
@@ -221,7 +232,7 @@ msgid "valid_from must be before valid_to"
 msgstr "تاریخ شروع اعتبار باید قبل از تاریخ اتمام آن باشد!"
 
 #: products/models.py:95 users/models.py:67 users/models.py:78
-#: users/models.py:88 users/models.py:124
+#: users/models.py:88 users/models.py:126
 msgid "User"
 msgstr "کاربر"
 
@@ -253,31 +264,47 @@ msgstr "فارسی"
 msgid "English"
 msgstr "انگلیسی"
 
-#: users/forms.py:11
+#: templates/base.html:91
+msgid "Menu"
+msgstr "منیو"
+
+#: templates/index.html:48
+msgid "Order Now"
+msgstr "سفارش آنلاین"
+
+#: templates/index.html:215
+msgid "Warm Sandwich"
+msgstr "ساندویچ گرم"
+
+#: templates/index.html:218
+msgid "Cold Sandwich"
+msgstr "ساندویچ سرد"
+
+#: templates/index.html:221
+msgid "Pizza"
+msgstr "پیتزا"
+
+#: templates/index.html:224
+msgid "Burger"
+msgstr "برگر"
+
+#: templates/index.html:227
+msgid "salad, drink"
+msgstr "پیش غذا و نوشیدنی و سالاد"
+
+#: templates/index.html:258
+msgid "View More"
+msgstr "بیشتر"
+
+#: templates/index.html:272
+msgid "What Says Our Customers"
+msgstr "نظرات مشتریان"
+
+#: users/forms.py:38
 #, fuzzy
-#| msgid "Username"
-msgid "username"
-msgstr "نام کاربری"
-
-#: users/forms.py:11
-#, fuzzy
-#| msgid "Email"
-msgid "email"
-msgstr "ایمیل"
-
-#: users/forms.py:11
-#, fuzzy
-#| msgid "Phone"
-msgid "phone"
-msgstr "تلفن"
-
-#: users/forms.py:11
-msgid "password1"
-msgstr "رمز"
-
-#: users/forms.py:11
-msgid "password2"
-msgstr "تکرار رمز"
+#| msgid "Phone number must be start with +98 or 0 in IR format."
+msgid "Invalid phone number. Please must be start with +98 or 0"
+msgstr "شماره تلفن باید با 0 و یا 98+ آغاز شود"
 
 #: users/models.py:10
 msgid "Email is required!"
@@ -355,7 +382,7 @@ msgstr "کارمند است"
 msgid "Is Customer Support"
 msgstr "پشتیبانی مشتری است"
 
-#: users/models.py:80
+#: users/models.py:80 users/models.py:125
 msgid "Profile Picture"
 msgstr "تصویر پروفایل"
 
@@ -407,51 +434,64 @@ msgstr "زن"
 msgid "Other"
 msgstr "سایر"
 
-#: users/models.py:125
+#: users/models.py:127
 msgid "Gender"
 msgstr "جنسیت"
 
-#: users/models.py:126
+#: users/models.py:128
 msgid "Date of Birth"
 msgstr "تاریخ تولد"
 
-#: users/models.py:127
+#: users/models.py:129
 msgid "Bio"
 msgstr "بیوگرافی"
 
-#: users/models.py:128
+#: users/models.py:130
 msgid "Social Media"
 msgstr "شبکه‌های اجتماعی"
 
-#: users/models.py:129
+#: users/models.py:131
 msgid "Interests"
 msgstr "علایق"
 
-#: users/models.py:131
+#: users/models.py:133
 #, fuzzy
 #| msgid "Addresses"
 msgid "Address"
 msgstr "آدرس ها"
 
+#~ msgid "invalid IR phone number"
+#~ msgstr "شماره تلفن نامعتبر"
+
+#, fuzzy
+#~| msgid "Username"
+#~ msgid "username"
+#~ msgstr "نام کاربری"
+
+#, fuzzy
+#~| msgid "Email"
+#~ msgid "email"
+#~ msgstr "ایمیل"
+
+#, fuzzy
+#~| msgid "Phone"
+#~ msgid "phone"
+#~ msgstr "تلفن"
+
+#~ msgid "password1"
+#~ msgstr "رمز"
+
+#~ msgid "password2"
+#~ msgstr "تکرار رمز"
+
 #~ msgid "User Type"
 #~ msgstr "نوع کاربر"
 
-#: templates/base.html:81
-msgid "Home"
-msgstr "خانه"
+#~ msgid "Home"
+#~ msgstr "خانه"
 
-#: templates/base.html:84
-msgid "Menu"
-msgstr "منیو"
+#~ msgid "About"
+#~ msgstr "درباره ما"
 
-#: templates/base.html:87
-msgid "About"
-msgstr "درباره ما"
-
-#: templates/base.html:166
-msgid "Order Online"
-msgstr "سفارش آنلاین"
-
-#: templates/index.html:47
-msgid "Order Now"
-msgstr "سفارش آنلاین"
+#~ msgid "Order Online"
+#~ msgstr "سفارش آنلاین"
