@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import get_user_model, logout, login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
@@ -6,10 +7,14 @@ from django.views import View
 from django.views.generic import CreateView
 from django.contrib.auth.models import Group
 from django.urls import reverse, reverse_lazy
+
+from core.utils import send_otp_code
 from users.forms import CustomUserCreationForm
-from users.models import UserProfile
+from users.models import UserProfile, OtpCode
 from django.utils.translation import gettext_lazy as _
 from django.http import JsonResponse
+from random import random
+
 
 class SignUpView(CreateView):
     model = get_user_model()
@@ -17,6 +22,20 @@ class SignUpView(CreateView):
     template_name = 'users/sign_up.html'
     # template_name = 'index.html'
     success_url = reverse_lazy('login')
+
+    def post(self, request):
+        form = self.get_form()
+        if form.is_valid():
+            random_code = random.randint(100000, 999999)
+            send_otp_code(form.cleaned_data['email'], code=random_code)
+            OtpCode.objects.create(email=form.cleaned_data['email'], code=random_code)
+            request.session['user_registarion_info'] = {
+                'email': form.cleaned_data['email'],
+                'phone': form.cleaned_data['phone'],
+                'username': form.cleaned_data['username'],
+                'password': form.cleaned_data['password'],
+            }
+            messages.success(request, 'OTP Code Sent to your email.', 'success')
 
     def form_valid(self, form):
         response = super().form_valid(form)
