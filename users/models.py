@@ -134,3 +134,12 @@ class UserProfile(TimeStampBaseModel):
 
     def __str__(self):
         return f"{self.user.username[0].upper()}{self.user.username[1:]}'s Profile"
+
+
+class OtpCode(models.Model):
+    email = models.EmailField()
+    otp_code = models.PositiveSmallIntegerField()
+    created = models. DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.email} otp code : {self.otp_code} - {self.created}"
