@@ -119,6 +119,7 @@
                         <a href="" class="order_online">
                             {% trans "Order" %}
                         </a>
+                    {% if not request.user.is_authenticated %}
                         <li>
                             <button id="openSignupModalBtn"
                                     class="btn btn-warning signup">{% trans 'Sign Up' %}</button>
@@ -290,8 +291,11 @@
                                 });
                             });
                         </script>
+                    {% else %}
                         <li>
-
+                            <a class="btn btn-dark logout" href="{% url 'logout' %}">{% trans 'Logout' %}</a>
+                        </li>
+                    {% endif %}
                     </div>
                 </div>
             </nav>
