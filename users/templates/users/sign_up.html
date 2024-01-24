@@ -5,10 +5,10 @@
 {% block title %}SignUP{% endblock title %}
 {% load static %}
 {% block content %}
-
-    <form method="post" class="form-pad">
+<div class="container">
+    <form method="post" class="form-pad" style="margin-left: 250px;margin-right: 250px;>
         {% csrf_token %}
-        <p class="s-form-label2">{% trans 'Create a new account' %}</p>
+        <p class="s-form-label2 text-center mb-4">{% trans 'Create a new account' %}</p>
 
         <div class="form-group">
             {% if form.errors %}
@@ -80,4 +80,5 @@
             </button>
         </div>
     </form>
+</div>
 {% endblock content %}
