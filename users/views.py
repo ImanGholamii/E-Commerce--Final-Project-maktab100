@@ -9,13 +9,13 @@ from django.urls import reverse, reverse_lazy
 from users.forms import CustomUserCreationForm
 from users.models import UserProfile
 from django.utils.translation import gettext_lazy as _
-
+from django.http import JsonResponse
 
 class SignUpView(CreateView):
     model = get_user_model()
     form_class = CustomUserCreationForm
-    # template_name = 'users/sign_up.html'
-    template_name = 'index.html'
+    template_name = 'users/sign_up.html'
+    # template_name = 'index.html'
     success_url = reverse_lazy('login')
 
     def form_valid(self, form):
@@ -31,6 +31,27 @@ class SignUpView(CreateView):
         user.groups.add(group)
         return response
 
+
+# def login_view(request):
+#     if request.method == 'POST':
+#         username = request.POST["username"]
+#         password = request.POST["password"]
+#         user = authenticate(request, username=username, password=password)
+#         if user is not None:
+#             login(request, user)
+#             next_url = request.session.get('next')
+#             if next_url:
+#                 del request.session['next']
+#                 return JsonResponse({'success': True, 'next_url': next_url})
+#             return JsonResponse({'success': True, 'next_url': '/'})
+#         else:
+#             return JsonResponse({'success': False, 'next_url': 'users/login.html'})
+#
+#     next_url = request.GET.get('next')
+#     if next_url:
+#         request.session['next'] = next_url
+#
+#     return render(request, 'users/login.html')
 
 def login_view(request):
     if request.user.is_authenticated:
