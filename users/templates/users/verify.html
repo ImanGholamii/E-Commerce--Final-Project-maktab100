@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block background %}{% endblock background %}
+
+{% block title %}Verify{% endblock title %}
+{% load static %}
+{% block content %}
+<div class="container" style="margin-top: 50px;">
+    <form method="post" class="form-pad" style="margin-left: 250px;margin-right: 250px; margin-bottom: 250px;">
+        {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="send">
+    </form>
+</div>
+{% endblock %}
