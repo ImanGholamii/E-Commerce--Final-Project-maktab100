@@ -13,7 +13,7 @@ from users.forms import CustomUserCreationForm
 from users.models import UserProfile, OtpCode
 from django.utils.translation import gettext_lazy as _
 from django.http import JsonResponse
-from random import random
+import random
 
 
 class SignUpView(CreateView):
@@ -28,12 +28,12 @@ class SignUpView(CreateView):
         if form.is_valid():
             random_code = random.randint(100000, 999999)
             send_otp_code(form.cleaned_data['email'], code=random_code)
-            OtpCode.objects.create(email=form.cleaned_data['email'], code=random_code)
+            OtpCode.objects.create(email=form.cleaned_data['email'], otp_code=random_code)
             request.session['user_registarion_info'] = {
                 'email': form.cleaned_data['email'],
                 'phone': form.cleaned_data['phone'],
                 'username': form.cleaned_data['username'],
-                'password': form.cleaned_data['password'],
+                'password': form.cleaned_data['password1'],
             }
             messages.success(request, 'OTP Code Sent to your email.', 'success')
 
