@@ -216,55 +216,58 @@
                             </div>
                         </li>
                         <li>
-                            <!-- دکمه باز کردن مدال -->
-                            <button id="openLoginModalBtn" class="btn btn-light login">{% trans 'Login' %}</button>
 
-                            <!-- مدال Bootstrap برای ورود -->
-                            <div class="modal" tabindex="-1" role="dialog" id="loginModal">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content gradient-custom-2">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">{% trans 'Login' %}</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Include the login form here -->
-                                            <form method="post" class="form-pad">
-                                                {% csrf_token %}
+                                <a class="btn btn-light login" href="{% url 'login' %}">{% trans 'Login' %}</a>
 
-                                                <div class="form-group">
-                                                    <label class="form-label"
-                                                           for="loginUsername">{% trans 'Username' %}</label>
-                                                    <input type="text" id="loginUsername" class="form-control"
-                                                           name="username"/>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="form-label"
-                                                           for="loginPassword">{% trans 'Password' %}</label>
-                                                    <input type="password" id="loginPassword" name="password"
-                                                           class="form-control"/>
-                                                </div>
-
-                                                <div class="text-center pt-1 mb-5 pb-1">
-                                                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-                                                            type="submit">{% trans 'Login' %}</button>
-                                                </div>
-
-                                                <div class="d-flex align-items-center justify-content-center pb-4">
-                                                    <p class="mb-0 me-2">{% trans "Don't have an account?" %}</p>
-                                                    <button type="submit" class="btn btn-outline-danger">
-                                                        <a href="{% url 'signup' %}"
-                                                           class="decor">{% trans 'Sign Up' %}</a>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+{#                            <!-- دکمه باز کردن مدال -->#}
+{#                            <button id="openLoginModalBtn" class="btn btn-light login">{% trans 'Login' %}</button>#}
+{##}
+{#                            <!-- مدال Bootstrap برای ورود -->#}
+{#                            <div class="modal" tabindex="-1" role="dialog" id="loginModal">#}
+{#                                <div class="modal-dialog" role="document">#}
+{#                                    <div class="modal-content gradient-custom-2">#}
+{#                                        <div class="modal-header">#}
+{#                                            <h5 class="modal-title">{% trans 'Login' %}</h5>#}
+{#                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                                                <span aria-hidden="true">&times;</span>#}
+{#                                            </button>#}
+{#                                        </div>#}
+{#                                        <div class="modal-body">#}
+{#                                            <!-- Include the login form here -->#}
+{#                                            <form method="post" class="form-pad">#}
+{#                                                {% csrf_token %}#}
+{##}
+{#                                                <div class="form-group">#}
+{#                                                    <label class="form-label"#}
+{#                                                           for="loginUsername">{% trans 'Username' %}</label>#}
+{#                                                    <input type="text" id="loginUsername" class="form-control"#}
+{#                                                           name="username"/>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="form-group">#}
+{#                                                    <label class="form-label"#}
+{#                                                           for="loginPassword">{% trans 'Password' %}</label>#}
+{#                                                    <input type="password" id="loginPassword" name="password"#}
+{#                                                           class="form-control"/>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="text-center pt-1 mb-5 pb-1">#}
+{#                                                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"#}
+{#                                                            type="submit">{% trans 'Login' %}</button>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="d-flex align-items-center justify-content-center pb-4">#}
+{#                                                    <p class="mb-0 me-2">{% trans "Don't have an account?" %}</p>#}
+{#                                                    <button type="submit" class="btn btn-outline-danger">#}
+{#                                                        <a href="{% url 'signup' %}"#}
+{#                                                           class="decor">{% trans 'Sign Up' %}</a>#}
+{#                                                    </button>#}
+{#                                                </div>#}
+{#                                            </form>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
 
                         </li>
                         <!-- Include jQuery and Bootstrap JS -->
@@ -272,13 +275,13 @@
                         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
                         <!-- Your custom script -->
-                        <script>
-                            $(document).ready(function () {
-                                $("#openLoginModalBtn").click(function () {
-                                    $("#loginModal").modal("show");
-                                });
-                            });
-                        </script>
+{#                        <script>#}
+{#                            $(document).ready(function () {#}
+{#                                $("#openLoginModalBtn").click(function () {#}
+{#                                    $("#loginModal").modal("show");#}
+{#                                });#}
+{#                            });#}
+{#                        </script>#}
                         <!-- Include jQuery and Bootstrap JS -->
                         <script>
                             $(document).ready(function () {
