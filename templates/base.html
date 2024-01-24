@@ -48,7 +48,6 @@
     <link rel="stylesheet" href="{% static 'css/body.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/login-flow.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/messages.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     {% block header %}
@@ -121,7 +120,8 @@
                             {% trans "Order" %}
                         </a>
                         <li>
-                            <button id="openSignupModalBtn" class="btn btn-warning signup">{% trans 'Sign Up' %}</button>
+                            <button id="openSignupModalBtn"
+                                    class="btn btn-warning signup">{% trans 'Sign Up' %}</button>
                             <!-- Bootstrap Modal -->
                             <div class="modal" tabindex="-1" role="dialog" id="signupModal">
                                 <div class="modal-dialog" role="document">
@@ -139,37 +139,49 @@
                                                 <p class="s-form-label2">Create a new account</p>
 
                                                 <div class="form-group">
-                                                    {{ form.username.errors }}
+                                                    {% if form.errors %}
+                                                        <div class="error-message">{{ form.username.errors }}</div>
+                                                    {% endif %}
                                                     <input type="text" id="form2Example11" class="form-control"
-                                                           name="username" />
+                                                           name="username"/>
                                                     <label class="s-form-label" for="form2Example11">Username</label>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    {{ form.email.errors }}
+                                                    {% if form.errors %}
+                                                        <div class="error-message">{{ form.email.errors }}</div>
+                                                    {% endif %}
                                                     <input type="email" id="form2Example33" class="form-control"
-                                                           name="email" />
-                                                    <label class="s-form-label" for="form2Example33">Email</label>
+                                                           name="email"/>
+                                                    <label class="s-form-label " for="form2Example33">Email</label>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    {{ form.phone.errors }}
+                                                    {% if form.errors %}
+                                                        <div class="error-message">{{ form.phone.errors }}</div>
+                                                    {% endif %}
                                                     <input type="tel" id="form2Example44" class="form-control"
-                                                           name="phone" />
+                                                           name="phone"/>
                                                     <label class="s-form-label" for="form2Example44">Phone</label>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    {{ form.password1.errors }}
+                                                    {% if form.errors %}
+                                                        <div class="error-message">{{ form.password1.errors }}</div>
+                                                    {% endif %}
+
                                                     <input type="password" id="form2Example22" name="password1"
-                                                           class="form-control" />
+                                                           class="form-control"/>
                                                     <label class="s-form-label" for="form2Example22">Password</label>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    {{ form.password2.errors }}
+                                                    {% if form.errors %}
+                                                        <div class="error-message">{{ form.password2.errors }}</div>
+                                                    {% endif %}
+
                                                     <input type="password" id="form2Example55" name="password2"
-                                                           class="form-control" />
+                                                           class="form-control"/>
                                                     <label class="s-form-label" for="form2Example55">Password
                                                         confirmation</label>
                                                 </div>
@@ -223,13 +235,17 @@
                                                 {% csrf_token %}
 
                                                 <div class="form-group">
-                                                    <label class="form-label" for="loginUsername">{% trans 'Username' %}</label>
-                                                    <input type="text" id="loginUsername" class="form-control" name="username" />
+                                                    <label class="form-label"
+                                                           for="loginUsername">{% trans 'Username' %}</label>
+                                                    <input type="text" id="loginUsername" class="form-control"
+                                                           name="username"/>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label class="form-label" for="loginPassword">{% trans 'Password' %}</label>
-                                                    <input type="password" id="loginPassword" name="password" class="form-control" />
+                                                    <label class="form-label"
+                                                           for="loginPassword">{% trans 'Password' %}</label>
+                                                    <input type="password" id="loginPassword" name="password"
+                                                           class="form-control"/>
                                                 </div>
 
                                                 <div class="text-center pt-1 mb-5 pb-1">
@@ -240,7 +256,8 @@
                                                 <div class="d-flex align-items-center justify-content-center pb-4">
                                                     <p class="mb-0 me-2">{% trans "Don't have an account?" %}</p>
                                                     <button type="submit" class="btn btn-outline-danger">
-                                                        <a href="{% url 'signup' %}" class="decor">{% trans 'Sign Up' %}</a>
+                                                        <a href="{% url 'signup' %}"
+                                                           class="decor">{% trans 'Sign Up' %}</a>
                                                     </button>
                                                 </div>
                                             </form>
