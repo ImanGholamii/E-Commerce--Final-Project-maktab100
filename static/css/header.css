@@ -71,3 +71,7 @@ button.nav_search-btn:hover {
 li {
     list-style: none!important;
 }
+
+.menub {
+    border-radius: 50% !important;
+}
