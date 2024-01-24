@@ -55,7 +55,7 @@ class SignUpView(CreateView):
 
 
 class UserRegisterCodeView(View):
-    form_class = VerifyCodeForm()
+    form_class = VerifyCodeForm
 
     def get(self, request):
         user_session = request.session['user_registration_info']
@@ -71,9 +71,11 @@ class UserRegisterCodeView(View):
         if form.is_valid():
             cd = form.cleaned_data
             if cd['code'] == code_instance.otp_code:
-                user = get_user_model()
-                user.objects.create_user(user_session['email'], user_session['phone'],
-                                         user_session['password'],user_session['username'])
+                User = get_user_model()
+                user_instance = User.objects.create_user(user_session['email'], user_session['phone'],
+                                         user_session['password'])
+                user_instance.username = user_session['username']
+                user_instance.save()
                 code_instance.delete()
                 messages.success(request, "Your account Verified successfully", 'success')
                 return redirect('login')
