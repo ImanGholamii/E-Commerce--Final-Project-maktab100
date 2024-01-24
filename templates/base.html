@@ -105,9 +105,11 @@
 
                     </ul>
                     <div class="user_option">
+                    {% if request.user.is_authenticated %}
                         <a href="" class="user_link">
                             <i><img class="user" src="{% static 'images/user-prof.jpg' %}" alt=""></i>
                         </a>
+                    {% endif %}
                         <a class="cart_link" href="#">
                             <!-- در تمپلیت HTML -->
                             <img class="shopping_cart" src="{% static 'images/shopping_cart_image.jpg' %}"
