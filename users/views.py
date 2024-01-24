@@ -1,15 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model, logout, login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import CreateView
 from django.contrib.auth.models import Group
 from django.urls import reverse, reverse_lazy
-
 from core.utils import send_otp_code
-from users.forms import CustomUserCreationForm
+from users.forms import CustomUserCreationForm, VerifyCodeForm
 from users.models import UserProfile, OtpCode
 from django.utils.translation import gettext_lazy as _
 from django.http import JsonResponse
@@ -21,7 +20,8 @@ class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     template_name = 'users/sign_up.html'
     # template_name = 'index.html'
-    success_url = reverse_lazy('login')
+    # success_url = reverse_lazy('login')
+    success_url = reverse_lazy('verify')
 
     def post(self, request):
         form = self.get_form()
@@ -29,14 +29,14 @@ class SignUpView(CreateView):
             random_code = random.randint(100000, 999999)
             send_otp_code(form.cleaned_data['email'], code=random_code)
             OtpCode.objects.create(email=form.cleaned_data['email'], otp_code=random_code)
-            request.session['user_registarion_info'] = {
+            request.session['user_registration_info'] = {
+                'username': form.cleaned_data['username'],
                 'email': form.cleaned_data['email'],
                 'phone': form.cleaned_data['phone'],
-                'username': form.cleaned_data['username'],
                 'password': form.cleaned_data['password1'],
             }
             messages.success(request, 'OTP Code Sent to your email.', 'success')
-
+        return HttpResponseRedirect(reverse_lazy('verify'))
     def form_valid(self, form):
         response = super().form_valid(form)
         user = form.save(commit=False)
@@ -50,13 +50,38 @@ class SignUpView(CreateView):
         user.groups.add(group)
         return response
 
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
+
 
 class UserRegisterCodeView(View):
+    form_class = VerifyCodeForm()
+
     def get(self, request):
-        pass
+        user_session = request.session['user_registration_info']
+        print(44 * '=' + 'user_session' + 44 * '=')
+        print(user_session)
+        form = self.form_class
+        return render(request, 'users/verify.html', {'form':form})
 
     def post(self, request):
-        pass
+        user_session = request.session['user_registration_info']
+        code_instance = OtpCode.objects.get(email=user_session['email'])
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            if cd['code'] == code_instance.otp_code:
+                user = get_user_model()
+                user.objects.create_user(user_session['email'], user_session['phone'],
+                                         user_session['password'],user_session['username'])
+                code_instance.delete()
+                messages.success(request, "Your account Verified successfully", 'success')
+                return redirect('login')
+            else:
+                messages.error(request, 'Wrong Code!', 'danger')
+                return redirect('verify')
+        return redirect('/')
+
 
 # def login_view(request):
 #     if request.method == 'POST':
