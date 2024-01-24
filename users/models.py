@@ -138,7 +138,7 @@ class UserProfile(TimeStampBaseModel):
 
 class OtpCode(models.Model):
     email = models.EmailField()
-    otp_code = models.PositiveSmallIntegerField()
+    otp_code = models.PositiveIntegerField()
     created = models. DateTimeField(auto_now=True)
 
     def __str__(self):
