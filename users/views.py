@@ -82,7 +82,7 @@ class Logout(View):
         if self.request.user:
             latest_user_login = request.user.username
             logout(request)
-            response = redirect('home')
+            response = redirect('/')
             response.set_cookie('latest_user_login', latest_user_login)
             return response
 
