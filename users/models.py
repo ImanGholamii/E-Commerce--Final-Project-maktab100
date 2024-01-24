@@ -143,3 +143,11 @@ class OtpCode(models.Model):
 
     def __str__(self):
         return f"{self.email} otp code : {self.otp_code} - {self.created}"
+
+# phone = models.CharField(max_length=20, validators=[
+#         RegexValidator(regex=r'^(\+98|0)?9\d{9}$',
+#         message=_("Phone number must be start with +98 or 0 in IR format."),code='invalid_IR_phone_number'), ],
+#                              help_text=_("Enter your phone number."), verbose_name=_('Phone'), unique=True)
+
+# phone = models.CharField(max_length=20, validators=[Validator.phone_validator()],
+#                              help_text=_("Enter your phone number."), verbose_name=_('Phone'), unique=True)
