@@ -45,6 +45,10 @@ class CustomUserCreationForm(UserCreationForm):
             self.fields[field].widget.attrs.update({'class': 'error-message'})
 
 
+class VerifyCodeForm(forms.Form):
+    code = forms.IntegerField()
+
+
 class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField(help_text="<a href=\"../password/\">Change password</a>")
 
