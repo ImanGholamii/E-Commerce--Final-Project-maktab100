@@ -51,6 +51,13 @@ class SignUpView(CreateView):
         return response
 
 
+class UserRegisterCodeView(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        pass
+
 # def login_view(request):
 #     if request.method == 'POST':
 #         username = request.POST["username"]
