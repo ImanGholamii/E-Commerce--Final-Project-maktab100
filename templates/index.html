@@ -122,10 +122,10 @@
               </div>
               <div class="detail-box">
                 <h5>
-                  Tasty Thursdays
+                  {% trans 'Tasty Thursdays' %}
                 </h5>
                 <h6>
-                  <span>20%</span> Off
+                  <span>20%</span> {% trans 'Off' %}
                 </h6>
                 <a href="">
                   {% trans 'Order Now' %} <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -158,10 +158,10 @@
               </div>
               <div class="detail-box">
                 <h5>
-                  Pizza Days
+                  {% trans 'Pizza Days' %}
                 </h5>
                 <h6>
-                  <span>15%</span> Off
+                  <span>15%</span> {% trans 'Off' %}
                 </h6>
                 <a href="">
                   {% trans 'Order Now' %} <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -217,15 +217,27 @@
     <li class="{% if request.GET.category == 'ساندویچ سرد' %}active{% endif %}">
         <a href="?category=ساندویچ سرد">{% trans 'Cold Sandwich' %}</a>
     </li>
-    <li class="{% if request.GET.category == 'پیتزاها' %}active{% endif %}">
-        <a href="?category=پیتزاها">{% trans 'Pizza' %}</a>
+    <li class="{% if request.GET.category == 'پیتزا های گوشتی' %}active{% endif %}">
+        <a href="?category=پیتزا های گوشتی">{% trans 'Pizza' %}</a>
+    </li>
+    <li class="{% if request.GET.category == 'پیتزا سبزیجات' %}active{% endif %}">
+        <a href="?category=پیتزا سبزیجات">{% trans 'Green Pizza' %}</a>
     </li>
     <li class="{% if request.GET.category == 'برگر' %}active{% endif %}">
         <a href="?category=برگر">{% trans 'Burger' %}</a>
     </li>
-    <li class="{% if request.GET.category == 'پیش غذا - سالاد - نوشیدنی' %}active{% endif %}">
-        <a href="?category=پیش غذا - سالاد - نوشیدنی">{% trans 'salad, drink' %}</a>
+    <li class="{% if request.GET.category == 'نوشیدنی ها' %}active{% endif %}">
+    <a href="?category=نوشیدنی ها">{% trans 'Drink' %}</a>
     </li>
+    <li class="{% if request.GET.category == 'سالاد ها' %}active{% endif %}">
+        <a href="?category=سالاد ها">{% trans 'Salad' %}</a>
+    </li>
+    <li class="{% if request.GET.category == 'سیب زمینی' %}active{% endif %}">
+        <a href="?category=سیب زمینی">{% trans 'Fries' %}</a>
+    </li>
+
+
+
 </ul>
 
       <div class="filters-content">
