@@ -31,7 +31,7 @@ THIRD_PARTY_APPS = [
     'drf_yasg',
     'rest_framework',
     'rest_framework.authtoken',
-    #'rest_framework_simplejwt',
+    # 'rest_framework_simplejwt',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS + THIRD_PARTY_APPS
@@ -52,7 +52,7 @@ ROOT_URLCONF = 'src.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,9 +121,24 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/' # home
-LOGOUT_REDIRECT_URL = '/' # home
+# REDIRECT URLS
+
+LOGIN_REDIRECT_URL = '/'  # home
+LOGOUT_REDIRECT_URL = '/'  # home
+
+# MY USER MODEL
 
 AUTH_USER_MODEL = 'users.User'
 
+# MY COOKIES
+
 CART_COOKIE_NAME = 'shopping_cart'
+
+# EMAIL CONFIGS
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'sharlotimi@gmail.com'  # Email Sender
+EMAIL_HOST_PASSWORD = 'rkyb ninv cxzp xykw'  # Password App
