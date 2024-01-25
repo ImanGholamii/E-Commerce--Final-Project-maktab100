@@ -27,7 +27,11 @@ class SignUpView(CreateView):
         form = self.get_form()
         if form.is_valid():
             random_code = random.randint(100000, 999999)
-            send_otp_code(form.cleaned_data['email'], code=random_code)
+            send_otp_code(
+                recipient=form.cleaned_data['email'],
+                subject='Verification Code',
+                message=f'Your verification code is: {random_code}',
+            )
             OtpCode.objects.create(email=form.cleaned_data['email'], otp_code=random_code)
             request.session['user_registration_info'] = {
                 'username': form.cleaned_data['username'],
@@ -37,6 +41,7 @@ class SignUpView(CreateView):
             }
             messages.success(request, 'OTP Code Sent to your email.', 'success')
         return HttpResponseRedirect(reverse_lazy('verify'))
+
     def form_valid(self, form):
         response = super().form_valid(form)
         user = form.save(commit=False)
@@ -62,7 +67,7 @@ class UserRegisterCodeView(View):
         print(44 * '=' + 'user_session' + 44 * '=')
         print(user_session)
         form = self.form_class
-        return render(request, 'users/verify.html', {'form':form})
+        return render(request, 'users/verify.html', {'form': form})
 
     def post(self, request):
         user_session = request.session['user_registration_info']
@@ -73,7 +78,7 @@ class UserRegisterCodeView(View):
             if cd['code'] == code_instance.otp_code:
                 User = get_user_model()
                 user_instance = User.objects.create_user(user_session['email'], user_session['phone'],
-                                         user_session['password'])
+                                                         user_session['password'])
                 user_instance.username = user_session['username']
                 user_instance.save()
                 code_instance.delete()
