@@ -24,6 +24,7 @@ MY_APPS = [
     'products',
     'orders',
     'imagess',
+    'email_sender_app',
 
 ]
 
