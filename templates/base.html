@@ -303,6 +303,16 @@
                                 });
                             });
                         </script>
+{#                            <script>#}
+{#                                $(document).ready(function () {#}
+{#                                    $("#openSignupModalBtn").click(function () {#}
+{#                                        $.get("/users/signup/", function (data) {#}
+{#                                            $("#signupModal .modal-body").html(data);#}
+{#                                            $("#signupModal").modal("show");#}
+{#                                        });#}
+{#                                    });#}
+{#                                });#}
+{#                            </script>#}
                     {% else %}
                         <li>
                             <a class="btn btn-dark logout" href="{% url 'logout' %}">{% trans 'Logout' %}</a>
