@@ -29,7 +29,7 @@ class SignUpView(CreateView):
             random_code = random.randint(100000, 999999)
             send_otp_code(
                 recipient=form.cleaned_data['email'],
-                subject='Verification Code',
+                subject='FAST FOODIA Verification Code',
                 message=f'Your verification code is: {random_code}',
             )
             OtpCode.objects.create(email=form.cleaned_data['email'], otp_code=random_code)
