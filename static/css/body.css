@@ -16,17 +16,17 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(248, 215, 218, 0.55);
+  /*background-color: rgba(248, 215, 218, 0.55);*/
   background-size: cover;
   opacity: 0.5;
   z-index: -1;
 }
 
-.p-detail p,
-.detail-box p,
-.detail-box{
-    background-color: rgba(248, 215, 218, 0.55) !important;
-}
+/*.p-detail p,*/
+/*.detail-box p,*/
+/*.detail-box{*/
+/*    background-color: rgba(248, 215, 218, 0.55) !important;*/
+/*}*/
 
 .detail-box h1,
 .detail-box p,
