@@ -23,11 +23,14 @@ schema_view = get_schema_view(
 urlpatterns = i18n_patterns(
     # SWAGGER
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+
     # ADMIN
     path('admin/', admin.site.urls),
+
     # APP
     path('', include('products.urls')),
     path('users/', include('users.urls')),
+    path('email/', include('email_sender_app.urls')),
 
     # API
 
