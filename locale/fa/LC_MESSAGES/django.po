@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-23 20:15+0330\n"
+"POT-Creation-Date: 2024-01-25 10:32+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,16 +56,17 @@ msgid "Phone number must be start with +98 or 0 in IR format."
 msgstr "شماره تلفن باید با 0 و یا 98+ آغاز شود"
 
 #: core/validators.py:12 users/forms.py:39
-msgid"This phone number is already in use. Please use a different phone number."
+msgid "This phone number is already in use. Please use a different phone number."
 msgstr "این شماره تماس موجود است. لطفا از شماره تماس دیگری استفاده کنید"
 
 #: core/validators.py:30
-msgid"Your password must contain at least 8 characters and include both letters and numbers."
+msgid "Your password must contain at least 8 characters and include both letters "
+"and numbers."
 msgstr "رمز عبور شما باید حداقل 8 کاراکتر داشته باشد و شامل حروف و اعداد باشد."
 
 #: core/validators.py:41 users/forms.py:29
 msgid "This email is already in use. Please use a different email address."
-msgstr "این ایمیل در حال حاضر در حال استفاده است. لطفا از آدرس ایمیل دیگری استفاده کنید."
+msgstr "این ایمیل در حال حاضر در حال استفاده است. لطفا از آدرس ایمیل دیگری استفاده کنید "
 
 #: imagess/models.py:7 imagess/models.py:25 products/admin.py:19
 #: products/models.py:19
@@ -107,12 +108,12 @@ msgstr "تکمیل شده"
 msgid "Cancelled"
 msgstr "لغو شده"
 
-#: orders/models.py:17 users/admin.py:38 users/admin.py:41 users/views.py:28
+#: orders/models.py:17 users/admin.py:47 users/admin.py:50 users/views.py:47
 msgid "Employee"
 msgstr "کارمند"
 
-#: orders/models.py:19 orders/models.py:48 users/admin.py:37 users/admin.py:40
-#: users/forms.py:13 users/views.py:26
+#: orders/models.py:19 orders/models.py:48 users/admin.py:46 users/admin.py:49
+#: users/forms.py:13 users/views.py:45
 msgid "Customer"
 msgstr "مشتری"
 
@@ -124,7 +125,7 @@ msgstr "تاریخ سفارش"
 msgid "Status"
 msgstr "تاریخ سفارش"
 
-#: orders/models.py:34 orders/models.py:47 templates/base.html:140
+#: orders/models.py:34 orders/models.py:47 templates/base.html:133
 msgid "Order"
 msgstr "سفارش"
 
@@ -261,23 +262,31 @@ msgstr "فارسی"
 msgid "English"
 msgstr "انگلیسی"
 
-#: templates/base.html:91
+#: templates/base.html:99
 msgid "Menu"
 msgstr "منیو"
 
-#: templates/base.html:143 templates/base.html:149
+#: templates/base.html:138 templates/base.html:144
 msgid "Sign Up"
 msgstr "ثبت نام"
 
-#: templates/base.html:159
+#: templates/base.html:213 users/templates/users/sign_up.html:70
 msgid "Submit"
 msgstr "ارسال"
 
-#: templates/base.html:196
+#: templates/base.html:234
+msgid "Login"
+msgstr "ورود"
+
+#: templates/base.html:309
+msgid "Logout"
+msgstr "خروج"
+
+#: templates/base.html:329
 msgid "Contact Us"
 msgstr "ارتباط با ما"
 
-#: templates/base.html:250
+#: templates/base.html:383
 msgid "Opening Hours"
 msgstr "ساعات کاری"
 
@@ -354,11 +363,11 @@ msgstr "کاربر ویژه باید دارای is_superuser=True باشد."
 msgid "Employee must have is_employee=True."
 msgstr "کاربر ویژه باید دارای is_superuser=True باشد."
 
-#: users/models.py:42
+#: users/models.py:42 users/templates/users/sign_up.html:19
 msgid "Username"
 msgstr "نام کاربری"
 
-#: users/models.py:45
+#: users/models.py:45 users/templates/users/sign_up.html:28
 msgid "Email"
 msgstr "ایمیل"
 
@@ -366,7 +375,7 @@ msgstr "ایمیل"
 msgid "Enter your phone number."
 msgstr "شماره تلفن خود را وارد کنید."
 
-#: users/models.py:47
+#: users/models.py:47 users/templates/users/sign_up.html:37
 msgid "Phone"
 msgstr "تلفن"
 
@@ -480,6 +489,28 @@ msgstr "علایق"
 msgid "Address"
 msgstr "آدرس ها"
 
+#: users/templates/users/sign_up.html:11
+msgid "Create a new account"
+msgstr "حساب جدید ایجاد کنید"
+
+#: users/templates/users/sign_up.html:47
+#, fuzzy
+#| msgid "password1"
+msgid "Password"
+msgstr "رمز"
+
+#: users/templates/users/sign_up.html:57
+msgid "Password confirmation"
+msgstr "تایید رمز"
+
+#: users/templates/users/sign_up.html:77
+msgid "Already have an account?"
+msgstr "حساب کاربری دارید؟"
+
+#: users/templates/users/sign_up.html:79
+msgid "Log In"
+msgstr "وارد شوید"
+
 #~ msgid "invalid IR phone number"
 #~ msgstr "شماره تلفن نامعتبر"
 
@@ -497,9 +528,6 @@ msgstr "آدرس ها"
 #~| msgid "Phone"
 #~ msgid "phone"
 #~ msgstr "تلفن"
-
-#~ msgid "password1"
-#~ msgstr "رمز"
 
 #~ msgid "password2"
 #~ msgstr "تکرار رمز"
