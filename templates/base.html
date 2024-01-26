@@ -67,7 +67,7 @@
 
         <div class="container">
             <nav class="navbar navbar-expand-lg custom_nav-container ">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="/">
             <span>
               <img class="logo" src="{% static 'images/fastfoodia.jpg' %}" alt="logo"> Fast Foodia
             </span>
@@ -77,7 +77,7 @@
                             </a>/<a href="/en/" role="button" class="btn">
                                 En
                             </a>
-                        </li>
+                    </li>
                 </a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -133,8 +133,10 @@
                         </a>
                     {% if not request.user.is_authenticated %}
                         <li>
-                            <button id="openSignupModalBtn"
-                                    class="btn btn-warning signup">{% trans 'Sign Up' %}</button>
+                            <a class="btn btn-warning " href="{% url 'signup' %}">{% trans 'Sign Up' %}</a>
+{#                            <button id="openSignupModalBtn"#}
+{#                                    class="btn btn-warning signup">{% trans 'Sign Up' %}#}
+{#                            </button>#}
                             <!-- Bootstrap Modal -->
                             <div class="modal" tabindex="-1" role="dialog" id="signupModal">
                                 <div class="modal-dialog" role="document">
@@ -361,7 +363,7 @@
                 </div>
                 <div class="col-md-4 footer-col">
                     <div class="footer_detail">
-                        <a href="" class="footer-logo">
+                        <a href="/" class="footer-logo">
                             Fast Foodia
                         </a>
                         <p>
