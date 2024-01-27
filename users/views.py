@@ -85,6 +85,7 @@ class UserRegisterCodeView(View):
             code_instance.delete()
 
         new_otp_code = generate_otp_code()
+        OtpCode.objects.filter(email=user_session['email']).delete()
         OtpCode.objects.create(email=user_session['email'], otp_code=new_otp_code)
 
         send_otp_code(
@@ -92,15 +93,18 @@ class UserRegisterCodeView(View):
             subject='FAST FOODIA Verification Code',
             message=f'Your verification code is: {new_otp_code}',
         )
+        time_remaining = 120
+        return time_remaining
 
     def get(self, request):
         user_session = request.session['user_registration_info']
         print(44 * '=' + 'user_session' + 44 * '=')
         print(user_session)
         form = self.form_class
+        code_instance = OtpCode.objects.get(email=user_session['email'])
         if self.resend:
             self.resend_code(user_session)
-        return render(request, 'users/verify.html', {'form': form})
+        return render(request, 'users/verify.html', {'form': form, 'code_instance': code_instance})
 
     def post(self, request):
         user_session = request.session['user_registration_info']
@@ -128,6 +132,20 @@ class UserRegisterCodeView(View):
             self.resend_code(user_session)
             return JsonResponse({'success': True, 'time_remaining': 120})
         return super().dispatch(request, *args, **kwargs)
+
+
+class ResendCodeView(UserRegisterCodeView):
+    def get(self, request):
+        user_session = request.session.get('user_registration_info', {})
+        self.resend_code(user_session)
+        return JsonResponse({'success': True, 'time_remaining': 120})
+        if code_instance and (timezone.now() - code_instance.created_at) <= timedelta(minutes=2):
+            pass
+        else:
+            self.resend_code(user_session)
+
+        return JsonResponse({'success': True, 'time_remaining': 120})
+
 
 # def login_view(request):
 #     if request.method == 'POST':
