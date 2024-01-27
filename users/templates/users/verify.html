@@ -24,10 +24,16 @@
     <div class="container" style="margin-top: 50px;">
         <h2>{% trans 'Verify Code' %}</h2>
 
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% if form.errors %}
+            <ul>
+                {% for field, errors in form.errors.items %}
+                    <li>{{ field }}:
+                        <ul>
+                            {% for error in errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                 {% endfor %}
             </ul>
         {% endif %}
@@ -37,12 +43,13 @@
             {{ form.as_p }}
             <input type="submit" value="send">
         </form>
-
-        {% if code_instance %}
-            <p>Time remaining: <span id="countdown">{{ code_instance.get_time_remaining|default:0 }}</span></p>
-            <button id="resend-code" onclick="resendCode()">{% trans 'Resend Code' %}</button>
-            <a href="/">{% trans 'Cancel' %}</a>
-        {% endif %}
+        <div style="margin-left: 250px;margin-right: 250px; margin-bottom: 250px;">
+            {% if code_instance %}
+                <p>Time remaining: <span id="countdown">{{ code_instance.get_time_remaining|default:10 }}</span></p>
+                <button id="resend-code" onclick="resendCode()">{% trans 'Resend Code' %}</button>
+                <a href="{% url 'index' %}">{% trans 'Cancel' %}</a>
+            {% endif %}
+        </div>
     </div>
     <script>
 
