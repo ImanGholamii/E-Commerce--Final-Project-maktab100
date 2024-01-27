@@ -1,8 +1,11 @@
+from datetime import timedelta
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model, logout, login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from django.views import View
 from django.views.generic import CreateView
 from django.contrib.auth.models import Group
@@ -15,6 +18,9 @@ from django.http import JsonResponse
 import random
 
 
+def generate_otp_code():
+    return random.randint(100000, 999999)
+
 class SignUpView(CreateView):
     model = get_user_model()
     form_class = CustomUserCreationForm
@@ -23,10 +29,10 @@ class SignUpView(CreateView):
     # success_url = reverse_lazy('login')
     success_url = reverse_lazy('verify')
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
-            random_code = random.randint(100000, 999999)
+            random_code = generate_otp_code()
             send_otp_code(
                 recipient=form.cleaned_data['email'],
                 subject='FAST FOODIA Verification Code',
@@ -40,17 +46,20 @@ class SignUpView(CreateView):
                 'password': form.cleaned_data['password1'],
             }
             messages.success(request, 'OTP Code Sent to your email.', 'success')
-        return HttpResponseRedirect(reverse_lazy('verify'))
+            return HttpResponseRedirect(self.success_url)
+        else:
+            return self.form_invalid(form)
 
     def form_valid(self, form):
         response = super().form_valid(form)
         user = form.save(commit=False)
         customer = form.cleaned_data['is_customer']
-        if customer == True:
-            group = Group.objects.get(name=_('Customer'))
-        if not customer:
-            group = Group.objects.get(name=_('Employee'))
-
+        # if customer == True:
+        #     group = Group.objects.get(name=_('Customer'))
+        # if not customer:
+        #     group = Group.objects.get(name=_('Employee'))
+        group_name = _('Customer') if customer else _('Employee')
+        group = Group.objects.get(name=group_name)
         user.save()
         user.groups.add(group)
         return response
@@ -61,12 +70,36 @@ class SignUpView(CreateView):
 
 class UserRegisterCodeView(View):
     form_class = VerifyCodeForm
+    resend = False
+
+    @classmethod
+    def create(cls, resend=False):
+        instance = cls()
+        instance.resend = resend
+        return instance
+
+    def resend_code(self, user_session):
+        code_instance = OtpCode.objects.filter(email=user_session['email']).first()
+
+        if code_instance and (timezone.now() - code_instance.created_at) <= timedelta(minutes=2):
+            code_instance.delete()
+
+        new_otp_code = generate_otp_code()
+        OtpCode.objects.create(email=user_session['email'], otp_code=new_otp_code)
+
+        send_otp_code(
+            recipient=user_session['email'],
+            subject='FAST FOODIA Verification Code',
+            message=f'Your verification code is: {new_otp_code}',
+        )
 
     def get(self, request):
         user_session = request.session['user_registration_info']
         print(44 * '=' + 'user_session' + 44 * '=')
         print(user_session)
         form = self.form_class
+        if self.resend:
+            self.resend_code(user_session)
         return render(request, 'users/verify.html', {'form': form})
 
     def post(self, request):
@@ -89,6 +122,12 @@ class UserRegisterCodeView(View):
                 return redirect('verify')
         return redirect('/')
 
+    def dispatch(self, request, *args, **kwargs):
+        if kwargs.get('resend', False):
+            user_session = request.session.get('user_registration_info', {})
+            self.resend_code(user_session)
+            return JsonResponse({'success': True, 'time_remaining': 120})
+        return super().dispatch(request, *args, **kwargs)
 
 # def login_view(request):
 #     if request.method == 'POST':
