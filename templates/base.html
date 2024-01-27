@@ -138,97 +138,97 @@
 {#                                    class="btn btn-warning signup">{% trans 'Sign Up' %}#}
 {#                            </button>#}
                             <!-- Bootstrap Modal -->
-                            <div class="modal" tabindex="-1" role="dialog" id="signupModal">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">{% trans 'Sign Up' %}</h5>
-                                            <button type="submit" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Include the signup form here -->
-                                            <form method="post" class="form-pad">
-                                                {% csrf_token %}
-                                                <p class="s-form-label2">Create a new account</p>
-
-                                                <div class="form-group">
-                                                    {% if form.errors %}
-                                                        <div class="error-message">{{ form.username.errors }}</div>
-                                                    {% endif %}
-                                                    <input type="text" id="form2Example11" class="form-control"
-                                                           name="username"/>
-                                                    <label class="s-form-label" for="form2Example11">Username</label>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    {% if form.errors %}
-                                                        <div class="error-message">{{ form.email.errors }}</div>
-                                                    {% endif %}
-                                                    <input type="email" id="form2Example33" class="form-control"
-                                                           name="email"/>
-                                                    <label class="s-form-label " for="form2Example33">Email</label>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    {% if form.errors %}
-                                                        <div class="error-message">{{ form.phone.errors }}</div>
-                                                    {% endif %}
-                                                    <input type="tel" id="form2Example44" class="form-control"
-                                                           name="phone"/>
-                                                    <label class="s-form-label" for="form2Example44">Phone</label>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    {% if form.errors %}
-                                                        <div class="error-message">{{ form.password1.errors }}</div>
-                                                    {% endif %}
-
-                                                    <input type="password" id="form2Example22" name="password1"
-                                                           class="form-control"/>
-                                                    <label class="s-form-label" for="form2Example22">Password</label>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    {% if form.errors %}
-                                                        <div class="error-message">{{ form.password2.errors }}</div>
-                                                    {% endif %}
-
-                                                    <input type="password" id="form2Example55" name="password2"
-                                                           class="form-control"/>
-                                                    <label class="s-form-label" for="form2Example55">Password
-                                                        confirmation</label>
-                                                </div>
-
-                                                <div class="form-check form-check-inline">
-                                                    {{ form.is_customer.errors }}
-                                                    <div class="form-check form-check-inline mb-4 p-0">
-                                                        {{ form.is_customer.label_tag }}
-                                                        {{ form.is_customer }}
-                                                    </div>
-                                                </div>
-
-                                                <div class="text-center pt-1 mb-5 pb-1">
-                                                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-                                                            type="submit">{% trans 'Submit' %}</button>
-                                                    {% if user_already_registered %}
-                                                        <a class="text-muted" href="/users/login/">Already have an
-                                                            account? Log In</a>
-                                                    {% endif %}
-                                                </div>
-
-                                                <div class="d-flex align-items-center justify-content-center pb-4">
-                                                    <p class="mb-0 me-2">Already have an account?</p>
-                                                    <button type="submit" class="btn btn-outline-danger">
-                                                        <a href="/users/login/" class="decor">Log In</a>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+{#                            <div class="modal" tabindex="-1" role="dialog" id="signupModal">#}
+{#                                <div class="modal-dialog" role="document">#}
+{#                                    <div class="modal-content">#}
+{#                                        <div class="modal-header">#}
+{#                                            <h5 class="modal-title">{% trans 'Sign Up' %}</h5>#}
+{#                                            <button type="submit" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                                                <span aria-hidden="true">&times;</span>#}
+{#                                            </button>#}
+{#                                        </div>#}
+{#                                        <div class="modal-body">#}
+{#                                            <!-- Include the signup form here -->#}
+{#                                            <form method="post" class="form-pad">#}
+{#                                                {% csrf_token %}#}
+{#                                                <p class="s-form-label2">Create a new account</p>#}
+{##}
+{#                                                <div class="form-group">#}
+{#                                                    {% if form.errors %}#}
+{#                                                        <div class="error-message">{{ form.username.errors }}</div>#}
+{#                                                    {% endif %}#}
+{#                                                    <input type="text" id="form2Example11" class="form-control"#}
+{#                                                           name="username"/>#}
+{#                                                    <label class="s-form-label" for="form2Example11">Username</label>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="form-group">#}
+{#                                                    {% if form.errors %}#}
+{#                                                        <div class="error-message">{{ form.email.errors }}</div>#}
+{#                                                    {% endif %}#}
+{#                                                    <input type="email" id="form2Example33" class="form-control"#}
+{#                                                           name="email"/>#}
+{#                                                    <label class="s-form-label " for="form2Example33">Email</label>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="form-group">#}
+{#                                                    {% if form.errors %}#}
+{#                                                        <div class="error-message">{{ form.phone.errors }}</div>#}
+{#                                                    {% endif %}#}
+{#                                                    <input type="tel" id="form2Example44" class="form-control"#}
+{#                                                           name="phone"/>#}
+{#                                                    <label class="s-form-label" for="form2Example44">Phone</label>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="form-group">#}
+{#                                                    {% if form.errors %}#}
+{#                                                        <div class="error-message">{{ form.password1.errors }}</div>#}
+{#                                                    {% endif %}#}
+{##}
+{#                                                    <input type="password" id="form2Example22" name="password1"#}
+{#                                                           class="form-control"/>#}
+{#                                                    <label class="s-form-label" for="form2Example22">Password</label>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="form-group">#}
+{#                                                    {% if form.errors %}#}
+{#                                                        <div class="error-message">{{ form.password2.errors }}</div>#}
+{#                                                    {% endif %}#}
+{##}
+{#                                                    <input type="password" id="form2Example55" name="password2"#}
+{#                                                           class="form-control"/>#}
+{#                                                    <label class="s-form-label" for="form2Example55">Password#}
+{#                                                        confirmation</label>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="form-check form-check-inline">#}
+{#                                                    {{ form.is_customer.errors }}#}
+{#                                                    <div class="form-check form-check-inline mb-4 p-0">#}
+{#                                                        {{ form.is_customer.label_tag }}#}
+{#                                                        {{ form.is_customer }}#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="text-center pt-1 mb-5 pb-1">#}
+{#                                                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"#}
+{#                                                            type="submit">{% trans 'Submit' %}</button>#}
+{#                                                    {% if user_already_registered %}#}
+{#                                                        <a class="text-muted" href="/users/login/">Already have an#}
+{#                                                            account? Log In</a>#}
+{#                                                    {% endif %}#}
+{#                                                </div>#}
+{##}
+{#                                                <div class="d-flex align-items-center justify-content-center pb-4">#}
+{#                                                    <p class="mb-0 me-2">Already have an account?</p>#}
+{#                                                    <button type="submit" class="btn btn-outline-danger">#}
+{#                                                        <a href="/users/login/" class="decor">Log In</a>#}
+{#                                                    </button>#}
+{#                                                </div>#}
+{#                                            </form>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
                         </li>
                         <li>
 
@@ -298,13 +298,13 @@
 {#                            });#}
 {#                        </script>#}
                         <!-- Include jQuery and Bootstrap JS -->
-                        <script>
-                            $(document).ready(function () {
-                                $("#openSignupModalBtn").click(function () {
-                                    $("#signupModal").modal("show");
-                                });
-                            });
-                        </script>
+{#                        <script>#}
+{#                            $(document).ready(function () {#}
+{#                                $("#openSignupModalBtn").click(function () {#}
+{#                                    $("#signupModal").modal("show");#}
+{#                                });#}
+{#                            });#}
+{#                        </script>#}
 {#                            <script>#}
 {#                                $(document).ready(function () {#}
 {#                                    $("#openSignupModalBtn").click(function () {#}
