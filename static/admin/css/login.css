@@ -1,7 +1,7 @@
 /* LOGIN FORM */
 
 .login {
-    background: var(--darkened-bg);
+    background: var(--darkened-bg) !important;
     height: auto;
 }
 
@@ -59,7 +59,7 @@
 .login .password-reset-link {
     text-align: center;
 }
-
+#
 .login-logo {
     text-align: center;
     margin-top: 10px;
@@ -76,5 +76,3 @@
 .cu-login {
     background-color: #b44593 !important;
 }
-
-
