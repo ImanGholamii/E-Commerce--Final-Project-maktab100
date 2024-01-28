@@ -62,13 +62,19 @@
 
 .login-logo {
     text-align: center;
-    margin-top: 20px; /* Adjust the top margin as needed */
+    margin-top: 10px;
 }
 
 .login-logo img {
-    width: 100px; /* Set the desired width for the logo */
+    width: 100px;
     height: auto;
     display: block;
-    margin: 0 auto; /* Center the logo horizontally */
+    margin: 0 auto;
     border-radius: 50%;
 }
+
+.cu-login {
+    background-color: #b44593 !important;
+}
+
+
