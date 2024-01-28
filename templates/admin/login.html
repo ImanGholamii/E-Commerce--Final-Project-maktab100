@@ -42,6 +42,9 @@
 {% endblocktranslate %}
 </p>
 {% endif %}
+ <div class="login-logo">
+      <img src="{% static 'images/fastfoodia.jpg' %}" alt="Logo">
+ </div>
 
 <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
   <div class="form-row">
