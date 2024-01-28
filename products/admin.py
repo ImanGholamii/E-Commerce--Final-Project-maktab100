@@ -7,6 +7,15 @@ from django.utils.translation import gettext_lazy as _
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Status', {
+            'fields': (('is_active', 'is_deleted'),),
+            'classes': ('collapse',),
+        }),
+        ('Product', {
+            'fields': ('name', 'description', 'price', 'brand',)
+        }),
+    )
     list_display = ('name', 'description', 'display_image', 'price', 'brand', 'display_categories')
     raw_id_fields = ('category',)
 
