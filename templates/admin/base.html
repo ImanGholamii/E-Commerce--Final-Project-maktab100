@@ -36,6 +36,11 @@
         <div id="branding">
         {% block branding %}{% endblock %}
         </div>
+        {% block logo %}
+        <div class="login-logo">
+          <img src="{% static 'images/fastfoodia.jpg' %}" alt="Logo">
+        </div>
+        {% endblock logo %}
         {% block usertools %}
         {% if has_permission %}
         <div id="user-tools">
