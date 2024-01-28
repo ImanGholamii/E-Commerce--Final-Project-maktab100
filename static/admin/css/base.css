@@ -6,7 +6,7 @@
 html[data-theme="light"],
 :root {
     --primary: #79c8ba;
-    --secondary: #674190;
+    --secondary: rgb(108, 63, 155);
     --accent: #f5dd5d;
     --primary-fg: #ffffff;
 
@@ -932,6 +932,7 @@ a.deletelink:focus, a.deletelink:hover {
 
 #branding {
     display: flex;
+    margin-right: 30px;
 }
 
 #branding h1 {
@@ -972,7 +973,7 @@ a.deletelink:focus, a.deletelink:hover {
 
 #user-tools {
     float: right;
-    margin: 0 0 0 20px;
+    margin: 0 0 0 0px;
     text-align: right;
 }
 
@@ -1135,4 +1136,18 @@ a.deletelink:focus, a.deletelink:hover {
 
 .base-svgs {
     display: none;
+}
+
+.login-logo {
+    text-align: center !important;
+    margin-top: 10px;
+}
+
+.login-logo img {
+    width: 70px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    margin-left: 100px;
+    border-radius: 50%;
 }
