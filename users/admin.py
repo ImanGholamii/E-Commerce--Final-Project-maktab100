@@ -40,7 +40,7 @@ admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Address, AddressAdmin)
 
 # ==========================
-admin.site.unregister(Group)
+# admin.site.unregister(Group)
 
 # ==========================
 Group.objects.get_or_create(name=_('Customer'))
