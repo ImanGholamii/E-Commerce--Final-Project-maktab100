@@ -4,6 +4,8 @@ from .models import Brand, Category, Product, Discount, PromoCode, Comment, Pare
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
+
+@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'display_image', 'price', 'brand', 'display_categories')
     raw_id_fields = ('category',)
@@ -13,7 +15,9 @@ class ProductAdmin(admin.ModelAdmin):
         if images:
             image_url = images[0].image.url if hasattr(images[0].image, 'url') else "No Image"
             if image_url:
-                return format_html('<div style="text-align: center;"><img src="{}" width="100" height="100" /></div>'.format(image_url))
+                return format_html(
+                    '<div style="text-align: center;"><img src="{}" width="100" height="100" /></div>'.format(
+                        image_url))
         return "No Image"
 
     display_image.short_description = _('Image')
@@ -28,9 +32,11 @@ class ProductAdmin(admin.ModelAdmin):
 
     def switch_to_persian(self, request, queryset):
         activate('fa')
+
     switch_to_persian.short_description = _('Switch to Persian')
 
-admin.site.register(Product, ProductAdmin)
+
+# admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, admin.ModelAdmin)
 admin.site.register(Comment, admin.ModelAdmin)
 admin.site.register(ParentChildComment, admin.ModelAdmin)
