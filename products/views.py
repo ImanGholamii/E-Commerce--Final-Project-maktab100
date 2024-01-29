@@ -14,6 +14,10 @@ def template_render(request):
 class ProductListView(ListView):
     model = Product
     template_name = 'products/product_list.html'
+    paginate_by = 6
+
+    def  get_queryset(self):
+        return Product.objects.all()
 
 
 class ProductDetailView(DetailView):
