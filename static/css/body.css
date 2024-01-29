@@ -1,6 +1,22 @@
 .body{
     background-color: rgba(240, 186, 255, 0.3);
 }
+.product_list{
+    background-color: #2d9eb0;
+}
+.step-links {
+    margin-bottom: 2px;
+}
+.current{
+    margin-right: 5px;
+    margin-left: 5px;
+    background-color: #e2f579;
+    border-radius: 45%;
+}
+.pag-button{
+    width: 65px;
+    height: auto;
+}
 .detail-body{
     background-color: rgba(15, 102, 116, 0.29);
 }
