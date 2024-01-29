@@ -43,6 +43,9 @@ class Product(LogicalBaseModel, TimeStampBaseModel):
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_('Price'))
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=_('Brand'))
 
+    def short_description(self):
+        return f"{self.description[:20]}"
+
     def __str__(self):
         return self.name
 
