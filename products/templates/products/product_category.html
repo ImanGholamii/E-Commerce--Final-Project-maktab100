@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block type-body %}"product_list"{% endblock %}
+{% block background %}{% endblock background %}
+{% block title %}Category{% endblock title %}
+{% block content %}
+  <div>
+    <h2>{{ parent_category.name }}</h2>
+    <p>{{ parent_category.description }}</p>
+    <img src="{{ parent_category.image.url }}" alt="{{ parent_category.name }} Image">
+  </div>
+
+  <hr>
+
+  <div>
+    <h3>Products in {{ parent_category.name }}</h3>
+    <ul>
+      {% for product in product_list %}
+        <li>{{ product.name }} - {{ product.description }} - {{ product.price }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <hr>
+
+  <div>
+    <h3>Root Categories</h3>
+    <ul>
+      {% for category in parent_categories %}
+        <li><a href="{% url 'product_category' category_name=category.name %}">{{ category.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
