@@ -1,3 +1,4 @@
+from django.core.validators import RegexValidator
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractUser
 from django.utils.translation import gettext_lazy as _
@@ -43,8 +44,10 @@ class User(AbstractUser, TimeStampBaseModel):
     )
 
     email = models.EmailField(unique=True, verbose_name=_('Email'))
-    phone = models.CharField(max_length=20, validators=[Validator.phone_validator()],
-                             help_text=_("Enter your phone number."), verbose_name=_('Phone'), unique=True)
+    phone = models.CharField(max_length=20, validators=[
+            RegexValidator(regex=r'^(\+98|0)?9\d{9}$',
+            message=_("Phone number must be start with +98 or 0 in IR format."),code='invalid_IR_phone_number'), ],
+                                 help_text=_("Enter your phone number."), verbose_name=_('Phone'), unique=True)
     registration_date = models.DateTimeField(auto_now_add=True, verbose_name=_('Registration Date'))
     is_customer = models.BooleanField(default=True)
     is_employee = models.BooleanField(default=False)
