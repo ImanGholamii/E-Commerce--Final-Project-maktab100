@@ -17,6 +17,8 @@
     <meta name="author" content=""/>
     <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="">
 
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css">
 
     <!-- bootstrap core css -->
 
@@ -133,7 +135,7 @@
                         </a>
                     {% if not request.user.is_authenticated %}
                         <li>
-                            <a class="btn btn-warning " href="{% url 'signup' %}">{% trans 'Sign Up' %}</a>
+                            <a class="btn btn-warning signup" href="{% url 'signup' %}" >{% trans 'Sign Up' %}</a>
 {#                            <button id="openSignupModalBtn"#}
 {#                                    class="btn btn-warning signup">{% trans 'Sign Up' %}#}
 {#                            </button>#}
@@ -320,9 +322,24 @@
                             <a class="btn btn-dark logout" href="{% url 'logout' %}">{% trans 'Logout' %}</a>
                         </li>
                     {% endif %}
+
                     </div>
                 </div>
             </nav>
+            <div>
+            {% block category %}
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% trans 'Categories' %}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </div>
+            {% endblock category %}
+            </div>
         </div>
 
     </header>
@@ -416,6 +433,12 @@
     </footer>
     </div>
     <!-- footer section -->
+
+    <!-- Popper.js and Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@latest/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.min.js"></script>
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
