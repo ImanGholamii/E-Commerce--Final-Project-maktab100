@@ -2,7 +2,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render
 from django.views.generic import DetailView, TemplateView, ListView
-from products.models import Product
+from products.models import Product, Category
 from users.forms import CustomUserCreationForm
 
 
@@ -68,6 +68,20 @@ class HomeView(ListView):
         context = {'form': form}
         return render(request, self.template_name, context)
 
+
+class ProductCategoryListView(ListView):
+    template_name = "products/product_category.html"
+    model = Product
+
+    def get_queryset(self):
+        category_name = self.kwargs['category_name']
+        return Product.objects.filter(category__name=category_name)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['parent_categories'] = Category.objects.get_root_categories_queryset()
+        context['parent_category'] = Category.objects.get(name=self.kwargs['category_name'])
+        return context
 # from django.contrib.auth.views import LoginView
 #
 # class HomeView(ListView, LoginView):
