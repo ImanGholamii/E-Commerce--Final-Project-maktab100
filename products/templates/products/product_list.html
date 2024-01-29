@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
 {% block content %}
 <div class="container">
         <div class="row">
@@ -8,12 +10,29 @@
                       <img src="{{ product.images.first.image.url }}" class="card-img-top" alt="{{ product.name }}">
                       <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <p class="card-text">{{ product.short_description }}</p>
+                        <a href="{% url 'detail' pk=product.pk %}" class="btn btn-primary">{% trans 'details' %}</a>
                       </div>
                     </div>
                 </div>
             {% endfor %}
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if object_list.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ object_list.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+                </span>
+
+                    {% if object_list.has_next %}
+                        <a href="?page={{ object_list.next_page_number }}">next</a>
+                        <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+            </span>
         </div>
       </div>
 {% endblock content %}
