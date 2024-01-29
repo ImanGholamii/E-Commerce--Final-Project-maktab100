@@ -1,6 +1,7 @@
 .body{
     background-color: rgba(240, 186, 255, 0.3);
 }
+/*product_list*/
 .product_list{
     background-color: #2d9eb0;
 }
@@ -17,6 +18,7 @@
     width: 65px;
     height: auto;
 }
+/*product_list*/
 .detail-body{
     background-color: rgba(15, 102, 116, 0.29);
 }
