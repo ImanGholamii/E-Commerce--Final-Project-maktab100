@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
+{% block type-body %}"product_list"{% endblock %}
+{% block background %}{% endblock background %}
 {% block content %}
 <div class="container">
         <div class="row">
@@ -17,21 +19,21 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="pagination">
+        <div class="pagination d-flex justify-content-center mt-4">
             <span class="step-links">
-                {% if object_list.has_previous %}
-                    <a href="?page=1">&laquo; first</a>
-                    <a href="?page={{ object_list.previous_page_number }}">previous</a>
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="btn btn-dark">&laquo; {% trans 'first' %}</a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-light">{% trans 'previous' %}</a>
                 {% endif %}
 
                 <span class="current">
-                    Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                 </span>
 
-                    {% if object_list.has_next %}
-                        <a href="?page={{ object_list.next_page_number }}">next</a>
-                        <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
-                    {% endif %}
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-light pag-button">{% trans 'next' %}</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-dark pag-button">{% trans 'last' %} &raquo;</a>
+                {% endif %}
             </span>
         </div>
       </div>
