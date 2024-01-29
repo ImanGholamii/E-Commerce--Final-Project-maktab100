@@ -22,6 +22,10 @@ class Category(LogicalBaseModel, TimeStampBaseModel):
 
     class Meta:
         verbose_name_plural = "categories"
+
+    def get_root_categories_queryset(self):
+        return Category.objects.filter(parent__isnull=True)
+
     def get_full_path(self):
         path = [self.name]
         current_category = self
@@ -44,7 +48,7 @@ class Product(LogicalBaseModel, TimeStampBaseModel):
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=_('Brand'))
 
     def short_description(self):
-        return f"{self.description[:20]}"
+        return f"{self.description[:17]}..."
 
     def __str__(self):
         return self.name
