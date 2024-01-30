@@ -45,6 +45,9 @@ admin.site.register(Address, AddressAdmin)
 # ==========================
 Group.objects.get_or_create(name=_('Customer'))
 Group.objects.get_or_create(name=_('Employee'))
+Group.objects.get_or_create(name=_('Manager'))
+Group.objects.get_or_create(name=_('Viewer'))
+Group.objects.get_or_create(name=_('Operator'))
 
 customer_group = Group.objects.get(name=_('Customer'))
 employee_group = Group.objects.get(name=_('Employee'))
