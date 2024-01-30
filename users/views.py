@@ -26,11 +26,12 @@ class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     template_name = 'users/sign_up.html'
     success_url = reverse_lazy('verify')
+    login_url = '/users/login/'
 
     def post(self, request):
         form = self.get_form()
         if form.is_valid():
-            random_code = random.randint(100000, 999999)
+            random_code = generate_otp_code()
             send_otp_code(
                 recipient=form.cleaned_data['email'],
                 subject='FAST FOODIA Verification Code',
@@ -67,6 +68,11 @@ class SignUpView(CreateView):
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect(self.login_url)
+        return super().dispatch(request, *args, **kwargs)
 
 
 
