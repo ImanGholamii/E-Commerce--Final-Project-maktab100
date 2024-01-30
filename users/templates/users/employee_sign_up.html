@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block background %}{% endblock background %}
+{% block category %}{% endblock category %}
+{% block search %}{% endblock search %}
+{% block title %}Sign Up{% endblock title %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <form method="post" action="" class="form-pad" style="margin-left: auto; margin-right: auto; max-width: 400px;">
+        {% csrf_token %}
+        <p class="s-form-label2 text-center mb-4">{% trans 'Create a new employee account' %}</p>
+
+        <div class="form-group">
+            {% if form.username.errors %}
+                <div class="error-message">{{ form.username.errors }}</div>
+            {% endif %}
+            <input type="text" id="form2Example11" class="form-control" name="username" placeholder="{% trans 'Username' %}">
+        </div>
+
+        <div class="form-group">
+            {% if form.email.errors %}
+                <div class="error-message">{{ form.email.errors }}</div>
+            {% endif %}
+            <input type="email" id="form2Example33" class="form-control" name="email" placeholder="{% trans 'Email' %}">
+        </div>
+
+        <div class="form-group">
+            {% if form.phone.errors %}
+                <div class="error-message">{{ form.phone.errors }}</div>
+            {% endif %}
+            <input type="tel" id="form2Example44" class="form-control" name="phone" placeholder="{% trans 'Phone' %}">
+        </div>
+
+        <div class="form-group">
+            {% if form.password1.errors %}
+                <div class="error-message">{{ form.password1.errors }}</div>
+            {% endif %}
+            <input type="password" id="form2Example22" name="password1" class="form-control" placeholder="{% trans 'Password' %}">
+        </div>
+
+        <div class="form-group">
+            {% if form.password2.errors %}
+                <div class="error-message">{{ form.password2.errors }}</div>
+            {% endif %}
+            <input type="password" id="form2Example55" name="password2" class="form-control" placeholder="{% trans 'Password confirmation' %}">
+        </div>
+
+        <div class="form-check form-check-inline mb-4 p-0">
+            {{ form.is_customer.label_tag }}
+            {{ form.is_customer }}
+        </div>
+
+        <div class="text-center pt-1 mb-5 pb-1">
+            <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">{% trans 'Submit' %}</button>
+            {% if user_already_registered %}
+                <a class="text-muted" href="/users/login/">{% trans 'Already have an account? Log In' %}</a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+{% endblock content %}
