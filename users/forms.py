@@ -3,15 +3,16 @@ from django.contrib.auth.forms import UserCreationForm, ReadOnlyPasswordHashFiel
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from core.validators import Validator
+from users.models import Employee
 
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ['username', 'email', 'phone', 'password1', 'password2', 'is_customer']
-        labels = {
-            'is_customer': _('Customer')
-        }
+        fields = ['username', 'email', 'phone', 'password1', 'password2']
+        # labels = {
+        #     'is_customer': _('Customer')
+        # }
 
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)
@@ -43,6 +44,52 @@ class CustomUserCreationForm(UserCreationForm):
         super().add_error(field, error)
         if field in self.errors:
             self.fields[field].widget.attrs.update({'class': 'error-message'})
+
+
+class EmployeeCreationForm(UserCreationForm):
+    role = forms.ChoiceField(choices=Employee.ROLE_CHOICES, label='Role')
+
+    class Meta:
+        model = get_user_model()
+        fields = ['username', 'email', 'phone', 'password1', 'password2', 'role']
+        labels = {
+            'role': _('Role'),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(EmployeeCreationForm, self).__init__(*args, **kwargs)
+
+        password_validator = Validator.password_validator()
+        self.fields['password1'].validators.append(password_validator)
+
+        self.fields['password1'].help_text = ''
+        self.fields['password2'].help_text = ''
+
+        email_validator = Validator.email_validator()
+        self.fields['email'].validators.append(email_validator)
+
+        self.fields['email'].error_messages = {
+            'duplicate_email': _('This email is already in use. Please use a different email address.'),
+        }
+
+        phone_validator = Validator.phone_validator()
+        self.fields['phone'].validators.append(phone_validator)
+
+        self.fields['phone'].help_text = ''
+
+        self.fields['phone'].error_messages = {
+            'invalid': _('Invalid phone number. Please must be start with +98 or 0'),
+            'duplicate_phone': _('This phone number is already in use. Please use a different phone number.'),
+        }
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.is_customer = False
+        user.is_employee = True
+
+        if commit:
+            user.save()
+        return user
 
 
 class VerifyCodeForm(forms.Form):
