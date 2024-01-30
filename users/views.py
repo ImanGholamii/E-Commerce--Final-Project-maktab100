@@ -54,15 +54,10 @@ class SignUpView(CreateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         user = form.save(commit=False)
-        customer = form.cleaned_data['is_customer']
-        # if customer == True:
-        #     group = Group.objects.get(name=_('Customer'))
-        # if not customer:
-        #     group = Group.objects.get(name=_('Employee'))
-        group_name = _('Customer') if customer else _('Employee')
+        group_name = _('Customer')
         group = Group.objects.get(name=group_name)
-        user.save()
         user.groups.add(group)
+        user.save()
         return response
 
 
