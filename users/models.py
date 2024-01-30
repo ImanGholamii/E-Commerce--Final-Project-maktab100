@@ -64,8 +64,8 @@ class User(AbstractUser, TimeStampBaseModel):
 class Employee(TimeStampBaseModel):
     ROLE_CHOICES = [
         ('manager', _('Manager')),
-        ('staff', _('Staff')),
-        ('customer_support', _('Customer Support')),
+        ('operator', _('Operator')),
+        ('viewer', _('Viewer')),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, verbose_name=_('User'))
     role = models.CharField(max_length=100, choices=ROLE_CHOICES, verbose_name=_('Role'))
