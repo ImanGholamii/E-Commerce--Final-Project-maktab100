@@ -18,6 +18,8 @@ class ProductAdmin(admin.ModelAdmin):
     )
     list_display = ('name', 'description', 'display_image', 'price', 'brand', 'display_categories')
     raw_id_fields = ('category',)
+    # search_fields = ('id', 'name', 'brand', 'description')
+    list_filter = ('is_active', 'is_deleted', 'name', 'brand', 'category')
 
     def display_image(self, obj):
         images = obj.images.all()
