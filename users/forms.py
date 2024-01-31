@@ -53,6 +53,7 @@ class EmployeeCreationForm(UserCreationForm):
         model = get_user_model()
         fields = ['username', 'email', 'phone', 'password1', 'password2', 'role']
         labels = {
+            # 'is_employee': _('Employee'),
             'role': _('Role'),
         }
 
