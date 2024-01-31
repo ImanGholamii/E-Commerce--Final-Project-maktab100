@@ -141,7 +141,7 @@
         <div class="text-center pt-1 mb-5 pb-1">
             <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">{% trans 'Submit' %}</button>
             {% if user_already_registered %}
-                <a class="text-muted" href="/users/login/">{% trans 'Already have an account? Log In' %}</a>
+                <a class="text-muted" href="{% url 'login' %}">{% trans 'Already have an account? Log In' %}</a>
             {% endif %}
         </div>
 
