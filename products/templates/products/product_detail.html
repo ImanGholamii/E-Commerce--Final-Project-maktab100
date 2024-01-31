@@ -1,23 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block type-body %}"detail-body"{% endblock %}
 {% block background %}{% endblock background %}
 {% block title %} Product Details {{ product.id }} {% endblock title %}
-{% block content %}
-    <h1>{{ product.name }}</h1>
-  <p>{{ product.description }}</p>
-  <p>Price: ${{ product.price }}</p>
-  <p>Brand: {{ product.brand.name }}</p>
-
-  <h2>Images:</h2>
-  <ul>
-    {% for image in product_images %}
-      <li>
-        <img src="{{ image.image.url }}" alt="{{ product.name }} Image">
-      </li>
-    {% endfor %}
-  </ul>
-
-  <h2>Categories:</h2>
+{% block navbut %}
+  <h2 style="margin-right: 150px;"></h2>
   <p>{{ category_path }}</p>
+{% endblock navbut %}
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card border-3 border-dark">
+          <img src="{{ product_images.0.image.url }}" class="card-img-top" alt="{{ product.name }}">
+          <div class="card-body border-2 border-primary ">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">{{ product.description }}</p>
+            <a href="#" class="btn btn-primary">{% trans 'Add to Cart' %}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
