@@ -1,10 +1,12 @@
 from django.urls import path
-from users.views import SignUpView, login_view, profile_view, Logout, home, UserRegisterCodeView, EmployeeSignUpView
+from users.views import SignUpView, login_view, profile_view, Logout, home, UserRegisterCodeView, EmployeeSignUpView, \
+    EmployeeRegisterCodeView
 
 urlpatterns = [
     path('signup/', SignUpView.as_view(), name="signup"),
     path('signup/employee/', EmployeeSignUpView.as_view(), name="employee_signup"),
     path('verify/', UserRegisterCodeView.as_view(), name="verify"),
+    path('verify/employee/', EmployeeRegisterCodeView.as_view(), name="verify_employee"),
     # path('verify/resend_code/', UserRegisterCodeView.as_view(resend=True), name="resend_code"),
     path('login/', login_view, name="login"),
     path('logout/', Logout.as_view(), name="logout"),
