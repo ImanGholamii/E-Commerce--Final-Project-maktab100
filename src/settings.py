@@ -107,6 +107,9 @@ LANGUAGES = [
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
 ]
+# Base URL
+
+BASE_URL = 'http://localhost:8000'
 
 # STATIC
 
