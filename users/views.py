@@ -11,7 +11,7 @@ from django.views.generic import CreateView
 from django.contrib.auth.models import Group
 from django.urls import reverse, reverse_lazy
 from core.utils import send_otp_code
-from users.forms import CustomUserCreationForm, VerifyCodeForm
+from users.forms import CustomUserCreationForm, VerifyCodeForm, EmployeeCreationForm
 from users.models import UserProfile, OtpCode
 from django.utils.translation import gettext_lazy as _
 from django.http import JsonResponse
@@ -70,8 +70,6 @@ class SignUpView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-
-
 class UserRegisterCodeView(View):
     form_class = VerifyCodeForm
 
@@ -93,6 +91,11 @@ class UserRegisterCodeView(View):
                 user_instance = User.objects.create_user(user_session['email'], user_session['phone'],
                                                          user_session['password'])
                 user_instance.username = user_session['username']
+                user_instance.is_customer = True
+                user_instance.is_employee = False
+                group_name = _('Customer')
+                employee_group, created = Group.objects.get_or_create(name=group_name)
+                user_instance.groups.add(employee_group)
                 user_instance.save()
                 code_instance.delete()
                 messages.success(request, "Your account Verified successfully", 'success')
@@ -101,6 +104,91 @@ class UserRegisterCodeView(View):
                 messages.error(request, 'Wrong Code!', 'danger')
                 return redirect('verify')
         return redirect('/')
+
+
+class EmployeeSignUpView(CreateView):
+    model = get_user_model()
+    form_class = EmployeeCreationForm
+    template_name = 'users/employee_sign_up.html'
+    success_url = reverse_lazy('verify_employee')
+    login_url = '/users/login/'
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            random_code = generate_otp_code()
+            send_otp_code(
+                recipient=form.cleaned_data['email'],
+                subject='FAST FOODIA Verification Code',
+                message=f'Your verification code is: {random_code}',
+            )
+            OtpCode.objects.create(email=form.cleaned_data['email'], otp_code=random_code)
+            request.session['user_registration_info'] = {
+                'username': form.cleaned_data['username'],
+                'email': form.cleaned_data['email'],
+                'phone': form.cleaned_data['phone'],
+                'password': form.cleaned_data['password1'],
+            }
+            messages.success(request, 'OTP Code Sent to your email.', 'success')
+            return HttpResponseRedirect(self.success_url)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        user = form.save(commit=False)
+        group_name = _('Employee')
+        employee_group, created = Group.objects.get_or_create(name=group_name)
+        user.groups.add(employee_group)
+        user.save()
+        return response
+
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect(self.login_url)
+        return super().dispatch(request, *args, **kwargs)
+
+
+
+
+class EmployeeRegisterCodeView(View):
+    form_class = VerifyCodeForm
+
+    def get(self, request):
+        user_session = request.session['user_registration_info']
+        print(44 * '=' + 'user_session' + 44 * '=')
+        print(user_session)
+        form = self.form_class
+        return render(request, 'users/verify.html', {'form': form})
+
+    def post(self, request):
+        user_session = request.session['user_registration_info']
+        code_instance = OtpCode.objects.get(email=user_session['email'])
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            if cd['code'] == code_instance.otp_code:
+                User = get_user_model()
+                user_instance = User.objects.create_user(user_session['email'], user_session['phone'],
+                                                         user_session['password'])
+                user_instance.username = user_session['username']
+                user_instance.is_customer = False
+                user_instance.is_employee = True
+                group_name = _('Employee')
+                employee_group, created = Group.objects.get_or_create(name=group_name)
+                user_instance.groups.add(employee_group)
+                user_instance.save()
+                code_instance.delete()
+                messages.success(request, "Your account Verified successfully", 'success')
+                return redirect('login')
+            else:
+                messages.error(request, 'Wrong Code!', 'danger')
+                return redirect('verify')
+        return redirect('/')
+
 # ==============================================================================
 # class SignUpView(CreateView):
 #     model = get_user_model()
