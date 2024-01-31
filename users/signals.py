@@ -10,7 +10,7 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         if instance.is_employee == True:
             profile = UserProfile.objects.create(user=instance)
-            Employee.objects.create(user=instance, role='staff')
+            Employee.objects.create(user=instance, role='viewer')
         elif instance.is_customer == True:
             profile = UserProfile.objects.create(user=instance)
             Customer.objects.create(user=instance)
