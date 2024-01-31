@@ -177,6 +177,7 @@ class EmployeeRegisterCodeView(View):
                 user_instance.username = user_session['username']
                 user_instance.is_customer = False
                 user_instance.is_employee = True
+                user_instance.is_staff = True
                 group_name = _('Employee')
                 employee_group, created = Group.objects.get_or_create(name=group_name)
                 user_instance.groups.add(employee_group)
