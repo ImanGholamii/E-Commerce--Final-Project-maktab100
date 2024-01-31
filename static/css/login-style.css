@@ -44,3 +44,15 @@ form {
 .form-pad {
     padding: 10px !important;
 }
+
+.login-logo {
+    width: 50px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
