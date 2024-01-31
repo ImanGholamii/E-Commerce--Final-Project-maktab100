@@ -1,13 +1,100 @@
+{#{% extends 'base.html' %}#}
+{#{% load i18n %}#}
+{#{% block background %}{% endblock background %}#}
+{#{% block category %}{% endblock category %}#}
+{#{% block search %}{% endblock search %}#}
+{#{% block title %}SignUP{% endblock title %}#}
+{#{% load static %}#}
+{#{% block content %}#}
+{#<div class="container">#}
+{#    <form method="post" action="" class="form-pad" style="margin-left: 250px;margin-right: 250px;">#}
+{#        {% csrf_token %}#}
+{#        <p class="s-form-label2 text-center mb-4">{% trans 'Create a new account' %}</p>#}
+{##}
+{#        <div class="form-group">#}
+{#            {% if form.errors %}#}
+{#                <div class="error-message">{{ form.username.errors }}</div>#}
+{#            {% endif %}#}
+{#            <input type="text" id="form2Example11" class="form-control"#}
+{#                   name="username"/>#}
+{#            <label class="s-form-label" for="form2Example11">{% trans 'Username' %}</label>#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            {% if form.errors %}#}
+{#                <div class="error-message">{{ form.email.errors }}</div>#}
+{#            {% endif %}#}
+{#            <input type="email" id="form2Example33" class="form-control"#}
+{#                   name="email"/>#}
+{#            <label class="s-form-label " for="form2Example33">{% trans 'Email' %}</label>#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            {% if form.errors %}#}
+{#                <div class="error-message">{{ form.phone.errors }}</div>#}
+{#            {% endif %}#}
+{#            <input type="tel" id="form2Example44" class="form-control"#}
+{#                   name="phone"/>#}
+{#            <label class="s-form-label" for="form2Example44">{% trans 'Phone' %}</label>#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            {% if form.errors %}#}
+{#                <div class="error-message">{{ form.password1.errors }}</div>#}
+{#            {% endif %}#}
+{##}
+{#            <input type="password" id="form2Example22" name="password1"#}
+{#                   class="form-control"/>#}
+{#            <label class="s-form-label" for="form2Example22">{% trans 'Password' %}</label>#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            {% if form.errors %}#}
+{#                <div class="error-message">{{ form.password2.errors }}</div>#}
+{#            {% endif %}#}
+{##}
+{#            <input type="password" id="form2Example55" name="password2"#}
+{#                   class="form-control"/>#}
+{#            <label class="s-form-label" for="form2Example55">{% trans 'Password confirmation' %}</label>#}
+{#        </div>#}
+{##}
+{#        <div class="form-check form-check-inline">#}
+{#            {{ form.is_customer.errors }}#}
+{#            <div class="form-check form-check-inline mb-4 p-0">#}
+{#                {{ form.is_customer.label_tag }}#}
+{#                {{ form.is_customer }}#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <div class="text-center pt-1 mb-5 pb-1">#}
+{#            <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"#}
+{#                    type="submit">{% trans 'Submit' %}</button>#}
+{#            {% if user_already_registered %}#}
+{#                <a class="text-muted" href="/users/login/"></a>#}
+{#            {% endif %}#}
+{#        </div>#}
+{##}
+{#        <div class="d-flex align-items-center justify-content-center pb-4">#}
+{#            <p class="mb-0 me-2">{% trans 'Already have an account?' %}</p>#}
+{#            <button type="submit" class="btn btn-outline-danger">#}
+{#                <a href="/users/login/" class="decor">{% trans 'Log In' %}</a>#}
+{#            </button>#}
+{#        </div>#}
+{#    </form>#}
+{#</div>#}
+{#{% endblock content %}#}
+
 {% extends 'base.html' %}
 {% load i18n %}
 {% block background %}{% endblock background %}
+{% block navbut %}{% endblock navbut %}
 {% block category %}{% endblock category %}
 {% block search %}{% endblock search %}
 {% block title %}SignUP{% endblock title %}
 {% load static %}
 {% block content %}
 <div class="container">
-    <form method="post" action="" class="form-pad" style="margin-left: 250px;margin-right: 250px;">
+    <form method="post" action="" class="form-pad" style="max-width: 400px; margin: 0 auto;">
         {% csrf_token %}
         <p class="s-form-label2 text-center mb-4">{% trans 'Create a new account' %}</p>
 
@@ -15,62 +102,46 @@
             {% if form.errors %}
                 <div class="error-message">{{ form.username.errors }}</div>
             {% endif %}
-            <input type="text" id="form2Example11" class="form-control"
-                   name="username"/>
-            <label class="s-form-label" for="form2Example11">{% trans 'Username' %}</label>
+            <input type="text" id="form2Example11" class="form-control" name="username" placeholder="{% trans 'Username' %}">
         </div>
 
         <div class="form-group">
             {% if form.errors %}
                 <div class="error-message">{{ form.email.errors }}</div>
             {% endif %}
-            <input type="email" id="form2Example33" class="form-control"
-                   name="email"/>
-            <label class="s-form-label " for="form2Example33">{% trans 'Email' %}</label>
+            <input type="email" id="form2Example33" class="form-control" name="email" placeholder="{% trans 'Email' %}">
         </div>
 
         <div class="form-group">
             {% if form.errors %}
                 <div class="error-message">{{ form.phone.errors }}</div>
             {% endif %}
-            <input type="tel" id="form2Example44" class="form-control"
-                   name="phone"/>
-            <label class="s-form-label" for="form2Example44">{% trans 'Phone' %}</label>
+            <input type="tel" id="form2Example44" class="form-control" name="phone" placeholder="{% trans 'Phone' %}">
         </div>
 
         <div class="form-group">
             {% if form.errors %}
                 <div class="error-message">{{ form.password1.errors }}</div>
             {% endif %}
-
-            <input type="password" id="form2Example22" name="password1"
-                   class="form-control"/>
-            <label class="s-form-label" for="form2Example22">{% trans 'Password' %}</label>
+            <input type="password" id="form2Example22" name="password1" class="form-control" placeholder="{% trans 'Password' %}">
         </div>
 
         <div class="form-group">
             {% if form.errors %}
                 <div class="error-message">{{ form.password2.errors }}</div>
             {% endif %}
-
-            <input type="password" id="form2Example55" name="password2"
-                   class="form-control"/>
-            <label class="s-form-label" for="form2Example55">{% trans 'Password confirmation' %}</label>
+            <input type="password" id="form2Example55" name="password2" class="form-control" placeholder="{% trans 'Password confirmation' %}">
         </div>
 
-        <div class="form-check form-check-inline">
-            {{ form.is_customer.errors }}
-            <div class="form-check form-check-inline mb-4 p-0">
-                {{ form.is_customer.label_tag }}
-                {{ form.is_customer }}
-            </div>
+        <div class="form-check form-check-inline mb-4 p-0">
+            {{ form.is_customer.label_tag }}
+            {{ form.is_customer }}
         </div>
 
         <div class="text-center pt-1 mb-5 pb-1">
-            <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-                    type="submit">{% trans 'Submit' %}</button>
+            <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">{% trans 'Submit' %}</button>
             {% if user_already_registered %}
-                <a class="text-muted" href="/users/login/"></a>
+                <a class="text-muted" href="/users/login/">{% trans 'Already have an account? Log In' %}</a>
             {% endif %}
         </div>
 
