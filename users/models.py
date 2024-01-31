@@ -70,8 +70,8 @@ class Employee(TimeStampBaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, verbose_name=_('User'))
     role = models.CharField(max_length=100, choices=ROLE_CHOICES, verbose_name=_('Role'))
     is_manager = models.BooleanField(default=False, verbose_name=_('Is Manager'))
-    is_staff = models.BooleanField(default=False, verbose_name=_('Is Staff'))
-    is_customer_support = models.BooleanField(default=False, verbose_name=_('Is Customer Support'))
+    is_operator = models.BooleanField(default=False, verbose_name=_('Is Operator'))
+    is_viewer = models.BooleanField(default=False, verbose_name=_('Is Viewer'))
 
     def __str__(self):
         return f"{self.user.username} employee type: {self.role}"
