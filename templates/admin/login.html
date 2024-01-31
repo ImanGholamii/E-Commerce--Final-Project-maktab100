@@ -5,7 +5,7 @@
 {{ form.media }}
 {% endblock %}
 
-{% block bodyclass %}{{ block.super }} login{% endblock %}
+{% block bodyclass %}{{ block.super }} login {% endblock %}
 
 {% block usertools %}{% endblock %}
 
@@ -44,7 +44,7 @@ access this page. Would you like to login to a different account?
 {% endif %}
 {% block logo %}{% endblock logo %}
 <div class="login-logo">
-  <img src="{% static 'images/fastfoodia.jpg' %}" alt="Logo">
+    <a href="{% url 'index' %}"><img src="{% static 'images/fastfoodia.jpg' %}" alt="Logo"></a>
 </div>
 
 <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
