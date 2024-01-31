@@ -1,10 +1,9 @@
 from datetime import timedelta
-
 from django.contrib import messages
 from django.contrib.auth import get_user_model, logout, login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, resolve_url
 from django.utils import timezone
 from django.views import View
 from django.views.generic import CreateView
@@ -16,10 +15,19 @@ from users.models import UserProfile, OtpCode
 from django.utils.translation import gettext_lazy as _
 from django.http import JsonResponse
 import random
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.conf import settings
+
+User = get_user_model()
 
 
 def generate_otp_code():
     return random.randint(100000, 999999)
+
 
 class SignUpView(CreateView):
     model = get_user_model()
@@ -50,7 +58,6 @@ class SignUpView(CreateView):
         else:
             return self.form_invalid(form)
 
-
     def form_valid(self, form):
         response = super().form_valid(form)
         user = form.save(commit=False)
@@ -59,7 +66,6 @@ class SignUpView(CreateView):
         user.groups.add(group)
         user.save()
         return response
-
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
@@ -152,8 +158,6 @@ class EmployeeSignUpView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-
-
 class EmployeeRegisterCodeView(View):
     form_class = VerifyCodeForm
 
@@ -189,6 +193,7 @@ class EmployeeRegisterCodeView(View):
                 messages.error(request, 'Wrong Code!', 'danger')
                 return redirect('verify')
         return redirect('/')
+
 
 # ==============================================================================
 # class SignUpView(CreateView):
@@ -381,3 +386,95 @@ def profile_view(request):
 
 def home(request):
     return HttpResponse(f"Ola {request.user.username.upper()} ! 😊")
+
+
+# Password Reset Views
+
+# def send_password_reset_email(request, user_id):
+#     """Generate a token for the user"""
+#     user = get_object_or_404(User, pk=user_id)
+#     uid = urlsafe_base64_encode(force_bytes(user.pk))
+#     token = default_token_generator.make_token(user)
+#
+#     reset_url = f"{settings.BASE_URL}/users/reset_password/{uid}/{token}/"
+#
+#     subject = 'Password Reset Request'
+#     message = render_to_string('users/password_reset.html', {
+#         'user': user,
+#         'reset_url': reset_url,
+#     })
+#
+#     send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
+#
+#
+# def reset_password(uidb64, token, new_password):
+#     """ Decode the uid and get the user """
+#     try:
+#         uid = force_str(urlsafe_base64_decode(uidb64))
+#         user = get_user_model().objects.get(pk=uid)
+#     except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
+#         user = None
+#
+#     if user is not None and default_token_generator.check_token(user, token):
+#
+#         user.set_password(new_password)
+#         user.save()
+#         return True
+#     else:
+#         return False
+#
+#
+# class PasswordResetView(View):
+#     def get(self, request, uidb64, token):
+#         return render(request, 'users/password_reset.html', {'uidb64': uidb64, 'token': token})
+#
+#     def post(self, request, uidb64, token):
+#         new_password = request.POST.get('new_password')
+#         confirm_password = request.POST.get('confirm_password')
+#
+#         if new_password == confirm_password:
+#             try:
+#                 uid = force_str(urlsafe_base64_decode(uidb64))
+#                 user = get_user_model().objects.get(pk=uid)
+#             except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
+#                 user = None
+#
+#             if user is not None and default_token_generator.check_token(user, token):
+#                 user.set_password(new_password)
+#                 user.save()
+#                 messages.success(request, 'Password has been reset successfully.')
+#                 return redirect('login')
+#             else:
+#                 messages.error(request, 'Invalid link for password reset.')
+#         else:
+#             messages.error(request, 'Passwords do not match.')
+#
+#         return render(request, 'users/password_reset.html', {'uidb64': uidb64, 'token': token})
+
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
+    PasswordResetCompleteView
+
+
+class CustomPasswordResetView(PasswordResetView):
+    email_template_name = 'users/password_reset/password_reset_email.html'
+    subject_template_name = 'users/password_reset_subject.txt'
+    success_url = reverse_lazy('password_reset_done')
+
+
+class PasswordResetDoneView(PasswordResetDoneView):
+    template_name = "users/password_reset/password_reset_done.html"
+    title = _("Password reset sent")
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'users/password_reset/password_reset_confirm.html'
+    success_url = reverse_lazy('password_reset_complete')
+
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'users/password_reset/password_reset_complete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["login_url"] = resolve_url(settings.LOGIN_URL)
+        return context
