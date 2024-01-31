@@ -131,6 +131,13 @@ LOGOUT_REDIRECT_URL = '/'  # home
 
 AUTH_USER_MODEL = 'users.User'
 
+# Authenticate Backends
+
+AUTHENTICATION_BACKENDS = [
+    'backends.auth.EmailOrPhoneModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 # MY COOKIES
 
 CART_COOKIE_NAME = 'shopping_cart'
