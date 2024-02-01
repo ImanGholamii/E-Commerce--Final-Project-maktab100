@@ -74,11 +74,11 @@
               <img class="logo" src="{% static 'images/fastfoodia.jpg' %}" alt="logo"> Fast Foodia
             </span>
                     <li>
-                            <a href="/fa/" role="button" class="btn">
-                                فا
-                            </a>/<a href="/en/" role="button" class="btn">
-                                En
-                            </a>
+                        <a href="/fa/" role="button" class="btn">
+                            فا
+                        </a>/<a href="/en/" role="button" class="btn">
+                        En
+                    </a>
                     </li>
                 </a>
 
@@ -88,259 +88,267 @@
                     <span class=""> </span>
                 </button>
                 {% block navbut %}
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav  mx-auto ">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav  mx-auto ">
 
-                        {#                            <li class="nav-item active">#}
-                        {#                                <a class="nav-link" href="index.html">{% trans "Home" %} <span class="sr-only">(current)</span></a>#}
-                        {#                            </li>#}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/#filters_menu">
-                                <button type="button" class="btn btn-outline-dark btn-rounded menub" data-mdb-ripple-init  data-mdb-ripple-color="dark">
-                                    {% trans "Menu" %}
-                                </button>
-                            </a>
-                        </li>
-                        {#                            <li class="nav-item">#}
-                        {#                                <a class="nav-link" href="about.html">{% trans "About" %}</a>#}
-                        {#                            </li>#}
-
-                    </ul>
-                    <div class="user_option">
-                    {% if request.user.is_authenticated %}
-                        <a href="" class="user_link">
-                            <i><img class="user" src="{% static 'images/user-prof.jpg' %}" alt=""></i>
-                        </a>
-                    {% endif %}
-                        <a class="cart_link" href="#">
-                            <!-- در تمپلیت HTML -->
-                            <img class="shopping_cart" src="{% static 'images/shopping_cart_image.jpg' %}"
-                                 alt="Shopping Cart" width="30" height="auto">
-
-
-                        </a>
-                        <li class="search">
-                            {% block search %}
-                                <form class="d-flex">
-                                    <input type="text" class="form-control ms-1 sea-btn" name="q"
-                                           placeholder="Search ...">
-                                    <button class="btn btn-warning  search-btn" type="submit">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
+                            {#                            <li class="nav-item active">#}
+                            {#                                <a class="nav-link" href="index.html">{% trans "Home" %} <span class="sr-only">(current)</span></a>#}
+                            {#                            </li>#}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/#filters_menu">
+                                    <button type="button" class="btn btn-outline-dark btn-rounded menub"
+                                            data-mdb-ripple-init data-mdb-ripple-color="dark">
+                                        {% trans "Menu" %}
                                     </button>
-                                </form>
-                            {% endblock search %}
-                        </li>
-                        <a href="" class="order_online">
-                            {% trans "Order" %}
-                        </a>
-                    {% if not request.user.is_authenticated %}
-                        <li>
-                            <a class="btn btn-warning signup" href="{% url 'signup' %}" >{% trans 'Sign Up' %}</a>
-{#                            <button id="openSignupModalBtn"#}
-{#                                    class="btn btn-warning signup">{% trans 'Sign Up' %}#}
-{#                            </button>#}
-                            <!-- Bootstrap Modal -->
-{#                            <div class="modal" tabindex="-1" role="dialog" id="signupModal">#}
-{#                                <div class="modal-dialog" role="document">#}
-{#                                    <div class="modal-content">#}
-{#                                        <div class="modal-header">#}
-{#                                            <h5 class="modal-title">{% trans 'Sign Up' %}</h5>#}
-{#                                            <button type="submit" class="close" data-dismiss="modal" aria-label="Close">#}
-{#                                                <span aria-hidden="true">&times;</span>#}
-{#                                            </button>#}
-{#                                        </div>#}
-{#                                        <div class="modal-body">#}
-{#                                            <!-- Include the signup form here -->#}
-{#                                            <form method="post" class="form-pad">#}
-{#                                                {% csrf_token %}#}
-{#                                                <p class="s-form-label2">Create a new account</p>#}
-{##}
-{#                                                <div class="form-group">#}
-{#                                                    {% if form.errors %}#}
-{#                                                        <div class="error-message">{{ form.username.errors }}</div>#}
-{#                                                    {% endif %}#}
-{#                                                    <input type="text" id="form2Example11" class="form-control"#}
-{#                                                           name="username"/>#}
-{#                                                    <label class="s-form-label" for="form2Example11">Username</label>#}
-{#                                                </div>#}
-{##}
-{#                                                <div class="form-group">#}
-{#                                                    {% if form.errors %}#}
-{#                                                        <div class="error-message">{{ form.email.errors }}</div>#}
-{#                                                    {% endif %}#}
-{#                                                    <input type="email" id="form2Example33" class="form-control"#}
-{#                                                           name="email"/>#}
-{#                                                    <label class="s-form-label " for="form2Example33">Email</label>#}
-{#                                                </div>#}
-{##}
-{#                                                <div class="form-group">#}
-{#                                                    {% if form.errors %}#}
-{#                                                        <div class="error-message">{{ form.phone.errors }}</div>#}
-{#                                                    {% endif %}#}
-{#                                                    <input type="tel" id="form2Example44" class="form-control"#}
-{#                                                           name="phone"/>#}
-{#                                                    <label class="s-form-label" for="form2Example44">Phone</label>#}
-{#                                                </div>#}
-{##}
-{#                                                <div class="form-group">#}
-{#                                                    {% if form.errors %}#}
-{#                                                        <div class="error-message">{{ form.password1.errors }}</div>#}
-{#                                                    {% endif %}#}
-{##}
-{#                                                    <input type="password" id="form2Example22" name="password1"#}
-{#                                                           class="form-control"/>#}
-{#                                                    <label class="s-form-label" for="form2Example22">Password</label>#}
-{#                                                </div>#}
-{##}
-{#                                                <div class="form-group">#}
-{#                                                    {% if form.errors %}#}
-{#                                                        <div class="error-message">{{ form.password2.errors }}</div>#}
-{#                                                    {% endif %}#}
-{##}
-{#                                                    <input type="password" id="form2Example55" name="password2"#}
-{#                                                           class="form-control"/>#}
-{#                                                    <label class="s-form-label" for="form2Example55">Password#}
-{#                                                        confirmation</label>#}
-{#                                                </div>#}
-{##}
-{#                                                <div class="form-check form-check-inline">#}
-{#                                                    {{ form.is_customer.errors }}#}
-{#                                                    <div class="form-check form-check-inline mb-4 p-0">#}
-{#                                                        {{ form.is_customer.label_tag }}#}
-{#                                                        {{ form.is_customer }}#}
-{#                                                    </div>#}
-{#                                                </div>#}
-{##}
-{#                                                <div class="text-center pt-1 mb-5 pb-1">#}
-{#                                                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"#}
-{#                                                            type="submit">{% trans 'Submit' %}</button>#}
-{#                                                    {% if user_already_registered %}#}
-{#                                                        <a class="text-muted" href="/users/login/">Already have an#}
-{#                                                            account? Log In</a>#}
-{#                                                    {% endif %}#}
-{#                                                </div>#}
-{##}
-{#                                                <div class="d-flex align-items-center justify-content-center pb-4">#}
-{#                                                    <p class="mb-0 me-2">Already have an account?</p>#}
-{#                                                    <button type="submit" class="btn btn-outline-danger">#}
-{#                                                        <a href="/users/login/" class="decor">Log In</a>#}
-{#                                                    </button>#}
-{#                                                </div>#}
-{#                                            </form>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-                        </li>
-                        <li>
+                                </a>
+                            </li>
+                            {#                            <li class="nav-item">#}
+                            {#                                <a class="nav-link" href="about.html">{% trans "About" %}</a>#}
+                            {#                            </li>#}
 
-                                <a class="btn btn-light login" href="{% url 'login' %}">{% trans 'Login' %}</a>
+                        </ul>
+                        <div class="user_option">
+                            {% if request.user.is_authenticated %}
+                                <a href="" class="user_link">
+                                    <i><img class="user" src="{% static 'images/user-prof.jpg' %}" alt=""></i>
+                                </a>
+                            {% endif %}
+                            <a class="cart_link" href="#">
+                                <!-- در تمپلیت HTML -->
+                                <img class="shopping_cart" src="{% static 'images/shopping_cart_image.jpg' %}"
+                                     alt="Shopping Cart" width="30" height="auto">
 
-{#                            <!-- دکمه باز کردن مدال -->#}
-{#                            <button id="openLoginModalBtn" class="btn btn-light login">{% trans 'Login' %}</button>#}
-{##}
-{#                            <!-- مدال Bootstrap برای ورود -->#}
-{#                            <div class="modal" tabindex="-1" role="dialog" id="loginModal">#}
-{#                                <div class="modal-dialog" role="document">#}
-{#                                    <div class="modal-content gradient-custom-2">#}
-{#                                        <div class="modal-header">#}
-{#                                            <h5 class="modal-title">{% trans 'Login' %}</h5>#}
-{#                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
-{#                                                <span aria-hidden="true">&times;</span>#}
-{#                                            </button>#}
-{#                                        </div>#}
-{#                                        <div class="modal-body">#}
-{#                                            <!-- Include the login form here -->#}
-{#                                            <form method="post" class="form-pad">#}
-{#                                                {% csrf_token %}#}
-{##}
-{#                                                <div class="form-group">#}
-{#                                                    <label class="form-label"#}
-{#                                                           for="loginUsername">{% trans 'Username' %}</label>#}
-{#                                                    <input type="text" id="loginUsername" class="form-control"#}
-{#                                                           name="username"/>#}
-{#                                                </div>#}
-{##}
-{#                                                <div class="form-group">#}
-{#                                                    <label class="form-label"#}
-{#                                                           for="loginPassword">{% trans 'Password' %}</label>#}
-{#                                                    <input type="password" id="loginPassword" name="password"#}
-{#                                                           class="form-control"/>#}
-{#                                                </div>#}
-{##}
-{#                                                <div class="text-center pt-1 mb-5 pb-1">#}
-{#                                                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"#}
-{#                                                            type="submit">{% trans 'Login' %}</button>#}
-{#                                                </div>#}
-{##}
-{#                                                <div class="d-flex align-items-center justify-content-center pb-4">#}
-{#                                                    <p class="mb-0 me-2">{% trans "Don't have an account?" %}</p>#}
-{#                                                    <button type="submit" class="btn btn-outline-danger">#}
-{#                                                        <a href="{% url 'signup' %}"#}
-{#                                                           class="decor">{% trans 'Sign Up' %}</a>#}
-{#                                                    </button>#}
-{#                                                </div>#}
-{#                                            </form>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
 
-                        </li>
-                        <!-- Include jQuery and Bootstrap JS -->
-                        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+                            </a>
+                            <li class="search">
+                                {% block search %}
+                                    <form class="d-flex">
+                                        <input type="text" class="form-control ms-1 sea-btn" name="q"
+                                               placeholder="Search ...">
+                                        <button class="btn btn-warning  search-btn" type="submit">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                {% endblock search %}
+                            </li>
+                            <a href="" class="order_online">
+                                {% trans "Order" %}
+                            </a>
+                            {% if not request.user.is_authenticated %}
+                                <li>
+                                    <a class="btn btn-warning signup"
+                                       href="{% url 'signup' %}">{% trans 'Sign Up' %}</a>
+                                    {#                            <button id="openSignupModalBtn"#}
+                                    {#                                    class="btn btn-warning signup">{% trans 'Sign Up' %}#}
+                                    {#                            </button>#}
+                                    <!-- Bootstrap Modal -->
+                                    {#                            <div class="modal" tabindex="-1" role="dialog" id="signupModal">#}
+                                    {#                                <div class="modal-dialog" role="document">#}
+                                    {#                                    <div class="modal-content">#}
+                                    {#                                        <div class="modal-header">#}
+                                    {#                                            <h5 class="modal-title">{% trans 'Sign Up' %}</h5>#}
+                                    {#                                            <button type="submit" class="close" data-dismiss="modal" aria-label="Close">#}
+                                    {#                                                <span aria-hidden="true">&times;</span>#}
+                                    {#                                            </button>#}
+                                    {#                                        </div>#}
+                                    {#                                        <div class="modal-body">#}
+                                    {#                                            <!-- Include the signup form here -->#}
+                                    {#                                            <form method="post" class="form-pad">#}
+                                    {#                                                {% csrf_token %}#}
+                                    {#                                                <p class="s-form-label2">Create a new account</p>#}
+                                    {##}
+                                    {#                                                <div class="form-group">#}
+                                    {#                                                    {% if form.errors %}#}
+                                    {#                                                        <div class="error-message">{{ form.username.errors }}</div>#}
+                                    {#                                                    {% endif %}#}
+                                    {#                                                    <input type="text" id="form2Example11" class="form-control"#}
+                                    {#                                                           name="username"/>#}
+                                    {#                                                    <label class="s-form-label" for="form2Example11">Username</label>#}
+                                    {#                                                </div>#}
+                                    {##}
+                                    {#                                                <div class="form-group">#}
+                                    {#                                                    {% if form.errors %}#}
+                                    {#                                                        <div class="error-message">{{ form.email.errors }}</div>#}
+                                    {#                                                    {% endif %}#}
+                                    {#                                                    <input type="email" id="form2Example33" class="form-control"#}
+                                    {#                                                           name="email"/>#}
+                                    {#                                                    <label class="s-form-label " for="form2Example33">Email</label>#}
+                                    {#                                                </div>#}
+                                    {##}
+                                    {#                                                <div class="form-group">#}
+                                    {#                                                    {% if form.errors %}#}
+                                    {#                                                        <div class="error-message">{{ form.phone.errors }}</div>#}
+                                    {#                                                    {% endif %}#}
+                                    {#                                                    <input type="tel" id="form2Example44" class="form-control"#}
+                                    {#                                                           name="phone"/>#}
+                                    {#                                                    <label class="s-form-label" for="form2Example44">Phone</label>#}
+                                    {#                                                </div>#}
+                                    {##}
+                                    {#                                                <div class="form-group">#}
+                                    {#                                                    {% if form.errors %}#}
+                                    {#                                                        <div class="error-message">{{ form.password1.errors }}</div>#}
+                                    {#                                                    {% endif %}#}
+                                    {##}
+                                    {#                                                    <input type="password" id="form2Example22" name="password1"#}
+                                    {#                                                           class="form-control"/>#}
+                                    {#                                                    <label class="s-form-label" for="form2Example22">Password</label>#}
+                                    {#                                                </div>#}
+                                    {##}
+                                    {#                                                <div class="form-group">#}
+                                    {#                                                    {% if form.errors %}#}
+                                    {#                                                        <div class="error-message">{{ form.password2.errors }}</div>#}
+                                    {#                                                    {% endif %}#}
+                                    {##}
+                                    {#                                                    <input type="password" id="form2Example55" name="password2"#}
+                                    {#                                                           class="form-control"/>#}
+                                    {#                                                    <label class="s-form-label" for="form2Example55">Password#}
+                                    {#                                                        confirmation</label>#}
+                                    {#                                                </div>#}
+                                    {##}
+                                    {#                                                <div class="form-check form-check-inline">#}
+                                    {#                                                    {{ form.is_customer.errors }}#}
+                                    {#                                                    <div class="form-check form-check-inline mb-4 p-0">#}
+                                    {#                                                        {{ form.is_customer.label_tag }}#}
+                                    {#                                                        {{ form.is_customer }}#}
+                                    {#                                                    </div>#}
+                                    {#                                                </div>#}
+                                    {##}
+                                    {#                                                <div class="text-center pt-1 mb-5 pb-1">#}
+                                    {#                                                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"#}
+                                    {#                                                            type="submit">{% trans 'Submit' %}</button>#}
+                                    {#                                                    {% if user_already_registered %}#}
+                                    {#                                                        <a class="text-muted" href="/users/login/">Already have an#}
+                                    {#                                                            account? Log In</a>#}
+                                    {#                                                    {% endif %}#}
+                                    {#                                                </div>#}
+                                    {##}
+                                    {#                                                <div class="d-flex align-items-center justify-content-center pb-4">#}
+                                    {#                                                    <p class="mb-0 me-2">Already have an account?</p>#}
+                                    {#                                                    <button type="submit" class="btn btn-outline-danger">#}
+                                    {#                                                        <a href="/users/login/" class="decor">Log In</a>#}
+                                    {#                                                    </button>#}
+                                    {#                                                </div>#}
+                                    {#                                            </form>#}
+                                    {#                                        </div>#}
+                                    {#                                    </div>#}
+                                    {#                                </div>#}
+                                    {#                            </div>#}
+                                </li>
+                                <li>
 
-                        <!-- Your custom script -->
-{#                        <script>#}
-{#                            $(document).ready(function () {#}
-{#                                $("#openLoginModalBtn").click(function () {#}
-{#                                    $("#loginModal").modal("show");#}
-{#                                });#}
-{#                            });#}
-{#                        </script>#}
-                        <!-- Include jQuery and Bootstrap JS -->
-{#                        <script>#}
-{#                            $(document).ready(function () {#}
-{#                                $("#openSignupModalBtn").click(function () {#}
-{#                                    $("#signupModal").modal("show");#}
-{#                                });#}
-{#                            });#}
-{#                        </script>#}
-{#                            <script>#}
-{#                                $(document).ready(function () {#}
-{#                                    $("#openSignupModalBtn").click(function () {#}
-{#                                        $.get("/users/signup/", function (data) {#}
-{#                                            $("#signupModal .modal-body").html(data);#}
-{#                                            $("#signupModal").modal("show");#}
-{#                                        });#}
-{#                                    });#}
-{#                                });#}
-{#                            </script>#}
-                    {% else %}
-                        <li>
-                            <a class="btn btn-dark logout" href="{% url 'logout' %}">{% trans 'Logout' %}</a>
-                        </li>
-                    {% endif %}
+                                    <a class="btn btn-light login" href="{% url 'login' %}">{% trans 'Login' %}</a>
 
+                                    {#                            <!-- دکمه باز کردن مدال -->#}
+                                    {#                            <button id="openLoginModalBtn" class="btn btn-light login">{% trans 'Login' %}</button>#}
+                                    {##}
+                                    {#                            <!-- مدال Bootstrap برای ورود -->#}
+                                    {#                            <div class="modal" tabindex="-1" role="dialog" id="loginModal">#}
+                                    {#                                <div class="modal-dialog" role="document">#}
+                                    {#                                    <div class="modal-content gradient-custom-2">#}
+                                    {#                                        <div class="modal-header">#}
+                                    {#                                            <h5 class="modal-title">{% trans 'Login' %}</h5>#}
+                                    {#                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+                                    {#                                                <span aria-hidden="true">&times;</span>#}
+                                    {#                                            </button>#}
+                                    {#                                        </div>#}
+                                    {#                                        <div class="modal-body">#}
+                                    {#                                            <!-- Include the login form here -->#}
+                                    {#                                            <form method="post" class="form-pad">#}
+                                    {#                                                {% csrf_token %}#}
+                                    {##}
+                                    {#                                                <div class="form-group">#}
+                                    {#                                                    <label class="form-label"#}
+                                    {#                                                           for="loginUsername">{% trans 'Username' %}</label>#}
+                                    {#                                                    <input type="text" id="loginUsername" class="form-control"#}
+                                    {#                                                           name="username"/>#}
+                                    {#                                                </div>#}
+                                    {##}
+                                    {#                                                <div class="form-group">#}
+                                    {#                                                    <label class="form-label"#}
+                                    {#                                                           for="loginPassword">{% trans 'Password' %}</label>#}
+                                    {#                                                    <input type="password" id="loginPassword" name="password"#}
+                                    {#                                                           class="form-control"/>#}
+                                    {#                                                </div>#}
+                                    {##}
+                                    {#                                                <div class="text-center pt-1 mb-5 pb-1">#}
+                                    {#                                                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"#}
+                                    {#                                                            type="submit">{% trans 'Login' %}</button>#}
+                                    {#                                                </div>#}
+                                    {##}
+                                    {#                                                <div class="d-flex align-items-center justify-content-center pb-4">#}
+                                    {#                                                    <p class="mb-0 me-2">{% trans "Don't have an account?" %}</p>#}
+                                    {#                                                    <button type="submit" class="btn btn-outline-danger">#}
+                                    {#                                                        <a href="{% url 'signup' %}"#}
+                                    {#                                                           class="decor">{% trans 'Sign Up' %}</a>#}
+                                    {#                                                    </button>#}
+                                    {#                                                </div>#}
+                                    {#                                            </form>#}
+                                    {#                                        </div>#}
+                                    {#                                    </div>#}
+                                    {#                                </div>#}
+                                    {#                            </div>#}
+
+                                </li>
+                                <!-- Include jQuery and Bootstrap JS -->
+                                <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+                                <!-- Your custom script -->
+                                {#                        <script>#}
+                                {#                            $(document).ready(function () {#}
+                                {#                                $("#openLoginModalBtn").click(function () {#}
+                                {#                                    $("#loginModal").modal("show");#}
+                                {#                                });#}
+                                {#                            });#}
+                                {#                        </script>#}
+                                <!-- Include jQuery and Bootstrap JS -->
+                                {#                        <script>#}
+                                {#                            $(document).ready(function () {#}
+                                {#                                $("#openSignupModalBtn").click(function () {#}
+                                {#                                    $("#signupModal").modal("show");#}
+                                {#                                });#}
+                                {#                            });#}
+                                {#                        </script>#}
+                                {#                            <script>#}
+                                {#                                $(document).ready(function () {#}
+                                {#                                    $("#openSignupModalBtn").click(function () {#}
+                                {#                                        $.get("/users/signup/", function (data) {#}
+                                {#                                            $("#signupModal .modal-body").html(data);#}
+                                {#                                            $("#signupModal").modal("show");#}
+                                {#                                        });#}
+                                {#                                    });#}
+                                {#                                });#}
+                                {#                            </script>#}
+                            {% else %}
+                                <li>
+                                    <a class="btn btn-dark logout" href="{% url 'logout' %}">{% trans 'Logout' %}</a>
+                                </li>
+                            {% endif %}
+
+                        </div>
                     </div>
-                </div>
-                    {% endblock navbut %}
+                {% endblock navbut %}
             </nav>
             <div>
-            {% block category %}
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {% trans 'Categories' %}
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  {% for category in all_categories %}
-                    <a class="dropdown-item" href="{% url 'product_category' category_name=category.name %}">{{ category.name }}</a>
-                  {% endfor %}
-                </div>
-              </div>
-            {% endblock category %}
-
+                {% block category %}
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% trans 'Categories' %}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {% for category in all_categories %}
+                                {% if not category.parent %}
+                                    <a class="dropdown-item"
+                                       href="{% url 'parent_category' category_name=category.name %}">{{ category.name }}</a>
+                                {% else %}
+                                    <a class="dropdown-item"
+                                       href="{% url 'product_category' category_name=category.name %}">{{ category.name }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endblock category %}
 
 
             </div>
