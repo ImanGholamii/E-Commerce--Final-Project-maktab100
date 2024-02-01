@@ -20,6 +20,11 @@
         <li>{{ product.name }} - {{ product.description }} - {{ product.price }}</li>
       {% endfor %}
     </ul>
+  <ul>
+      {% for product in object_list %}
+        <li>{{ product.name }} - {{ product.description }} - {{ product.price }}</li>
+      {% endfor %}
+    </ul>
   </div>
 
   <hr>
