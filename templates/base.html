@@ -329,17 +329,19 @@
             </nav>
             <div>
             {% block category %}
-                <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {% trans 'Categories' %}
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="{% url 'product_category' category_name='ساندویچ' %}">محصولات ساندویچ</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {% trans 'Categories' %}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  {% for category in all_categories %}
+                    <a class="dropdown-item" href="{% url 'product_category' category_name=category.name %}">{{ category.name }}</a>
+                  {% endfor %}
                 </div>
+              </div>
             {% endblock category %}
+
+
 
             </div>
         </div>

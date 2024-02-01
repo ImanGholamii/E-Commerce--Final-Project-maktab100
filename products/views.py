@@ -55,20 +55,20 @@ class HomeView(ListView):
 
         form = CustomUserCreationForm()
         context['form'] = form
-
+        context['all_categories'] = Category.objects.all()
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            print("User Registered Successfully!")
-            print("Username:", form.cleaned_data['username'])
-            print("Email:", form.cleaned_data['email'])
-            print("Phone:", form.cleaned_data['phone'])
-            print("Is Customer:", form.cleaned_data['is_customer'])
-        context = {'form': form}
-        return render(request, self.template_name, context)
+    # def post(self, request, *args, **kwargs):
+    #     form = CustomUserCreationForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         print("User Registered Successfully!")
+    #         print("Username:", form.cleaned_data['username'])
+    #         print("Email:", form.cleaned_data['email'])
+    #         print("Phone:", form.cleaned_data['phone'])
+    #         print("Is Customer:", form.cleaned_data['is_customer'])
+    #     context = {'form': form}
+    #     return render(request, self.template_name, context)
 
 
 class ProductCategoryListView(ListView):
@@ -82,11 +82,15 @@ class ProductCategoryListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        # دریافت تمام دسته‌بندی‌ها (شامل همه دسته‌های فرزند)
+        context['all_categories'] = Category.objects.all()
 
-        context['parent_categories'] = Category.objects.filter(parent=None)
+        # فیلتر کردن دسته‌بندی‌های پدر
+        context['parent_categories'] = context['all_categories'].filter(parent=None)
 
         context['parent_category'] = Category.objects.get(name=self.kwargs['category_name'])
         return context
+
 
 
 # from django.contrib.auth.views import LoginView

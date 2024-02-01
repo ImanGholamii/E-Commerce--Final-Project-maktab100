@@ -5,36 +5,56 @@
 {% block background %}{% endblock background %}
 {% block title %}Category{% endblock title %}
 {% block content %}
-  <div>
-    <h2>{{ parent_category.name }}</h2>
-    <p>{{ parent_category.description }}</p>
-    <img src="{{ parent_category.image.url }}" alt="{{ parent_category.name }} Image">
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <img src="{{ parent_category.image.url }}" class="card-img-top" alt="{{ parent_category.name }} Image">
+          <div class="card-body">
+            <h2 class="card-title">{{ parent_category.name }}</h2>
+            <p class="card-text">{{ parent_category.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <h3>Products in {{ parent_category.name }}</h3>
+        <ul class="list-group">
+          {% for product in product_list %}
+            <li class="list-group-item">{{ product.name }} - {{ product.description }} - {{ product.price }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <hr class="my-5">
+
+    <div>
+      <h3>Root Categories</h3>
+      <ul class="list-group">
+        {% for category in parent_categories %}
+          <li class="list-group-item"><a href="{% url 'product_category' category_name=category.name %}">{{ category.name }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
-
-  <hr>
-
-  <div>
-    <h3>Products in {{ parent_category.name }}</h3>
-    <ul>
-      {% for product in product_list %}
-        <li>{{ product.name }} - {{ product.description }} - {{ product.price }}</li>
-      {% endfor %}
-    </ul>
-  <ul>
-      {% for product in object_list %}
-        <li>{{ product.name }} - {{ product.description }} - {{ product.price }}</li>
-      {% endfor %}
-    </ul>
+{#همه#}
+<div class="container mt-4">
+  <h3 class="mb-3">All Categories</h3>
+  <div class="row">
+    {% for category in all_categories %}
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <img src="{{ category.image.url }}" class="card-img-top" alt="{{ category.name }} Image">
+          <div class="card-body">
+            <h5 class="card-title">{{ category.name }}</h5>
+            <p class="card-text">{{ category.description }}</p>
+            <a href="{% url 'product_category' category_name=category.name %}" class="btn btn-primary">View Products</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
   </div>
+</div>
 
-  <hr>
-
-  <div>
-    <h3>Root Categories</h3>
-    <ul>
-      {% for category in parent_categories %}
-        <li><a href="{% url 'product_category' category_name=category.name %}">{{ category.name }}</a></li>
-      {% endfor %}
-    </ul>
-  </div>
 {% endblock %}
