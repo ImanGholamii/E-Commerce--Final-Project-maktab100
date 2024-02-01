@@ -11,7 +11,7 @@ from django.contrib.auth.models import Group
 from django.urls import reverse, reverse_lazy
 from core.utils import send_otp_code
 from users.forms import CustomUserCreationForm, VerifyCodeForm, EmployeeCreationForm
-from users.models import UserProfile, OtpCode
+from users.models import UserProfile, OtpCode, Employee
 from django.utils.translation import gettext_lazy as _
 from django.http import JsonResponse
 import random
@@ -134,6 +134,7 @@ class EmployeeSignUpView(CreateView):
                 'email': form.cleaned_data['email'],
                 'phone': form.cleaned_data['phone'],
                 'password': form.cleaned_data['password1'],
+                'employee_role': form.cleaned_data['role'],
             }
             messages.success(request, 'OTP Code Sent to your email.', 'success')
             return HttpResponseRedirect(self.success_url)
@@ -186,6 +187,14 @@ class EmployeeRegisterCodeView(View):
                 employee_group, created = Group.objects.get_or_create(name=group_name)
                 user_instance.groups.add(employee_group)
                 user_instance.save()
+                employee_instance = Employee.objects.create(
+                    user=user_instance,
+                    role=user_session['employee_role'],
+                    is_manager=user_session['employee_role'] == 'manager',
+                    is_operator=user_session['employee_role'] == 'operator',
+                    is_viewer=user_session['employee_role'] == 'viewer',
+                )
+                employee_instance.save()
                 code_instance.delete()
                 messages.success(request, "Your account Verified successfully", 'success')
                 return redirect('login')
