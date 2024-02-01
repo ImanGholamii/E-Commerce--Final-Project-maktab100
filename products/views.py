@@ -1,6 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, TemplateView, ListView
 from products.models import Product, Category
 from users.forms import CustomUserCreationForm
@@ -16,7 +16,7 @@ class ProductListView(ListView):
     template_name = 'products/product_list.html'
     paginate_by = 6
 
-    def  get_queryset(self):
+    def get_queryset(self):
         return Product.objects.all()
 
 
@@ -33,6 +33,43 @@ class ProductDetailView(DetailView):
         context['category_path'] = product.category.get().get_full_path()
         context['category_root'] = product.category.get().get_root_categories_queryset()
         context['category'] = product.category.get()
+        return context
+
+
+class ProductCategoryListView(ListView):
+    template_name = "products/product_category.html"
+    model = Product
+
+    def get_queryset(self):
+        category_name = self.kwargs['category_name']
+        return Product.objects.filter(category__name=category_name)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['all_categories'] = Category.objects.all()
+        # context['all_categories'] = Category.objects.all().filter(parent__is_active=True)
+
+        context['parent_categories'] = context['all_categories'].filter(parent=None)
+
+        context['parent_category'] = Category.objects.get(name=self.kwargs['category_name'])
+        return context
+
+
+class ParentCategoryListView(ListView):
+    template_name = "products/parent_category.html"
+    model = Category
+    context_object_name = 'child_categories'
+
+    def get_queryset(self):
+        parent_category_name = self.kwargs['category_name']
+        parent_category = get_object_or_404(Category, name=parent_category_name)
+        return Category.objects.filter(parent=parent_category, is_active=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['parent_category'] = get_object_or_404(Category, name=self.kwargs['category_name'])
+        context['all_categories'] = Category.objects.all()
         return context
 
 
@@ -56,25 +93,5 @@ class HomeView(ListView):
         form = CustomUserCreationForm()
         context['form'] = form
         context['all_categories'] = Category.objects.all()
-        return context
-
-
-class ProductCategoryListView(ListView):
-    template_name = "products/product_category.html"
-    model = Product
-
-    def get_queryset(self):
-        category_name = self.kwargs['category_name']
-        return Product.objects.filter(category__name=category_name)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-
-        context['all_categories'] = Category.objects.all()
-
-
-        context['parent_categories'] = context['all_categories'].filter(parent=None)
-
-        context['parent_category'] = Category.objects.get(name=self.kwargs['category_name'])
+        # context['all_categories'] = Category.objects.all().filter(parent__is_active=True)
         return context
