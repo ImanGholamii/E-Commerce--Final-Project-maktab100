@@ -1,5 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, TemplateView, ListView
 from products.models import Product, Category
@@ -20,7 +21,7 @@ class ProductListView(ListView):
         return Product.objects.all()
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     """to show product details probably in details page"""
     model = Product
     template_name = 'products/product_detail.html'
