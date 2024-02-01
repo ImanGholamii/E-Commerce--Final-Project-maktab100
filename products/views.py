@@ -81,9 +81,14 @@ class ProductCategoryListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['parent_categories'] = Category.objects.get_root_categories_queryset()
+
+
+        context['parent_categories'] = Category.objects.filter(parent=None)
+
         context['parent_category'] = Category.objects.get(name=self.kwargs['category_name'])
         return context
+
+
 # from django.contrib.auth.views import LoginView
 #
 # class HomeView(ListView, LoginView):
