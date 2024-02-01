@@ -30,6 +30,7 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
 
         product = self.get_object()
+        context['all_categories'] = Category.objects.all()
         context['product_images'] = product.images.all()
         context['category_path'] = product.category.get().get_full_path()
         context['category_root'] = product.category.get().get_root_categories_queryset()
