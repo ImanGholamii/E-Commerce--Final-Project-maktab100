@@ -5,19 +5,20 @@
 {% block background %}{% endblock background %}
 {% block category %}{% endblock category %}
 {% block title %} Product Details {{ product.id }} {% endblock title %}
-{% block navbut %}
-    <h2 style="margin-right: 150px;"></h2>
-    <p>{{ category_path }}</p>
-{% endblock navbut %}
+
+
+
 {% block content %}
     <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
+                <h2 class="text-center" style="margin-bottom: 20px;">{{ category_path }}</h2>
                 <div class="card w-175 mx-auto">
                     <img src="{{ product_images.0.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text">{{ product.description }}</p>
+                        <p class="card-text"><strong>{% trans 'قیمت' %}:</strong> {{ product.price }}</p>
                         <a href="#" class="btn btn-success">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
@@ -38,3 +39,4 @@
         </div>
     </div>
 {% endblock %}
+
