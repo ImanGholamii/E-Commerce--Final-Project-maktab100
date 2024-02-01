@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from core.models import LogicalBaseModel, TimeStampBaseModel
 from django.core.exceptions import ValidationError
@@ -19,6 +20,11 @@ class Category(LogicalBaseModel, TimeStampBaseModel):
     image = models.ImageField(upload_to="category_images/", verbose_name=_('Image'))
     parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.SET_NULL, related_name='child',
                                verbose_name=_('Parent'))
+    # slug = models.SlugField(unique=True, allow_unicode=True, default='default-slug', verbose_name=_('Slug'))
+    #
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.name)
+    #     super().save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = "categories"
