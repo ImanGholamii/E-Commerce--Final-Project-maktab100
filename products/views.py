@@ -31,6 +31,8 @@ class ProductDetailView(DetailView):
         product = self.get_object()
         context['product_images'] = product.images.all()
         context['category_path'] = product.category.get().get_full_path()
+        context['category_root'] = product.category.get().get_root_categories_queryset()
+        context['category'] = product.category.get()
         return context
 
 
