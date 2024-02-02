@@ -3,46 +3,26 @@
 {% load static %}
 {% block type-body %}"product_list"{% endblock %}
 {% block background %}{% endblock background %}
-{% block title %}Category{% endblock title %}
+{% block title %}Products by Category{% endblock title %}
+{% block header %}
+<style>
+    .oval-box {
+        background: linear-gradient(45deg, #ff50ad, #fdc026); /* تغییر رنگ به شکل متالیک */
+        padding: 20px;
+        border-radius: 50%; /* تبدیل به کادر با شکل بیضوی */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 255, 255, 0.2), 0 0 50px rgba(255, 255, 255, 0.2) inset; /* افزودن سایه و افکت شیشه‌ای و حالت سه بعدی */
+        text-align: center;
+    }
+</style>
+
+{% endblock header %}
 {% block content %}
-    <style>
-        .container {
-            margin-top: 50px;
-        }
-
-        .card {
-            margin-bottom: 20px;
-        }
-
-        .card-columns {
-            column-count: 2;
-        }
-
-        .card-columns .card {
-            display: inline-block;
-            width: 100%;
-        }
-
-        .card img {
-            width: 100%;
-            height: auto;
-        }
-
-        .card-body {
-            text-align: center;
-        }
-
-        .card-body a {
-            text-decoration: none;
-            color: #a80024;
-        }
-    </style>
 
     <div class="container mt-5 mb-5">
     <div class="row">
         <div class="col-md-6">
             <div class="card">
-                <img src="{{ parent_category.image.url }}" class="card-img-top"
+                <img src="{{ parent_category.image.url }}" class="card-img-top custom-cat-image"
                      alt="{% trans parent_category.name %} Image">
                 <div class="card-body">
                     <h2 class="card-title">{% trans parent_category.name %}</h2>
@@ -52,7 +32,7 @@
         </div>
 
         <div class="col-md-6">
-            <h3>{% trans "Products in" %} {{ parent_category.name }}</h3>
+            <h3 class="oval-box">{% trans "Products in" %} {{ parent_category.name }}</h3>
             <div class="card-columns">
                 {% for product in product_list %}
                     <a href="{% url 'detail' pk=product.pk %}">
@@ -61,7 +41,7 @@
                                  alt="{% trans product.name %}">
                             <div class="card-body">
                                 <a href="{% url 'detail' pk=product.pk %}">
-                                    <h5 class="card-title">{% trans product.name %}</h5>
+                                    <p class="card-title">{% trans product.name|slice:":18" %}</p>
                                 </a>
                                 <p class="card-text">{% trans product.short_description %}</p>
                                 <p class="card-text">{{ product.price }}</p>
