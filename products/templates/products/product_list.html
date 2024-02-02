@@ -6,12 +6,13 @@
 {% block category %}{% endblock category %}
 {% block title %}Product List{% endblock title %}
 {% block content %}
+
 <div class="container">
         <div class="row">
             {% for product in object_list %}
                 <div class="row-cols col-xs-12 col-sm-6 col-md-4 ">
                     <div class="card" style="width: 18rem;">
-                      <img src="{{ product.images.first.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                      <img src="{{ product.images.first.image.url }}" class="card-img-top custom-image" alt="{{ product.name }}">
                       <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text">{{ product.short_description }}</p>
