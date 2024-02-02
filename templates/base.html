@@ -341,9 +341,9 @@
                                 {% if not category.parent %}
                                     <a class="dropdown-item"
                                        href="{% url 'parent_category' category_name=category.name %}" style="color: #0062cc">{{ category.name }}</a>
-                                {% else %}
-                                    <a class="dropdown-item"
-                                       href="{% url 'product_category' category_name=category.name %}">{{ category.name }}</a>
+{#                                {% else %}#}
+{#                                    <a class="dropdown-item"#}
+{#                                       href="{% url 'product_category' category_name=category.name %}">{{ category.name }}</a>#}
                                 {% endif %}
                             {% endfor %}
                         </div>
