@@ -1,0 +1,44 @@
+.container {
+    margin-top: 50px;
+}
+
+.card {
+    margin-bottom: 20px;
+    width: 18rem;
+}
+
+.card-title {
+  margin-bottom: 2rem;
+}
+
+.card-columns {
+    column-count: 2;
+}
+
+.card-columns .card {
+    display: inline-block;
+    width: 100%;
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.card-body a {
+    text-decoration: none;
+    color: #a80024;
+}
+
+.custom-cat-image {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    margin: auto;
+}
