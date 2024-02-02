@@ -4562,6 +4562,14 @@ input[type="button"].btn-block {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
   margin-bottom: 5px;
+  text-align: center !important;
+}
+.custom-image {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    margin: auto;
 }
 
 .card > hr {
