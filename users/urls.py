@@ -10,7 +10,7 @@ urlpatterns = [
     # path('verify/resend_code/', UserRegisterCodeView.as_view(resend=True), name="resend_code"),
     path('login/', login_view, name="login"),
     path('logout/', Logout.as_view(), name="logout"),
-    path('users/profile/', profile_view, name="profile"),
+    path('profile/', profile_view, name="profile"),
     path('home/', home , name="home"),
     path('password_reset/', PasswordResetView.as_view(), name='password_reset'),
     path('password_reset/done/', PasswordResetDoneView.as_view(), name='password_reset_done'),
