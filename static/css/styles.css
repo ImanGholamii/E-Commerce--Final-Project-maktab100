@@ -1,0 +1,32 @@
+/* styles.css */
+
+.profile-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 60px;
+  margin-left: 85px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+
+.profile-image img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 70px;
+}
+
+.profile-details {
+  max-width: 600px;
+}
+
+.column h2,
+.column p {
+    margin-bottom: 30px;
+}
