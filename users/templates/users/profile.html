@@ -1,21 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load i18n %}
+{% load static %}
+<html lang="{% trans 'en' %}">
 <head>
     <meta charset="UTF-8">
-    <title>Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans 'User Profile' %}</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/script.js' %}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js" integrity="sha384-GLhlTQ8iKUr/C2r/+MJYEhjr8ue8qLjz/6CS70C2N5F5tr5ww0DZa4FfNFMlRT" crossorigin="anonymous"></script>
+
+
 </head>
-<body>
-<h1>User Profile</h1>
-<p>Bio: {{ user_profile.bio }}</p>
-
-<h2>Addresses:</h2>
-<ul>
-{% for address in user_addresses %}
-    <li>{{ address.city }}, {{ address.state }}, {{ address.street }}, {{ address.postal_code }}</li>
-    <li>{{ address.is_default }}</li>
-    <li>{{ address.additional_info }}</li>
-{% endfor %}
-</ul>
-
+<body style="background-image: url('{% static 'images/profile-bg.jpg' %}'); background-size: cover; color: #fff;">
+    <div class="profile-container">
+        <div class="profile-image">
+            {% if user_profile.profile_picture and user_profile.profile_picture.url %}
+                <img src="{{ user_profile.profile_picture.url }}" alt="{% trans 'Profile Picture' %}">
+            {% else %}
+                <p>{% trans 'No Profile Picture available' %}</p>
+            {% endif %}
+            <p>{{ user_profile.user.username }}</p>
+            <div class="column">
+                <h2>{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}</h2>
+                <p>{% trans 'Gender' %}: {{ user_profile.get_gender_display }}</p>
+                <p>{% trans 'Date of Birth' %}: {{ user_profile.date_of_birth }}</p>
+                <p>{% trans 'Social Media' %}: {{ user_profile.social_media }}</p>
+            </div>
+        </div>
+        <div class="profile-details">
+            <div class="column">
+                <h2>{% trans 'Interests' %}</h2>
+                <p>{{ user_profile.interests }}</p>
+                <h2>{% trans 'Bio' %}</h2>
+                <p>{{ user_profile.bio }}</p>
+                <h2>{% trans 'Address' %}</h2>
+                <p>{{ user_profile.addresses }}</p>
+            </div>
+        </div>
+        <div class="column">
+            <div class="edit-profile-button">
+    {#            <a href="{% url 'edit_profile' %}">{% trans 'Edit Profile' %}</a>#}
+                <a>{% trans 'Edit Profile' %}</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
