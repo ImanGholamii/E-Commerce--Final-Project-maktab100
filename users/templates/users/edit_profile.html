@@ -18,57 +18,58 @@
 </head>
 <body style="background-image: url('{% static 'images/profile-bg.jpg' %}'); background-size: cover; color: #fff;">
     <div class="container mt-5">
-        <h1 class="mb-4">Edit Profile</h1>
+        <h1 class="mb-4">{% trans 'Edit Profile' %}</h1>
         <form method="post" enctype="multipart/form-data" class="mt-4 d-flex justify-content-between flex-wrap">
             {% csrf_token %}
             <div class="col-md-6 mb-4">
                 <div class="form-group">
-                    <label for="id_profile_picture" class="form-label">Profile Picture:</label>
+                    <label for="id_profile_picture" class="form-label">{% trans 'Profile Picture:' %}</label>
                     {% if user_profile.profile_picture and user_profile.profile_picture.url %}
                         <p class="form-text">Currently: {{ user_profile.profile_picture.url }}</p>
-                        <button type="button" class="btn btn-link">Clear</button>
+                        <button type="button" class="btn btn-link">{% trans 'Clear' %}</button>
                     {% endif %}
                     <input type="file" name="profile_picture" class="form-control" id="id_profile_picture">
-                    <small class="form-text text-muted">Change:</small>
+                    <small class="form-text text-muted">{% trans 'Change' %}:</small>
                 </div>
                 <div class="form-group">
-                    <label for="id_gender" class="form-label">Gender:</label>
+                    <label for="id_gender" class="form-label">{% trans 'Gender' %}:</label>
                     {{ form.gender }}
                 </div>
                 <div class="form-group">
-                    <label for="id_date_of_birth" class="form-label">Date of Birth:</label>
+                    <label for="id_date_of_birth" class="form-label">{% trans 'Date of Birth:' %} </label>
                     {{ form.date_of_birth }}
                 </div>
                 <div class="form-group">
-                    <label for="id_bio" class="form-label">Bio:</label>
+                    <label for="id_bio" class="form-label">{% trans 'Bio:' %}</label>
                     {{ form.bio }}
                 </div>
 
                 <div class="form-group">
-                    <label for="id_first_name" class="form-label">First Name:</label>
+                    <label for="id_first_name" class="form-label">{% trans 'First Name:' %}</label>
                     {{ form.first_name }}
                 </div>
                 <div class="form-group">
-                    <label for="id_last_name" class="form-label">Last Name:</label>
+                    <label for="id_last_name" class="form-label">{% trans 'Last Name:' %}</label>
                     {{ form.last_name }}
                 </div>
 
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="id_social_media" class="form-label">Social Media:</label>
+                    <label for="id_social_media" class="form-label">{% trans 'Social Media:' %}</label>
                     {{ form.social_media }}
                 </div>
                 <div class="form-group">
-                    <label for="id_interests" class="form-label">Interests:</label>
+                    <label for="id_interests" class="form-label">{% trans 'Interests:' %}</label>
                     {{ form.interests }}
                 </div>
                 <div class="form-group">
-                    <label for="id_addresses" class="form-label">Address:</label>
+                    <label for="id_addresses" class="form-label">{% trans 'Address:' %}</label>
                     {{ form.addresses }}
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+            <button type="submit" class="btn btn-primary mt-3">{% trans 'Save Changes' %}</button>
+            <button class="btn btn-danger mt-3"><a href="/users/profile/" style="text-decoration:none; color: white;">{% trans 'Cancel' %}</a></button>
         </form>
     </div>
 </body>
