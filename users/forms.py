@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, ReadOnlyPasswordHashFiel
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from core.validators import Validator
-from users.models import Employee
+from users.models import Employee, UserProfile
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -103,3 +103,9 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = "__all__"
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['profile_picture', 'gender', 'date_of_birth', 'bio', 'social_media', 'interests', 'addresses']
