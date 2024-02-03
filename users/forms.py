@@ -106,6 +106,8 @@ class UserChangeForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
+    first_name = forms.CharField()
+    last_name = forms.CharField()
     class Meta:
         model = UserProfile
-        fields = ['profile_picture', 'gender', 'date_of_birth', 'bio', 'social_media', 'interests', 'addresses']
+        fields = ['profile_picture', 'gender', 'date_of_birth', 'bio', 'social_media', 'interests', 'addresses', 'first_name', 'last_name']
