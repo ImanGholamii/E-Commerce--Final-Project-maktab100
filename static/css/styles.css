@@ -30,3 +30,9 @@
 .column p {
     margin-bottom: 30px;
 }
+
+.btn-edit{
+  text-decoration: none;
+  color: #000000;
+  font-size: 14px;
+}
