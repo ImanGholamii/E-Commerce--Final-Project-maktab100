@@ -109,8 +109,13 @@
                         </ul>
                         <div class="user_option">
                             {% if request.user.is_authenticated %}
-                                <a href="" class="user_link">
-                                    <i><img class="user" src="{% static 'images/user-prof.jpg' %}" alt=""></i>
+                                <a href="{% url 'profile' %}" class="user_link">
+                                    {% if request.user.userprofile.profile_picture %}
+                                        <i><img class="user" src="{{ request.user.userprofile.profile_picture.url }}" alt=""></i>
+                                    {% else %}
+                                        <i><img class="user" src="{% static 'images/user-prof.jpg' %}" alt=""></i>
+                                    {% endif %}
+                                <span>{{ request.user.username }}</span>
                                 </a>
                             {% endif %}
                             <a class="cart_link" href="#">
