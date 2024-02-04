@@ -63,10 +63,33 @@
                     <label for="id_interests" class="form-label">{% trans 'Interests:' %}</label>
                     {{ form.interests }}
                 </div>
+                <br>
+                <br>
                 <div class="form-group">
-                    <label for="id_addresses" class="form-label">{% trans 'Address:' %}</label>
-                    {{ form.addresses }}
-                </div>
+    <label for="id_addresses" class="form-label">{% trans 'Address:' %}</label>
+    <select name="addresses" class="form-control" id="id_addresses">
+        {% for address in form.addresses %}
+
+                <option value="{{ address.id }}"
+                        {% if address.id == form.addresses %} selected{% endif %}>
+                    {{ address }}
+                </option>
+
+        {% endfor %}
+    </select>
+</div>
+
+{% if user_addresses %}
+    <p>{% trans 'User Addresses:' %}</p>
+    <ul>
+        {% for address in user_addresses %}
+            <li>{{ address }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>{% trans 'No addresses available.' %}</p>
+{% endif %}
+
             </div>
             <button type="submit" class="btn btn-primary mt-3">{% trans 'Save Changes' %}</button>
             <button class="btn btn-danger mt-3"><a href="/users/profile/" style="text-decoration:none; color: white;">{% trans 'Cancel' %}</a></button>
