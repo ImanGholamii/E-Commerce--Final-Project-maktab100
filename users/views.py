@@ -12,7 +12,7 @@ from django.contrib.auth.models import Group
 from django.urls import reverse, reverse_lazy
 from core.utils import send_otp_code
 from users.forms import CustomUserCreationForm, VerifyCodeForm, EmployeeCreationForm, UserProfileForm
-from users.models import UserProfile, OtpCode, Employee
+from users.models import UserProfile, OtpCode, Employee, Address
 from django.utils.translation import gettext_lazy as _
 from django.http import JsonResponse
 import random
@@ -266,7 +266,8 @@ def edit_profile_view(request):
             form.save()
             return redirect('profile')
 
-    context = {'form': form}
+    user_addresses = Address.objects.filter(user_profiles=user_profile)
+    context = {'form': form, 'user_addresses': user_addresses}
     return render(request, 'users/edit_profile.html', context)
 
 
