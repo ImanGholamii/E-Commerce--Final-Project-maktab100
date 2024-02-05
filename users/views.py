@@ -214,6 +214,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            cart_data = request.session.get('cart', [])
             next_url = request.session.get('next')
             if next_url:
                 del request.session['next']
