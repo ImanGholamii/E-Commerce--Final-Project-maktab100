@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from orders.models import Order, OrderItem
 from products.models import Product
 from django.conf import settings
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 from orders.serializers import OrderSerializer
 
@@ -27,7 +27,12 @@ class CreateShoppingCartView(CreateAPIView):
 
 
 
+class ShoppingCartDetailView(RetrieveAPIView):
+    serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
 
+    def get_object(self):
+        return Order.objects.get(customer=self.request.user, status='pending')
 
 
 
