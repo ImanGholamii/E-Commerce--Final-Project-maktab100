@@ -1,4 +1,6 @@
+from django.http import HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404, redirect
+from rest_framework.views import APIView
 from orders.models import Order, OrderItem
 from products.models import Product
 from django.conf import settings
@@ -57,6 +59,26 @@ class AddProductToCartView(UpdateAPIView):
         quantity = self.request.data.get('quantity')
 
         serializer.save()
+
+
+class CancelOrderView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, order_id):
+        try:
+            order = Order.objects.get(id=order_id, customer=request.user)
+        except Order.DoesNotExist:
+            return HttpResponseBadRequest("Invalid order id")
+
+        if 'order_id' in self.request.session:
+            del self.request.session['order_id']
+            self.request.session.save()
+
+        if 'cart' in self.request.session:
+            del self.request.session['cart']
+            self.request.session.save()
+
+        return redirect('index')
 
 
 # =======================================================================================
