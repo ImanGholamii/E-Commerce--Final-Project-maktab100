@@ -2,6 +2,46 @@ from django.shortcuts import render, get_object_or_404, redirect
 from orders.models import Order, OrderItem
 from products.models import Product
 from django.conf import settings
+from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import IsAuthenticated
+from orders.serializers import OrderSerializer
+
+class CreateShoppingCartView(CreateAPIView):
+    serializer_class = OrderSerializer
+
+    def perform_create(self, serializer):
+        if self.request.user.is_authenticated:
+
+            serializer.save(customer=self.request.user)
+        else:
+            session_key = self.request.session.session_key
+            if not session_key:
+                self.request.session.save()
+                session_key = self.request.session.session_key
+
+            cart_data = self.request.session.get('cart', [])
+            cart_data.append({'product_id': 1, 'quantity': 2})
+            self.request.session['cart'] = cart_data
+
+            self.request.session.save()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def set_order_cookie(request, response):
