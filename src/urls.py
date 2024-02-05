@@ -30,6 +30,7 @@ urlpatterns = i18n_patterns(
     # APP
     path('', include('products.urls')),
     path('users/', include('users.urls')),
+    path('orders/', include('orders.urls')),
     path('email/', include('email_sender_app.urls')),
 
     # API
