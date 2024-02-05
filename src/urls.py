@@ -30,10 +30,10 @@ urlpatterns = i18n_patterns(
     # APP
     path('', include('products.urls')),
     path('users/', include('users.urls')),
-    path('api/orders/', include('orders.urls')),
     path('email/', include('email_sender_app.urls')),
 
     # API
+    path('api/orders/', include('orders.urls')),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL,
                                                                            document_root=settings.STATIC_ROOT)
