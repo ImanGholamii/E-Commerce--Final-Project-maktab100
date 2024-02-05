@@ -2,9 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from orders.models import Order, OrderItem
 from products.models import Product
 from django.conf import settings
-from rest_framework.generics import CreateAPIView, RetrieveAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from orders.serializers import OrderSerializer
+
 
 class CreateShoppingCartView(CreateAPIView):
     serializer_class = OrderSerializer
@@ -26,7 +27,6 @@ class CreateShoppingCartView(CreateAPIView):
             self.request.session.save()
 
 
-
 class ShoppingCartDetailView(RetrieveAPIView):
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
@@ -35,20 +35,31 @@ class ShoppingCartDetailView(RetrieveAPIView):
         return Order.objects.get(customer=self.request.user, status='pending')
 
 
+class AddProductToCartView(UpdateAPIView):
+    serializer_class = OrderSerializer
+
+    def get_object(self):
+        if self.request.user.is_authenticated:
+            return Order.objects.get_or_create(customer=self.request.user, status='pending')[0]
+        else:
+            order_id = self.request.session.get('order_id')
+            if order_id:
+                return get_object_or_404(Order, id=order_id, status='pending')
+            else:
+                order = Order(status='pending')
+                order.save()
+
+                self.request.session['order_id'] = order.id
+                return order
+
+    def perform_update(self, serializer):
+        product_id = self.request.data.get('product_id')
+        quantity = self.request.data.get('quantity')
+
+        serializer.save()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+# =======================================================================================
 def set_order_cookie(request, response):
     response.set_cookie(settings.ORDER_COOKIE_NAME, request.order.id, max_age=settings.SESSION_COOKIE_AGE)
     return response
