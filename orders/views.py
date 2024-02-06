@@ -38,6 +38,7 @@ class ShoppingCartDetailView(RetrieveAPIView):
 
 
 class AddProductToCartView(UpdateAPIView):
+    """to update cart"""
     serializer_class = OrderSerializer
 
     def get_object(self):
@@ -62,6 +63,7 @@ class AddProductToCartView(UpdateAPIView):
 
 
 class CancelOrderView(APIView):
+    """to cancel process"""
     permission_classes = [IsAuthenticated]
 
     def post(self, request, order_id):
