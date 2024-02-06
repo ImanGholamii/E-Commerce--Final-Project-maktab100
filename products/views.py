@@ -79,6 +79,7 @@ class HomeView(ListView):
     model = Product
     template_name = 'index.html'
     context_object_name = 'product_list'
+    paginate_by = 6
 
     def get_queryset(self):
         queryset = super().get_queryset()
