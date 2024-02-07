@@ -26,6 +26,7 @@ urlpatterns = i18n_patterns(
 
     # ADMIN
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
 
     # APP
     path('', include('products.urls')),
