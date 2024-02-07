@@ -14,10 +14,10 @@
             <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
                 <h2 class="text-center" style="margin-bottom: 20px;">{{ category_path }}</h2>
                 <div class="card w-175 mx-auto">
-                    {#                    <img src="{{ product_images.0.image.url }}" class="card-img-top" alt="{{ product.name }}">#}
-                    {#                    {% for image in images %}#}
-                    {#                        <img src="{{ image.url }}" class="card-img-top" alt="{{ product.name }}">#}
-                    {#                    {% endfor %}#}
+                                        <img src="{{ product_images.0.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                                        {% for image in images %}
+                                            <img src="{{ image.url }}" class="card-img-top" alt="{{ product.name }}">
+                                        {% endfor %}
 
                     <div class="card-body text-center">
                         <h5 class="card-title">{{ product.name }}</h5>
