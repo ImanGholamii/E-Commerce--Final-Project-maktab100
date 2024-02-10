@@ -52,6 +52,15 @@ class OrderUpdateDeleteView(APIView):
         order_obj.delete()
         return Response({"message": "Order deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
+
+class OrderItemApiView(APIView):
+    """GET and POST order items"""
+    def get(self, request):
+        order_item = OrderItem.objects.all()
+        serializer = OrderItemSerializer(order_item, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 # ==================
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
