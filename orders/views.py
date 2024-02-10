@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 
 class OrderApiVew(APIView):
     """ GET and POST Orders"""
+
     def get(self, request):
         orders = Order.objects.all()
         serializer = OrderSerializer(orders, many=True)
@@ -26,12 +27,13 @@ class OrderApiVew(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 class OrderUpdateDeleteView(APIView):
-    @swagger_auto_schema(
+    swagger = swagger_auto_schema(
         request_body=OrderSerializer,
         responses={200: OrderSerializer()}
     )
+
+    @swagger
     def put(self, request, pk):
         order_obj = Order.objects.get(id=pk)
         serializer = OrderSerializer(order_obj, data=request.data, partial=False)
@@ -40,10 +42,7 @@ class OrderUpdateDeleteView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @swagger_auto_schema(
-        request_body=OrderSerializer,
-        responses={200: OrderSerializer()}
-    )
+    @swagger
     def delete(self, request, pk):
         try:
             order_obj = Order.objects.get(id=pk)
@@ -53,6 +52,7 @@ class OrderUpdateDeleteView(APIView):
         order_obj.delete()
         return Response({"message": "Order deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
+# ==================
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
