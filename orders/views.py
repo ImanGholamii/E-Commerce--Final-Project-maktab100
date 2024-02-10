@@ -40,6 +40,18 @@ class OrderUpdateDeleteView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @swagger_auto_schema(
+        request_body=OrderSerializer,
+        responses={200: OrderSerializer()}
+    )
+    def delete(self, request, pk):
+        try:
+            order_obj = Order.objects.get(id=pk)
+        except Order.DoesNotExist:
+            return Response({"error": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        order_obj.delete()
+        return Response({"message": "Order deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
