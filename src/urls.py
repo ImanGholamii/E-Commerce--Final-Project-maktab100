@@ -31,7 +31,6 @@ urlpatterns = i18n_patterns(
     path('', include('products.urls')),
     path('users/', include('users.urls')),
     path('email/', include('email_sender_app.urls')),
-
     # API
     path('api/orders/', include('orders.urls')),
 
