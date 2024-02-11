@@ -46,6 +46,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'orders.middleware.SetGuestCookieMiddleware',
+    # 'orders.middleware.RedirectGuestToLoginMiddleware',
+    # 'orders.middleware.MergeGuestCartMiddleware',
 ]
 
 ROOT_URLCONF = 'src.urls'
