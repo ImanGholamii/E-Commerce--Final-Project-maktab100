@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, generics
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from products.models import Product
 from users.models import Customer, User
@@ -112,6 +113,28 @@ class OrderItemApiView(APIView):
                 instance = serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=['post'])
+    def increase_quantity(self, request, pk=None):
+        """Increase quantity of an order item"""
+        order_item = self.get_object()
+        order_item.quantities += 1
+        order_item.save()
+        serializer = self.get_serializer(order_item)
+        return Response(serializer.data)
+
+    @action(detail=True, methods=['post'])
+    def decrease_quantity(self, request, pk=None):
+        """Decrease quantity of an order item"""
+        order_item = self.get_object()
+        if order_item.quantities > 1:
+            order_item.quantities -= 1
+            order_item.save()
+            serializer = self.get_serializer(order_item)
+            return Response(serializer.data)
+        else:
+
+            return Response({"error": "Cannot decrease quantity further"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class OrderItemUpdateDeleteApiView(APIView):
