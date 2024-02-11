@@ -70,7 +70,7 @@ class OrderItemApiView(APIView):
     """GET and POST order items"""
 
     def get(self, request):
-        order_item = OrderItem.objects.all()
+        order_item = OrderItem.objects.filter(product__is_deleted=False)
         serializer = OrderItemSerializer(order_item, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -143,7 +143,7 @@ class OrderItemUpdateDeleteApiView(APIView):
         except item.DoesNotExist:
             return Response({'data': "Item doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
         item.delete()
-        return Response({"data": f"Item deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+        return Response({"data": f"Item deleted successfully from Order:{OrderItem.order.id}."}, status=status.HTTP_204_NO_CONTENT)
 
 
 def check_cart(request):
