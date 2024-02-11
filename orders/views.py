@@ -2,7 +2,6 @@ from django.shortcuts import get_object_or_404, render
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, generics
 from rest_framework.response import Response
-
 from products.models import Product
 from users.models import Customer, User
 from .models import Order, OrderItem
@@ -124,6 +123,7 @@ class OrderItemUpdateDeleteApiView(APIView):
 
     def get(self, request, pk):
         order_item = OrderItem.objects.filter(id=pk)
+        # order_item = OrderItem.objects.filter(product__is_deleted=False)
         serializer = OrderItemSerializer(order_item, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -139,11 +139,12 @@ class OrderItemUpdateDeleteApiView(APIView):
     def delete(self, request, pk):
         try:
             item = OrderItem.objects.get(id=pk)
-
-        except item.DoesNotExist:
+            item.delete()
+            return Response({"data": f"Item deleted successfully."},
+                            status=status.HTTP_204_NO_CONTENT)
+        except OrderItem.DoesNotExist:
             return Response({'data': "Item doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
-        item.delete()
-        return Response({"data": f"Item deleted successfully from Order:{OrderItem.order.id}."}, status=status.HTTP_204_NO_CONTENT)
+
 
 
 def check_cart(request):
