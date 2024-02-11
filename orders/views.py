@@ -136,6 +136,15 @@ class OrderItemUpdateDeleteApiView(APIView):
             return Response(serialize.data, status=status.HTTP_200_OK)
         return Response(serialize.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def delete(self, request, pk):
+        try:
+            item = OrderItem.objects.get(id=pk)
+
+        except item.DoesNotExist:
+            return Response({'data': "Item doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
+        item.delete()
+        return Response({"data": f"Item deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+
 
 def check_cart(request):
     """to show all ordered items in template"""
