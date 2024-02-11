@@ -139,12 +139,12 @@
                                     <span>{{ request.user.username }}</span>
                                 </a>
                             {% endif %}
-                            <a class="cart_link" href="#">
+                            <a class="cart_link" href="{% url 'cart' %}">
                                 <!-- در تمپلیت HTML -->
                                 <img class="shopping_cart" src="{% static 'images/shopping_cart_image.jpg' %}"
                                      alt="Shopping Cart" width="30" height="auto">
                             </a>
-                            <p id="cart-total">{{cartItems}}</p>
+                            <p id="cart-total"></p>
                             <li class="search">
                                 {% block search %}
                                     <form class="d-flex">
@@ -501,9 +501,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
     <!-- custom js -->
     <script src="{% static 'js/custom.js' %}"></script>
-    <!-- Google Map -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
-    <!-- End Google Map -->
+    <!-- for shopping cart -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var totalQuantity = $('#total_quantity').val();
+            $('#cart-total').text(totalQuantity);
+        });
+    </script>
 
 {% endblock %}
 </body>
