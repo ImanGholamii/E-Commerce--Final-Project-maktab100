@@ -115,7 +115,26 @@ class OrderItemApiView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class OrderItemUpdateDeleteApiView(APIView):
+    """Update and Delete items of an Order"""
+    swagger = swagger_auto_schema(
+        request_body=OrderItemSerializer,
+        responses={200: OrderItemSerializer()}
+    )
 
+    def get(self, request, pk):
+        order_item = OrderItem.objects.filter(id=pk)
+        serializer = OrderItemSerializer(order_item, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @swagger
+    def put(self, request, pk):
+        item = OrderItem.objects.get(id=pk)
+        serialize = OrderItemSerializer(item, data=request.data)
+        if serialize.is_valid():
+            serialize.save()
+            return Response(serialize.data, status=status.HTTP_200_OK)
+        return Response(serialize.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def check_cart(request):
