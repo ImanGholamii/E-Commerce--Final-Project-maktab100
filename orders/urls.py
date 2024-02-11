@@ -7,5 +7,5 @@ urlpatterns = [
     path('<int:pk>/', OrderUpdateDeleteView.as_view()),
     path('items/', OrderItemApiView.as_view()),
     path('items/<int:pk>', OrderItemUpdateDeleteApiView.as_view()),
-    path('cart/', check_cart),
+    path('cart/', check_cart, name="cart"),
 ]

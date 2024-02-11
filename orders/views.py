@@ -149,7 +149,7 @@ class OrderItemUpdateDeleteApiView(APIView):
 def check_cart(request):
     """to show all ordered items in template"""
     # items = OrderItem.objects.all()
-    items = OrderItem.objects.filter(order__customer=request.user.id)
+    items = OrderItem.objects.filter(order__customer=request.user.id, is_deleted=False)
     print('Customer: ', request.user)
     total_quantity = sum(item.quantities for item in items)
     total_price = sum(item.product.price * item.quantities for item in items)
