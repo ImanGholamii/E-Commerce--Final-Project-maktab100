@@ -146,10 +146,19 @@ class OrderItemUpdateDeleteApiView(APIView):
             return Response({'data': "Item doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 def check_cart(request):
     """to show all ordered items in template"""
-    return render(request, 'check_cart.html')
+    # items = OrderItem.objects.all()
+    items = OrderItem.objects.filter(order__customer=request.user.id)
+    print('Customer: ', request.user)
+    total_quantity = sum(item.quantities for item in items)
+    total_price = sum(item.product.price * item.quantities for item in items)
+    context = {
+        'items': items,
+        'total_quantity': total_quantity,
+        'total_price': total_price,
+    }
+    return render(request, 'check_cart.html', context=context)
 
 
 # ==================
