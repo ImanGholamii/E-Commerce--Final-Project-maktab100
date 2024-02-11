@@ -41,6 +41,11 @@ class OrderUpdateDeleteView(APIView):
         responses={200: OrderSerializer()}
     )
 
+    def get(self, request, pk):
+        order_item = Order.objects.filter(id=pk)
+        serializer = OrderSerializer(order_item, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     @swagger
     def put(self, request, pk):
         order_obj = Order.objects.get(id=pk)
@@ -110,9 +115,13 @@ class OrderItemApiView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+
+
 def check_cart(request):
     """to show all ordered items in template"""
     return render(request, 'check_cart.html')
+
 
 # ==================
 class OrderListCreateView(generics.ListCreateAPIView):
