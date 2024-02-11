@@ -109,6 +109,29 @@
         .hidden {
             display: none !important;
         }
+        /* استایل دکمه‌ها */
+    .quantity-button {
+        background-color: #4CAF50; /* رنگ پس زمینه */
+        border: none; /* حذف حاشیه */
+        color: white; /* رنگ متن */
+        padding: 3px 6px; /* فاصله داخلی */
+        text-align: center; /* تراز متن */
+        text-decoration: none; /* حذف زیرخط */
+        display: inline-block; /* نمایش به صورت بلوک در همان خط */
+        font-size: 16px; /* اندازه متن */
+        margin: 4px 2px; /* حاشیه */
+        cursor: pointer; /* نشانگر موس */
+        border-radius: 8px; /* شکل گرد کردن لبه‌ها */
+    }
+
+    /* استایل دکمه‌های افزایش و کاهش */
+    .quantity-button.increase {
+        background-color: #4CAF50; /* رنگ پس زمینه */
+    }
+
+    .quantity-button.decrease {
+        background-color: #f44336; /* رنگ پس زمینه */
+    }
     </style>
     <div class="row">
         <div class="col-lg-6">
@@ -123,9 +146,73 @@
                         <div class="cart-row">
                             <div style="flex:2"><img class="row-image" src="{{ item.product.images.first.image.url }}">
                             </div>
-                            <div style="flex:2"><p>{{ item.quantities }}</p></div>
-                            <div style="flex:1"><p>{{ item.product.name }}</p></div>
+                            <div style="flex:2">
+                                <p id="quantity-{{ item.product.id }}">{{ item.quantities }}</p>
+                                <button class="quantity-button increase" onclick="increaseQuantity({{ item.product.id }})">+</button>
+                                <script>
+                                    function increaseQuantity(productId) {
+                                        fetch('/en/api/orders/items/', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRFToken': getCookie('csrftoken') // اضافه کردن توکن CSRF
+                                            },
+                                            body: JSON.stringify({
+                                                product: productId,
+                                                quantities: 1
+                                            })
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            // بروزرسانی تعداد کالا در تمپلیت
+                                            document.getElementById('quantity-' + productId).innerText = data.quantities;
+                                        })
+                                        .catch(error => console.error('Error:', error));
+                                    }
+
+                                    // تابع برای دریافت توکن CSRF از کوکی
+                                    function getCookie(name) {
+                                        const value = `; ${document.cookie}`;
+                                        const parts = value.split(`; ${name}=`);
+                                        if (parts.length === 2) return parts.pop().split(';').shift();
+                                    }
+
+                                </script>
+
+                                <button class="quantity-button decrease" onclick="decreaseQuantity({{ item.product.id }})">-</button>
+                                <script>
+                                    function decreaseQuantity(productId) {
+                                        fetch('/en/api/orders/items/', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRFToken': getCookie('csrftoken') // اضافه کردن توکن CSRF
+                                            },
+                                            body: JSON.stringify({
+                                                product: productId,
+                                                quantities: -1
+                                            })
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            // بروزرسانی تعداد کالا در تمپلیت
+                                            document.getElementById('quantity-' + productId).innerText = data.quantities;
+                                        })
+                                        .catch(error => console.error('Error:', error));
+                                    }
+
+                                    // تابع برای دریافت توکن CSRF از کوکی
+                                    function getCookie(name) {
+                                        const value = `; ${document.cookie}`;
+                                        const parts = value.split(`; ${name}=`);
+                                        if (parts.length === 2) return parts.pop().split(';').shift();
+                                    }
+
+                                </script>
+                            </div>
+
                             <div style="flex:1"><p>{{ item.product.price }}</p></div>
+                            <div style="flex:1"><p>{{ item.product.name }}</p></div>
                         </div>
                     {% endif %}
                 {% endfor %}
