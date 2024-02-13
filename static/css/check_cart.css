@@ -4,6 +4,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     color: hsl(0, 0%, 30%);
+    text-align: center;
 }
 
 .box-element {
@@ -11,6 +12,7 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #fff;
     border-radius: 4px;
     padding: 10px;
+    margin: 0 auto;
 }
 
 .thumbnail {
@@ -44,10 +46,12 @@ h1, h2, h3, h4, h5, h6 {
     height: 25px;
     border-radius: 50%;
     font-size: 14px;
+    margin: 0 auto;
 }
 
 .col-lg-4, .col-lg-6, .col-lg-8, .col-lg-12 {
     margin-top: 10px;
+    text-align: center;
 }
 
 .btn {
@@ -62,23 +66,21 @@ h1, h2, h3, h4, h5, h6 {
     width: 250px;
     display: inline-block;
     padding: 5px;
+    margin: 0 auto;
 }
 
 .cart-row {
     display: flex;
-    /*align-items: flex-stretch;*/
     padding-bottom: 10px;
     margin-bottom: 10px;
     border-bottom: 1px solid #ececec;
-
+    justify-content: center;
 }
 
 .quantity {
     display: inline-block;
     font-weight: 700;
     padding-right: 10px;
-
-
 }
 
 .chg-quantity {
@@ -93,31 +95,46 @@ h1, h2, h3, h4, h5, h6 {
     opacity: .6;
 }
 
-
 .hidden {
     display: none !important;
 }
 
 /* استایل دکمه‌ها */
 .quantity-button {
-    background-color: #4CAF50; /* رنگ پس زمینه */
-    border: none; /* حذف حاشیه */
-    color: white; /* رنگ متن */
-    padding: 3px 6px; /* فاصله داخلی */
-    text-align: center; /* تراز متن */
-    text-decoration: none; /* حذف زیرخط */
-    display: inline-block; /* نمایش به صورت بلوک در همان خط */
-    font-size: 16px; /* اندازه متن */
-    margin: 4px 2px; /* حاشیه */
-    cursor: pointer; /* نشانگر موس */
-    border-radius: 8px; /* شکل گرد کردن لبه‌ها */
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 4px;
 }
 
-/* استایل دکمه‌های افزایش و کاهش */
+.btn-add-remove {
+    width: 20px;
+    height: 20px;
+}
+
 .quantity-button.increase {
-    background-color: #4CAF50; /* رنگ پس زمینه */
+    background-color: #4CAF50;
 }
 
 .quantity-button.decrease {
-    background-color: #f44336; /* رنگ پس زمینه */
+    background-color: #f44336;
+}
+.offer{
+    color: #3d3d3d;
+    border-radius: 50%;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    background-color: #f3e5ff;
 }
