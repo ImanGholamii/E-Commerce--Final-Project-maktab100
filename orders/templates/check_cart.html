@@ -6,133 +6,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/check_cart.css' %}">
 {% endblock header %}
 {% block content %}
-    <style>
-        body {
-            background-color: hsl(0, 0%, 98%);
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            color: hsl(0, 0%, 30%);
-        }
-
-        .box-element {
-            box-shadow: hsl(0, 0%, 80%) 0 0 16px;
-            background-color: #fff;
-            border-radius: 4px;
-            padding: 10px;
-        }
-
-        .thumbnail {
-            width: 100%;
-            height: 200px;
-            -webkit-box-shadow: -1px -3px 5px -2px rgba(214, 214, 214, 1);
-            -moz-box-shadow: -1px -3px 5px -2px rgba(214, 214, 214, 1);
-            box-shadow: -1px -3px 5px -2px rgba(214, 214, 214, 1);
-        }
-
-        .product {
-            border-radius: 0 0 4px 4px;
-        }
-
-        .bg-dark {
-            background-color: #4f868c !important;
-        }
-
-        #cart-icon {
-            width: 25px;
-            display: inline-block;
-            margin-left: 15px;
-        }
-
-        #cart-total {
-            display: block;
-            text-align: center;
-            color: #fff;
-            background-color: red;
-            width: 20px;
-            height: 25px;
-            border-radius: 50%;
-            font-size: 14px;
-        }
-
-        .col-lg-4, .col-lg-6, .col-lg-8, .col-lg-12 {
-            margin-top: 10px;
-        }
-
-        .btn {
-            border-radius: 0;
-        }
-
-        .row-image {
-            width: 100px;
-        }
-
-        .form-field {
-            width: 250px;
-            display: inline-block;
-            padding: 5px;
-        }
-
-        .cart-row {
-            display: flex;
-            /*align-items: flex-stretch;*/
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #ececec;
-
-        }
-
-        .quantity {
-            display: inline-block;
-            font-weight: 700;
-            padding-right: 10px;
-
-
-        }
-
-        .chg-quantity {
-            width: 12px;
-            cursor: pointer;
-            display: block;
-            margin-top: 5px;
-            transition: .1s;
-        }
-
-        .chg-quantity:hover {
-            opacity: .6;
-        }
-
-
-        .hidden {
-            display: none !important;
-        }
-        /* استایل دکمه‌ها */
-    .quantity-button {
-        background-color: #4CAF50; /* رنگ پس زمینه */
-        border: none; /* حذف حاشیه */
-        color: white; /* رنگ متن */
-        padding: 3px 6px; /* فاصله داخلی */
-        text-align: center; /* تراز متن */
-        text-decoration: none; /* حذف زیرخط */
-        display: inline-block; /* نمایش به صورت بلوک در همان خط */
-        font-size: 16px; /* اندازه متن */
-        margin: 4px 2px; /* حاشیه */
-        cursor: pointer; /* نشانگر موس */
-        border-radius: 8px; /* شکل گرد کردن لبه‌ها */
-    }
-
-    /* استایل دکمه‌های افزایش و کاهش */
-    .quantity-button.increase {
-        background-color: #4CAF50; /* رنگ پس زمینه */
-    }
-
-    .quantity-button.decrease {
-        background-color: #f44336; /* رنگ پس زمینه */
-    }
-    </style>
     <div class="row">
         <div class="col-lg-6">
             <div class="box-element">
@@ -148,67 +24,12 @@
                             </div>
                             <div style="flex:2">
                                 <p id="quantity-{{ item.product.id }}">{{ item.quantities }}</p>
-                                <button class="quantity-button increase" onclick="increaseQuantity({{ item.product.id }})">+</button>
-                                <script>
-                                    function increaseQuantity(productId) {
-                                        fetch('/en/api/orders/items/', {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/json',
-                                                'X-CSRFToken': getCookie('csrftoken') // اضافه کردن توکن CSRF
-                                            },
-                                            body: JSON.stringify({
-                                                product: productId,
-                                                quantities: 1
-                                            })
-                                        })
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            // بروزرسانی تعداد کالا در تمپلیت
-                                            document.getElementById('quantity-' + productId).innerText = data.quantities;
-                                        })
-                                        .catch(error => console.error('Error:', error));
-                                    }
-
-                                    // تابع برای دریافت توکن CSRF از کوکی
-                                    function getCookie(name) {
-                                        const value = `; ${document.cookie}`;
-                                        const parts = value.split(`; ${name}=`);
-                                        if (parts.length === 2) return parts.pop().split(';').shift();
-                                    }
-
-                                </script>
-
-                                <button class="quantity-button decrease" onclick="decreaseQuantity({{ item.product.id }})">-</button>
-                                <script>
-                                    function decreaseQuantity(productId) {
-                                        fetch('/en/api/orders/items/', {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/json',
-                                                'X-CSRFToken': getCookie('csrftoken') // اضافه کردن توکن CSRF
-                                            },
-                                            body: JSON.stringify({
-                                                product: productId,
-                                                quantities: -1
-                                            })
-                                        })
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            // بروزرسانی تعداد کالا در تمپلیت
-                                            document.getElementById('quantity-' + productId).innerText = data.quantities;
-                                        })
-                                        .catch(error => console.error('Error:', error));
-                                    }
-
-                                    // تابع برای دریافت توکن CSRF از کوکی
-                                    function getCookie(name) {
-                                        const value = `; ${document.cookie}`;
-                                        const parts = value.split(`; ${name}=`);
-                                        if (parts.length === 2) return parts.pop().split(';').shift();
-                                    }
-
-                                </script>
+                                <button class="quantity-button increase"
+                                        onclick="adjustQuantity({{ item.product.id }}, 1)">+
+                                </button>
+                                <button class="quantity-button decrease"
+                                        onclick="adjustQuantity({{ item.product.id }}, -1)">-
+                                </button>
                             </div>
 
                             <div style="flex:1"><p>{{ item.product.price }}</p></div>
@@ -216,7 +37,9 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-                <h5>{% trans 'Items:' %}<input type="hidden" id="total_quantity" value="{{ total_quantity }}"></h5>
+                <h5>{% trans 'Items:' %}<input type="hidden" id="total_quantity"
+                                               value="{{ total_quantity }}">&nbsp;&nbsp;&nbsp;{{ total_quantity }}</h5>
+
                 <h5>{% trans 'Total:' %}
                     <svg class="ms-3" width="25" height="25" viewBox="0 0 14 16" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
@@ -231,7 +54,4 @@
 
         </div>
     </div>
-
-
-
 {% endblock %}
