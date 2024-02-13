@@ -16,27 +16,27 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="">
-    <script type="text/javascript">var user = '
-    {{request.user}}
-
-    function getToken(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-    const csrftoken = getToken('csrftoken');
-    </script> <!-- now we have our user, using it in js -->
+{#    <script type="text/javascript">var user = '#}
+{#    {{request.user}}#}
+{##}
+{#    function getToken(name) {#}
+{#        let cookieValue = null;#}
+{#        if (document.cookie && document.cookie !== '') {#}
+{#            const cookies = document.cookie.split(';');#}
+{#            for (let i = 0; i < cookies.length; i++) {#}
+{#                const cookie = cookies[i].trim();#}
+{#                // Does this cookie string begin with the name we want?#}
+{#                if (cookie.substring(0, name.length + 1) === (name + '=')) {#}
+{#                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));#}
+{#                    break;#}
+{#                }#}
+{#            }#}
+{#        }#}
+{#        return cookieValue;#}
+{#    }#}
+{##}
+{#    const csrftoken = getToken('csrftoken');#}
+{#    </script> <!-- now we have our user, using it in js -->#}
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css">
 
@@ -140,7 +140,7 @@
                                 </a>
                             {% endif %}
                             <a class="cart_link" href="{% url 'cart' %}">
-                                <!-- در تمپلیت HTML -->
+
                                 <img class="shopping_cart" src="{% static 'images/shopping_cart_image.jpg' %}"
                                      alt="Shopping Cart" width="30" height="auto">
                             </a>
@@ -471,8 +471,17 @@
     </footer>
     </div>
     <!-- footer section -->
-    <!--my js-->
-    <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+    <!--my JS-->
+    <!-- for shopping cart -->
+    <script src="{% static 'js/check_cart.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var totalQuantity = $('#total_quantity').val();
+            $('#cart-total').text(totalQuantity);
+        });
+    </script>
+    <!-- end my JS -->
     <!-- Popper.js and Bootstrap JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@latest/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.min.js"></script>
@@ -501,14 +510,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
     <!-- custom js -->
     <script src="{% static 'js/custom.js' %}"></script>
-    <!-- for shopping cart -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            var totalQuantity = $('#total_quantity').val();
-            $('#cart-total').text(totalQuantity);
-        });
-    </script>
+
 
 {% endblock %}
 </body>
