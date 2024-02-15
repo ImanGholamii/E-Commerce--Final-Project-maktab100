@@ -388,7 +388,7 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
 class UserProfileApiView(APIView):
     """view and edit profile"""
 
-    def get(self, request):
-        user = User.objects.get(id=request.id)
-        serializer = UserProfileSerializer(user)
+    def get(self, request, pk):
+        user_profile = get_object_or_404(UserProfile, pk=pk)
+        serializer = UserProfileSerializer(user_profile)
         return Response(serializer.data, status=status.HTTP_200_OK)
