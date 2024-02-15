@@ -1,7 +1,7 @@
 from django.urls import path
 from users.views import SignUpView, login_view, profile_view, Logout, home, UserRegisterCodeView, EmployeeSignUpView, \
     EmployeeRegisterCodeView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
-    PasswordResetCompleteView, edit_profile_view
+    PasswordResetCompleteView, edit_profile_view, UserProfileApiView
 
 urlpatterns = [
     path('signup/', SignUpView.as_view(), name="signup"),
@@ -14,8 +14,11 @@ urlpatterns = [
     path('profile/', profile_view, name="profile"),
     path('edit_profile/', edit_profile_view, name='edit_profile'),
     path('home/', home, name="home"),
+    # Reset Password
     path('password_reset/', PasswordResetView.as_view(), name='password_reset'),
     path('password_reset/done/', PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    # API
+    path('api/profile/<int:pk>', UserProfileApiView.as_view()),
 ]
