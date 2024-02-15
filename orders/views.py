@@ -92,11 +92,13 @@ class OrderItemApiView(APIView):
         else:
             guest_user_id = request.COOKIES.get('guest_user')
             print(guest_user_id)
-            if guest_user_id == 'guest':
-                guest_user_id = 45
+            if guest_user_id == '45':
+                # guest_user_id = 45
                 user_id = int(guest_user_id)
                 print('guest_customer.id = ', user_id)
         order, created = Order.objects.get_or_create(customer=user_id, status='pending')
+
+        print(order)
 
         order_item = order.order_items.filter(product=product).first()
         if order_item:
