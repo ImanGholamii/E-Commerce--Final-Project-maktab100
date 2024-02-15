@@ -10,6 +10,10 @@ from django.views import View
 from django.views.generic import CreateView
 from django.contrib.auth.models import Group
 from django.urls import reverse, reverse_lazy
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from core.utils import send_otp_code
 from users.forms import CustomUserCreationForm, VerifyCodeForm, EmployeeCreationForm, UserProfileForm
 from users.models import UserProfile, OtpCode, Employee, Address
@@ -22,6 +26,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
+
+from users.serializers import UserProfileSerializer
 
 User = get_user_model()
 
@@ -375,3 +381,14 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
         context = super().get_context_data(**kwargs)
         context["login_url"] = resolve_url(settings.LOGIN_URL)
         return context
+
+
+# ============ API ============
+
+class UserProfileApiView(APIView):
+    """view and edit profile"""
+
+    def get(self, request):
+        user = User.objects.get(id=request.id)
+        serializer = UserProfileSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
