@@ -214,6 +214,15 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            if 'guest_user' in request.COOKIES:
+                print("Guest Cookie Data:", request.COOKIES)
+                print("Guest Cookie Data:", request.COOKIES['guest_user'])
+                guest_user_id = request.COOKIES['guest_user']
+                # user = User.objects.get(id=guest_user_id)
+                user = User.objects.get(id=int(guest_user_id))
+                response = redirect('index')
+                response.delete_cookie('guest_user')
+                return response
             cart_data = request.session.get('cart', [])
             next_url = request.session.get('next')
             if next_url:
