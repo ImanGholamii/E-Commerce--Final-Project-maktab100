@@ -10,7 +10,8 @@ class SetGuestCookieMiddleware(MiddlewareMixin):
     def process_request(self, request):
         if not request.user.is_authenticated:
             if 'guest_user' not in request.COOKIES:
-                request.COOKIES['guest_user'] = 'guest'
+                # request.COOKIES['guest_user'] = 'guest'
+                request.COOKIES['guest_user'] = '45'
 
 # class RedirectGuestToLoginMiddleware(MiddlewareMixin):
 #     def process_view(self, request, view_func, view_args, view_kwargs, check_cart=None):
