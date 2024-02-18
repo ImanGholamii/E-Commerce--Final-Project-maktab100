@@ -1,4 +1,3 @@
-<!-- تمپلیت ویرایش پروفایل -->
 <!DOCTYPE html>
 {% load i18n %}
 {% load static %}
@@ -9,91 +8,155 @@
     <title>{% block title %}Edit Profile{% endblock %}</title>
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js" integrity="sha384-GLhlTQ8iKUr/C2r/+MJYEhjr8ue8qLjz/6CS70C2N5F5tr5ww0DZa4FfNFMlRT" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"
+            integrity="sha384-GLhlTQ8iKUr/C2r/+MJYEhjr8ue8qLjz/6CS70C2N5F5tr5ww0DZa4FfNFMlRT"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+    <style>
+        .small-textarea {
+            resize: vertical;
+            max-height: 150px;
+            max-width: 350px;
+            overflow-y: auto;
+        }
+    </style>
 </head>
 <body style="background-image: url('{% static 'images/profile-bg.jpg' %}'); background-size: cover; color: #fff;">
-    <div class="container mt-5">
-        <h1 class="mb-4">{% trans 'Edit Profile' %}</h1>
-        <form method="post" enctype="multipart/form-data" class="mt-4 d-flex justify-content-between flex-wrap">
-            {% csrf_token %}
-            <div class="col-md-6 mb-4">
-                <div class="form-group">
-                    <label for="id_profile_picture" class="form-label">{% trans 'Profile Picture:' %}</label>
-                    {% if user_profile.profile_picture and user_profile.profile_picture.url %}
-                        <p class="form-text">Currently: {{ user_profile.profile_picture.url }}</p>
-                        <button type="button" class="btn btn-link">{% trans 'Clear' %}</button>
-                    {% endif %}
-                    <input type="file" name="profile_picture" class="form-control" id="id_profile_picture">
-                    <small class="form-text text-muted">{% trans 'Change' %}:</small>
-                </div>
-                <div class="form-group">
-                    <label for="id_gender" class="form-label">{% trans 'Gender' %}:</label>
-                    {{ form.gender }}
-                </div>
-                <div class="form-group">
-                    <label for="id_date_of_birth" class="form-label">{% trans 'Date of Birth:' %} </label>
-                    {{ form.date_of_birth }}
-                </div>
-                <div class="form-group">
-                    <label for="id_bio" class="form-label">{% trans 'Bio:' %}</label>
-                    {{ form.bio }}
-                </div>
-
-                <div class="form-group">
-                    <label for="id_first_name" class="form-label">{% trans 'First Name:' %}</label>
-                    {{ form.first_name }}
-                </div>
-                <div class="form-group">
-                    <label for="id_last_name" class="form-label">{% trans 'Last Name:' %}</label>
-                    {{ form.last_name }}
-                </div>
-
+<div class="container mt-5">
+    <h1 class="mb-4">{% trans 'Edit Profile' %}</h1>
+    <form method="post" enctype="multipart/form-data" class="mt-4 d-flex justify-content-between flex-wrap">
+        {% csrf_token %}
+        <div class="col-md-6 mb-4">
+            <div class="form-group">
+                <label for="id_profile_picture" class="form-label">{% trans 'Profile Picture:' %}</label>
+                {% if user_profile.profile_picture and user_profile.profile_picture.url %}
+                    <p class="form-text">{% trans 'Currently: ' %}{{ user_profile.profile_picture.url }}</p>
+                    <button type="button" class="btn btn-link">{% trans 'Clear' %}</button>
+                {% endif %}
+                <input type="file" name="profile_picture" class="form-control" id="id_profile_picture">
+                <small class="form-text text-muted">{% trans 'Change: ' %}</small>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="id_social_media" class="form-label">{% trans 'Social Media:' %}</label>
-                    {{ form.social_media }}
-                </div>
-                <div class="form-group">
-                    <label for="id_interests" class="form-label">{% trans 'Interests:' %}</label>
-                    {{ form.interests }}
-                </div>
-                <br>
-                <br>
-                <div class="form-group">
-    <label for="id_addresses" class="form-label">{% trans 'Address:' %}</label>
-    <select name="addresses" class="form-control" id="id_addresses">
-        {% for address in form.addresses %}
-
-                <option value="{{ address.id }}"
-                        {% if address.id == form.addresses %} selected{% endif %}>
-                    {{ address }}
-                </option>
-
-        {% endfor %}
-    </select>
-</div>
-
-{% if user_addresses %}
-    <p>{% trans 'User Addresses:' %}</p>
-    <ul>
-        {% for address in user_addresses %}
-            <li>{{ address }}</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>{% trans 'No addresses available.' %}</p>
-{% endif %}
-
+            <div class="form-group">
+                <label for="id_gender" class="form-label">{% trans 'Gender: ' %}</label>
+                {{ form.gender }}
             </div>
+            <div class="form-group">
+                <label for="id_date_of_birth" class="form-label">{% trans 'Date of Birth: ' %} </label>
+                {{ form.date_of_birth }}
+            </div>
+
+
+            <div class="form-group">
+                <label for="id_first_name" class="form-label">{% trans 'First Name: ' %}</label>
+                {{ form.first_name }}
+            </div>
+            <div class="form-group">
+                <label for="id_last_name" class="form-label">{% trans 'Last Name: ' %}</label>
+                {{ form.last_name }}
+            </div>
+            <hr>
+            {#            Address Form            #}
+            <div id="addressFormTemplate" style="display: none;">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="id_state" class="form-label">{% trans 'State:' %}</label>
+                            {{ address_form.state }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_city" class="form-label">{% trans 'City:' %}</label>
+                            {{ address_form.city }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="id_street" class="form-label">{% trans 'Street:' %}</label>
+                            {{ address_form.street }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_alley" class="form-label">{% trans 'Alley:' %}</label>
+                            {{ address_form.alley }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="id_no" class="form-label">{% trans 'No:' %}</label>
+                            {{ address_form.no }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_unit_number" class="form-label">{% trans 'Unit Number:' %}</label>
+                            {{ address_form.unit_number }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="id_postal_code" class="form-label">{% trans 'Postal Code:' %}</label>
+                            {{ address_form.postal_code }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_additional_info" class="form-label">{% trans 'Additional Info:' %}</label>
+                            <span class="form-control small-textarea">{{ address_form.additional_info }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-info mt-3" onclick="toggleAddressForm();">
+                {% trans 'Add Address' %}
+            </button>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="id_social_media" class="form-label">{% trans 'Social Media: ' %}</label>
+                {{ form.social_media }}
+            </div>
+            <div class="form-group">
+                <label for="id_interests" class="form-label">{% trans 'Interests: ' %}</label>
+                <span class="form-control small-textarea">{{ form.interests }}</span>
+            </div>
+            <div class="form-group">
+                <label for="id_bio" class="form-label">{% trans 'Bio: ' %}</label>
+                <span class="form-control small-textarea">{{ form.bio }}</span>
+            </div>
+            <br>
+            <br>
+
             <button type="submit" class="btn btn-primary mt-3">{% trans 'Save Changes' %}</button>
-            <button class="btn btn-danger mt-3"><a href="/users/profile/" style="text-decoration:none; color: white;">{% trans 'Cancel' %}</a></button>
-        </form>
-    </div>
+            <button class="btn btn-danger mt-3"><a href="/users/profile/"
+                                                   style="text-decoration:none; color: white;">{% trans 'Cancel' %}</a>
+            </button>
+    </form>
+</div>
+<script>
+    function toggleAddressForm() {
+        var addressFormTemplate = document.getElementById('addressFormTemplate');
+        if (addressFormTemplate.style.display === 'none') {
+            addressFormTemplate.style.display = 'block';
+        } else {
+            addressFormTemplate.style.display = 'none';
+        }
+    }
+
+
+    var addressFormTemplate = document.getElementById('addressFormTemplate').innerHTML;
+
+    function addAddressForm() {
+        var floatingForm = document.createElement('div');
+        floatingForm.classList.add('floating-address-form');
+        floatingForm.innerHTML = addressFormTemplate;
+        document.body.appendChild(floatingForm);
+    }
+</script>
+
 </body>
 </html>
