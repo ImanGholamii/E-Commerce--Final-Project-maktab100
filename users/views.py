@@ -15,7 +15,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from core.utils import send_otp_code
-from users.forms import CustomUserCreationForm, VerifyCodeForm, EmployeeCreationForm, UserProfileForm
+from users.forms import CustomUserCreationForm, VerifyCodeForm, EmployeeCreationForm, UserProfileForm, AddressForm
 from users.models import UserProfile, OtpCode, Employee, Address
 from django.utils.translation import gettext_lazy as _
 from django.http import JsonResponse
@@ -254,6 +254,7 @@ class Logout(View):
             response.set_cookie('latest_user_login', latest_user_login)
             return response
 
+# Profile
 
 @login_required
 def profile_view(request):
@@ -280,79 +281,38 @@ def edit_profile_view(request):
             user.last_name = form.cleaned_data['last_name']
             user.save()
             form.save()
+
+            # Create AddressForm and assign request.user to the user field
+            address_form = AddressForm(request.POST)
+            if address_form.is_valid():
+                address_instance = address_form.save(commit=False)
+                address_instance.user = request.user
+                address_instance.save()
+
             return redirect('profile')
 
+    else:
+        address_form = AddressForm(initial={'user': request.user})
+
     user_addresses = Address.objects.filter(user_profiles=user_profile)
-    context = {'form': form, 'user_addresses': user_addresses}
+    context = {'form': form, 'user_addresses': user_addresses, 'address_form': address_form}
     return render(request, 'users/edit_profile.html', context)
 
+@login_required
+def delete_address_view(request, pk):
+
+    address = Address.objects.get(id=pk)
+
+    if address.user == request.user:
+
+        address.delete()
+
+    return redirect('profile')
 
 def home(request):
     return HttpResponse(f"Ola {request.user.username.upper()} ! 😊")
 
-
-# Password Reset Views
-
-# def send_password_reset_email(request, user_id):
-#     """Generate a token for the user"""
-#     user = get_object_or_404(User, pk=user_id)
-#     uid = urlsafe_base64_encode(force_bytes(user.pk))
-#     token = default_token_generator.make_token(user)
-#
-#     reset_url = f"{settings.BASE_URL}/users/reset_password/{uid}/{token}/"
-#
-#     subject = 'Password Reset Request'
-#     message = render_to_string('users/password_reset.html', {
-#         'user': user,
-#         'reset_url': reset_url,
-#     })
-#
-#     send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
-#
-#
-# def reset_password(uidb64, token, new_password):
-#     """ Decode the uid and get the user """
-#     try:
-#         uid = force_str(urlsafe_base64_decode(uidb64))
-#         user = get_user_model().objects.get(pk=uid)
-#     except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
-#         user = None
-#
-#     if user is not None and default_token_generator.check_token(user, token):
-#
-#         user.set_password(new_password)
-#         user.save()
-#         return True
-#     else:
-#         return False
-#
-#
-# class PasswordResetView(View):
-#     def get(self, request, uidb64, token):
-#         return render(request, 'users/password_reset.html', {'uidb64': uidb64, 'token': token})
-#
-#     def post(self, request, uidb64, token):
-#         new_password = request.POST.get('new_password')
-#         confirm_password = request.POST.get('confirm_password')
-#
-#         if new_password == confirm_password:
-#             try:
-#                 uid = force_str(urlsafe_base64_decode(uidb64))
-#                 user = get_user_model().objects.get(pk=uid)
-#             except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
-#                 user = None
-#
-#             if user is not None and default_token_generator.check_token(user, token):
-#                 user.set_password(new_password)
-#                 user.save()
-#                 messages.success(request, 'Password has been reset successfully.')
-#                 return redirect('login')
-#             else:
-#                 messages.error(request, 'Invalid link for password reset.')
-#         else:
-#             messages.error(request, 'Passwords do not match.')
-#
-#         return render(request, 'users/password_reset.html', {'uidb64': uidb64, 'token': token})
+# Reset Password
 
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
     PasswordResetCompleteView
@@ -366,7 +326,7 @@ class CustomPasswordResetView(PasswordResetView):
 
 class PasswordResetDoneView(PasswordResetDoneView):
     template_name = "users/password_reset/password_reset_done.html"
-    title = _("Password reset sent")
+    title = _("Password reset link sent to your Email")
 
 
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
