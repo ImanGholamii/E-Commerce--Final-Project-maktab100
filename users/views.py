@@ -1,32 +1,21 @@
-from datetime import timedelta
+import random
 from django.contrib import messages
+from django.contrib.auth.models import Group
 from django.contrib.auth import get_user_model, logout, login, authenticate
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404, resolve_url
-from django.utils import timezone
 from django.views import View
 from django.views.generic import CreateView
-from django.contrib.auth.models import Group
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
+from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from core.utils import send_otp_code
 from users.forms import CustomUserCreationForm, VerifyCodeForm, EmployeeCreationForm, UserProfileForm, AddressForm
 from users.models import UserProfile, OtpCode, Employee, Address
-from django.utils.translation import gettext_lazy as _
-from django.http import JsonResponse
-import random
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.encoding import force_bytes, force_str
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.conf import settings
-
 from users.serializers import UserProfileSerializer
 
 User = get_user_model()
@@ -254,17 +243,21 @@ class Logout(View):
             response.set_cookie('latest_user_login', latest_user_login)
             return response
 
+
 # Profile
 
 @login_required
 def profile_view(request):
     user_profile = UserProfile.objects.get(user=request.user)
+    address = Address.objects.filter(user=request.user)
 
     if request.method == 'POST' and request.FILES.get('profile_picture'):
         user_profile.profile_picture = request.FILES['profile_picture']
         user_profile.save()
 
-    context = {'user_profile': user_profile}
+    context = {'user_profile': user_profile,
+               'address': address,
+               }
     return render(request, 'users/profile.html', context)
 
 
@@ -298,19 +291,20 @@ def edit_profile_view(request):
     context = {'form': form, 'user_addresses': user_addresses, 'address_form': address_form}
     return render(request, 'users/edit_profile.html', context)
 
+
 @login_required
 def delete_address_view(request, pk):
-
     address = Address.objects.get(id=pk)
 
     if address.user == request.user:
-
         address.delete()
 
     return redirect('profile')
 
+
 def home(request):
     return HttpResponse(f"Ola {request.user.username.upper()} ! 😊")
+
 
 # Reset Password
 
