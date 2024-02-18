@@ -32,24 +32,24 @@
 <body style="background-image: url('{% static 'images/profile-bg.jpg' %}'); background-size: cover; color: #fff;">
 <div class="profile-container">
     <div class="profile-image">
-{#        {% if user_profile.profile_picture and user_profile.profile_picture.url %}#}
+        {#        {% if user_profile.profile_picture and user_profile.profile_picture.url %}#}
         {% if user_profile.profile_picture or user_profile.profile_picture.url %}
-{#            <img src="{{ user_profile.profile_picture.url }}" alt="{% trans 'Profile Picture' %}">#}
+            {#            <img src="{{ user_profile.profile_picture.url }}" alt="{% trans 'Profile Picture' %}">#}
             <img src="{{ user_profile.profile_picture }}" alt="{% trans 'Profile Picture' %}">
         {% else %}
             <p>{% trans 'No Profile Picture available' %}</p>
         {% endif %}
-{#        <p>{{ user_profile.user.username }}</p>#}
+        {#        <p>{{ user_profile.user.username }}</p>#}
         <p>{{ user_data.username }}</p>
         <div class="column">
-{#            <h2>{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}</h2>#}
+            {#            <h2>{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}</h2>#}
             <h2>{{ user_data.first_name }} {{ user_data.last_name }}</h2>
-{#            <p>{% trans 'Email' %}: {{ user_profile.user.email }}</p>#}
+            {#            <p>{% trans 'Email' %}: {{ user_profile.user.email }}</p>#}
             <p>{% trans 'Email' %}: {{ user_data.email }}</p>
-{#            <p>{% trans 'Phone Number' %}: {{ user_profile.user.phone }}</p>#}
+            {#            <p>{% trans 'Phone Number' %}: {{ user_profile.user.phone }}</p>#}
             <p>{% trans 'Phone Number' %}: {{ user_data.phone }}</p>
-{#            <p>{% trans 'Gender' %}: {{ user_profile.get_gender_display }}</p>#}
-            <p>{% trans 'Gender' %}: {{ user_profile.gender}}</p>
+            {#            <p>{% trans 'Gender' %}: {{ user_profile.get_gender_display }}</p>#}
+            <p>{% trans 'Gender' %}: {{ user_profile.gender }}</p>
             <p>{% trans 'Date of Birth' %}: {{ user_profile.date_of_birth }}</p>
             <p>{% trans 'Social Media' %}: {{ user_profile.social_media }}</p>
         </div>
@@ -61,24 +61,93 @@
             <h2>{% trans 'Bio' %}</h2>
             <p>{{ user_profile.bio }}</p>
             <h2>{% trans 'Address' %}</h2>
-            <ul>
-                {% for addr in address %}
-                    <div class="address">
-                        {% if addr.is_default %}
-                            <span>{{ forloop.counter }}. &nbsp;{% trans 'Default: ' %} {{ addr }}</span>
+            {#            <ul>#}
+            {#                {% for addr in address %}#}
+            {#                    <div class="address">#}
+            {#                        {% if addr.is_default %}#}
+            {#                            <span>{{ forloop.counter }}. &nbsp;{% trans 'Default: ' %} {{ addr }}</span>#}
+            {#                        {% else %}#}
+            {#                            <span>{{ forloop.counter }}. &nbsp;{{ addr }}</span>#}
+            {#                        {% endif %}#}
+            {#                        &nbsp;#}
+            {#                        &nbsp;#}
+            {#                        &nbsp;#}
+            {#                        <button class="btn btn-danger btn-sm delete-address-btn rounded-circle"#}
+            {#                                style="width: 35px; height: auto;" data-address-id="{{ addr.id }}">#}
+            {#                            <i class="bi bi-trash-fill"></i>#}
+            {#                        </button>#}
+            {#                    </div>#}
+            {#                {% endfor %}#}
+            {#            </ul>#}
+            {% for address in user_address %}
+                {% for key, value in address.items %}
+                    {% if forloop.counter > 1 %}
+                        {% if key == 'is_default' %}
+                            {% if value %}
+                                <span>Default&nbsp;</span>
+                            {% else %}
+                                <span></span>
+                            {% endif %}
                         {% else %}
-                            <span>{{ forloop.counter }}. &nbsp;{{ addr }}</span>
+                            {% if key == 'state' %}
+                                <span>{{ forloop.parentloop.counter }}.</span>&nbsp;
+                            {% endif %}
+                            {% if key != 'user' %}
+                                <span>{% trans key %}: {{ value }} </span>&nbsp;
+                            {% endif %}
                         {% endif %}
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        <button class="btn btn-danger btn-sm delete-address-btn rounded-circle"
-                                style="width: 35px; height: auto;" data-address-id="{{ addr.id }}">
-                            <i class="bi bi-trash-fill"></i>
-                        </button>
-                    </div>
+                    {% endif %}
                 {% endfor %}
-            </ul>
+                <button class="btn btn-danger btn-sm delete-address-btn rounded-circle"
+                        style="width: 35px; height: auto;" data-address-id="{{ address.id }}">
+                    <i class="bi bi-trash-fill"></i>
+                </button>
+                <button class="btn btn-info btn-sm update-address-btn rounded-circle"
+                        style="width: 35px; height: auto;"
+                        data-address-id="{{ address.id }}"
+                        onclick="openEditAddressForm('{{ address.id }}');">
+                    <i class="bi bi-pencil-fill"></i>
+                </button>
+
+                <!-- HTML -->
+                <style>/* CSS */
+                #overlay {
+                    position: fixed;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    background-color: rgba(0, 0, 0, 0.5); /* opacity برای سایه پس زمینه */
+                    z-index: 1000; /* بر روی همه‌ی دیگر المان‌ها */
+                    display: none; /* ابتدا مخفی است */
+                }
+
+                #popup {
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: #fff;
+                    padding: 20px;
+                    border-radius: 5px;
+                    z-index: 1001; /* بالاتر از overlay */
+                    display: none; /* ابتدا مخفی است */
+                }
+                </style>
+                <div id="overlay"></div>
+                <div id="popup">
+                    <div id="addressFormTemplate" style="display: none;">
+                        <form id="editAddressForm">
+                            {% csrf_token %}
+                            {{ address_form.as_p }}
+                            <button type="submit" class="btn btn-primary">{% trans 'Save Changes' %}</button>
+                        </form>
+                    </div>
+                </div>
+
+
+                <hr style="color: red; margin-bottom: 5px">
+            {% endfor %}
         </div>
     </div>
     <div class="column">
@@ -113,6 +182,58 @@
             }
         });
     });
+</script>
+<script>
+    {#function openEditAddressForm(addressId) {#}
+    {#    var editUrl = "/address/update/" + addressId + "/";#}
+    {#    var editForm = document.getElementById("addressFormTemplate").cloneNode(true);#}
+    {##}
+    {#    document.body.appendChild(editForm);#}
+    {##}
+    {#    editForm.style.display = "block";#}
+    {#    editForm.querySelector('input[name="address_id"]').value = addressId;#}
+    // JavaScript
+    function openEditAddressForm(addressId) {
+        var editUrl = "/address/update/" + addressId + "/";
+        var editForm = document.getElementById("addressFormTemplate").cloneNode(true);
+        var overlay = document.getElementById("overlay");
+        var popup = document.getElementById("popup");
+
+        // فرم را به بدنه اضافه کنید
+        document.body.appendChild(editForm);
+
+        // نمایش overlay و popup
+        overlay.style.display = "block";
+        popup.style.display = "block";
+
+        // تنظیم موقعیت فرم در وسط صفحه
+        popup.style.top = "50%";
+        popup.style.left = "50%";
+        popup.style.transform = "translate(-50%, -50%)";
+
+        // برای بستن فرم، کلیک بروی overlay را مدیریت کنید
+        overlay.addEventListener("click", closeEditAddressForm);
+
+        // تنظیم آی‌دی آدرس در فرم
+        editForm.querySelector('input[name="address_id"]').value = addressId;
+    }
+
+    function closeEditAddressForm() {
+        var overlay = document.getElementById("overlay");
+        var popup = document.getElementById("popup");
+        var editForm = document.getElementById("addressFormTemplate");
+
+        // مخفی کردن overlay و popup
+        overlay.style.display = "none";
+        popup.style.display = "none";
+
+        // حذف فرم از بدنه
+        editForm.parentNode.removeChild(editForm);
+
+        // حذف event listener برای بستن فرم با کلیک
+        overlay.removeEventListener("click", closeEditAddressForm);
+    }
+
 </script>
 
 </body>
