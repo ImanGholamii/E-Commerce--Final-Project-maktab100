@@ -32,17 +32,24 @@
 <body style="background-image: url('{% static 'images/profile-bg.jpg' %}'); background-size: cover; color: #fff;">
 <div class="profile-container">
     <div class="profile-image">
-        {% if user_profile.profile_picture and user_profile.profile_picture.url %}
-            <img src="{{ user_profile.profile_picture.url }}" alt="{% trans 'Profile Picture' %}">
+{#        {% if user_profile.profile_picture and user_profile.profile_picture.url %}#}
+        {% if user_profile.profile_picture or user_profile.profile_picture.url %}
+{#            <img src="{{ user_profile.profile_picture.url }}" alt="{% trans 'Profile Picture' %}">#}
+            <img src="{{ user_profile.profile_picture }}" alt="{% trans 'Profile Picture' %}">
         {% else %}
             <p>{% trans 'No Profile Picture available' %}</p>
         {% endif %}
-        <p>{{ user_profile.user.username }}</p>
+{#        <p>{{ user_profile.user.username }}</p>#}
+        <p>{{ user_data.username }}</p>
         <div class="column">
-            <h2>{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}</h2>
-            <p>{% trans 'Email' %}: {{ user_profile.user.email }}</p>
-            <p>{% trans 'Phone Number' %}: {{ user_profile.user.phone }}</p>
-            <p>{% trans 'Gender' %}: {{ user_profile.get_gender_display }}</p>
+{#            <h2>{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}</h2>#}
+            <h2>{{ user_data.first_name }} {{ user_data.last_name }}</h2>
+{#            <p>{% trans 'Email' %}: {{ user_profile.user.email }}</p>#}
+            <p>{% trans 'Email' %}: {{ user_data.email }}</p>
+{#            <p>{% trans 'Phone Number' %}: {{ user_profile.user.phone }}</p>#}
+            <p>{% trans 'Phone Number' %}: {{ user_data.phone }}</p>
+{#            <p>{% trans 'Gender' %}: {{ user_profile.get_gender_display }}</p>#}
+            <p>{% trans 'Gender' %}: {{ user_profile.gender}}</p>
             <p>{% trans 'Date of Birth' %}: {{ user_profile.date_of_birth }}</p>
             <p>{% trans 'Social Media' %}: {{ user_profile.social_media }}</p>
         </div>
