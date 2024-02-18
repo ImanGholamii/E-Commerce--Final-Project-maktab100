@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, ReadOnlyPasswordHashFiel
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from core.validators import Validator
-from users.models import Employee, UserProfile
+from users.models import Employee, UserProfile, Address
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -108,6 +108,18 @@ class UserChangeForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     first_name = forms.CharField()
     last_name = forms.CharField()
+
     class Meta:
         model = UserProfile
-        fields = ['profile_picture', 'gender', 'date_of_birth', 'bio', 'social_media', 'interests', 'addresses', 'first_name', 'last_name']
+        fields = ['profile_picture', 'gender', 'date_of_birth', 'bio', 'social_media', 'interests', 'addresses',
+                  'first_name', 'last_name']
+
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ['state', 'city', 'street', 'alley', 'no', 'unit_number', 'postal_code', 'is_default',
+                  'additional_info']
+        widgets = {
+            'user': forms.HiddenInput(),  # فیلد user را به صورت پنهان در نظر بگیرید
+        }
