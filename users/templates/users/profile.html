@@ -9,6 +9,9 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
     <script src="{% static 'js/script.js' %}"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js"
@@ -51,20 +54,59 @@
             <h2>{% trans 'Bio' %}</h2>
             <p>{{ user_profile.bio }}</p>
             <h2>{% trans 'Address' %}</h2>
-            <p>{{ user_profile.addresses }}</p>
+            <ul>
+                {% for addr in address %}
+                    <div class="address">
+                        {% if addr.is_default %}
+                            <span>{{ forloop.counter }}. &nbsp;{% trans 'Default: ' %} {{ addr }}</span>
+                        {% else %}
+                            <span>{{ forloop.counter }}. &nbsp;{{ addr }}</span>
+                        {% endif %}
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        <button class="btn btn-danger btn-sm delete-address-btn rounded-circle"
+                                style="width: 35px; height: auto;" data-address-id="{{ addr.id }}">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </div>
+                {% endfor %}
+            </ul>
         </div>
     </div>
     <div class="column">
         <div class="edit-profile-button">
-            <button class="btn btn-warning mt-3" style="padding:0px; padding-left: 3px; padding-right: 3px;">
+            <button class="btn btn-warning mt-3" style="padding: 0 3px;">
                 <a class="btn-edit" href="{% url 'edit_profile' %}">{% trans 'Edit Profile' %}</a></button>
         </div>
         <div class="edit-profile-button">
-            <button class="btn btn-warning mt-3" style="padding:0px; padding-left: 3px; padding-right: 3px;
+            <button class="btn btn-warning mt-3" style="padding: 0 3px;
             background-color: #a8a8a8">
                 <a class="btn-edit" href="{% url 'index' %}">{% trans 'Back' %}</a></button>
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $('.delete-address-btn').click(function () {
+        var addressId = $(this).data('address-id');
+        $.ajax({
+            type: 'POST',
+            url: '{% url "delete_address" pk=0 %}'.replace('0', addressId),
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function () {
+
+                alert('Address deleted successfully!');
+            },
+            error: function () {
+                alert('An error occurred while deleting the address.');
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
