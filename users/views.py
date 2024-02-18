@@ -10,6 +10,7 @@ from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -260,6 +261,10 @@ def profile_view(request):
     response3 = view3(request)
     user_address = response3.data
 
+    # view4 = AddressUpdateDeleteView.as_view()
+    # response4 = view4(request)
+    # address_update = response4.data
+
     # user_profile = UserProfile.objects.get(user=request.user)
     # address = Address.objects.filter(user=request.user)
 
@@ -269,6 +274,7 @@ def profile_view(request):
     context = {'user_profile': user_profile_data,
                'user_data': user_data,
                'user_address': user_address,
+
                }
     print(user_profile_data)
     first_key, first_value = next(iter(user_profile_data.items()))
@@ -412,14 +418,23 @@ class AddressDetailView(APIView):
         serializer = AddressSerializer(user_address, many=True)
         return Response(serializer.data)
 
-    def put(self, request, format=None):
-        user_address = Address.objects.get(user=request.user)
+
+class AddressUpdateDeleteView(APIView):
+    swagger = swagger_auto_schema(
+        request_body=AddressSerializer,
+        responses={200: AddressSerializer()}
+    )
+
+    @swagger
+    def put(self, request, pk, format=None):
+        user_address = Address.objects.get(id=pk)
         serializer = AddressSerializer(user_address, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @swagger
     def delete(self, request, pk, format=None):
         user_address = Address.objects.get(id=pk)
         user_address.delete()
