@@ -1,7 +1,7 @@
 from django.urls import path
 from users.views import SignUpView, login_view, profile_view, Logout, home, UserRegisterCodeView, EmployeeSignUpView, \
     EmployeeRegisterCodeView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
-    PasswordResetCompleteView, edit_profile_view, UserProfileApiView
+    PasswordResetCompleteView, edit_profile_view, UserProfileApiView, delete_address_view
 
 urlpatterns = [
     path('signup/', SignUpView.as_view(), name="signup"),
@@ -13,6 +13,7 @@ urlpatterns = [
     path('logout/', Logout.as_view(), name="logout"),
     path('profile/', profile_view, name="profile"),
     path('edit_profile/', edit_profile_view, name='edit_profile'),
+    path('delete-address/<int:pk>/', delete_address_view, name='delete_address'),
     path('home/', home, name="home"),
     # Reset Password
     path('password_reset/', PasswordResetView.as_view(), name='password_reset'),
