@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from core.validators import Validator
 from core.models import TimeStampBaseModel
 
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, phone, password, **extra_fields):
         if not email:
@@ -45,9 +46,10 @@ class User(AbstractUser, TimeStampBaseModel):
 
     email = models.EmailField(unique=True, verbose_name=_('Email'))
     phone = models.CharField(max_length=20, validators=[
-            RegexValidator(regex=r'^(\+98|0)?9\d{9}$',
-            message=_("Phone number must be start with +98 or 0 in IR format."),code='invalid_IR_phone_number'), ],
-                                 help_text=_("Enter your phone number."), verbose_name=_('Phone'), unique=True)
+        RegexValidator(regex=r'^(\+98|0)?9\d{9}$',
+                       message=_("Phone number must be start with +98 or 0 in IR format."),
+                       code='invalid_IR_phone_number'), ],
+                             help_text=_("Enter your phone number."), verbose_name=_('Phone'), unique=True)
     registration_date = models.DateTimeField(auto_now_add=True, verbose_name=_('Registration Date'))
     is_customer = models.BooleanField(default=True)
     is_employee = models.BooleanField(default=False)
@@ -99,23 +101,18 @@ class Address(models.Model):
     is_default = models.BooleanField(default=False, verbose_name=_('Is Default'))  # to choose default
     additional_info = models.TextField(blank=True, verbose_name=_('Additional Info'))
 
-
     def __str__(self):
         addresses_list = []
 
         if self.is_default:
-            default_str = f"{self.user.username}, {self.state}, {self.city}, {self.street},{self.alley}, {self.no}, {self.unit_number}, {self.postal_code} (Default پیش فرض)"
+            default_str = f"{self.user.username}, {self.state}, {self.city}, {self.street},{self.alley}, {self.no}, {self.unit_number}, {self.postal_code} {_('Default')}"
             addresses_list.append(default_str)
 
-        other_addresses = [
-            f"{addr.user.username}, {addr.state}, {addr.city}, {addr.street}, {addr.alley}, {addr.no}, {addr.unit_number}, {addr.postal_code} (Default)" if addr.is_default else f"{addr.user.username}, {addr.state}, {addr.city}, {addr.street}, {addr.alley}, {addr.no}, {addr.unit_number}, {addr.postal_code}"
-            for addr in self.user.addresses.filter(is_default=False)]
+        else:
+            other_str = f"{self.user.username}, {self.state}, {self.city}, {self.street}, {self.alley}, {self.no}, {self.unit_number}, {self.postal_code}"
+            addresses_list.append(other_str)
 
-        addresses_list.extend(other_addresses)
-
-        # return '\n'.join(addresses_list)
-        for address in addresses_list:
-            return str(address)
+        return '\n'.join(addresses_list)
 
 
 class UserProfile(TimeStampBaseModel):
@@ -133,7 +130,8 @@ class UserProfile(TimeStampBaseModel):
     social_media = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Social Media'))
     interests = models.TextField(null=True, blank=True, verbose_name=_('Interests'))
     # addresses = models.ManyToManyField(Address, related_name='user_profiles', blank=True, verbose_name=_('Addresses'))
-    addresses = models.ForeignKey(Address, on_delete=models.CASCADE, related_name='user_profiles',null=True, blank=True, verbose_name=_('Address'))
+    addresses = models.ForeignKey(Address, on_delete=models.CASCADE, related_name='user_profiles', null=True,
+                                  blank=True, verbose_name=_('Address'))
 
     def __str__(self):
         return f"{self.user.username[0].upper()}{self.user.username[1:]}'s Profile"
@@ -142,7 +140,7 @@ class UserProfile(TimeStampBaseModel):
 class OtpCode(models.Model):
     email = models.EmailField()
     otp_code = models.PositiveIntegerField()
-    created = models. DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.email} otp code : {self.otp_code} - {self.created}"
