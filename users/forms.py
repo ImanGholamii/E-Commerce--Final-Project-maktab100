@@ -121,5 +121,5 @@ class AddressForm(forms.ModelForm):
         fields = ['state', 'city', 'street', 'alley', 'no', 'unit_number', 'postal_code', 'is_default',
                   'additional_info']
         widgets = {
-            'user': forms.HiddenInput(),  # فیلد user را به صورت پنهان در نظر بگیرید
+            'user': forms.HiddenInput(),
         }
