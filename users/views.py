@@ -251,25 +251,38 @@ def profile_view(request):
     view = UserProfileDetailView.as_view()
     response = view(request)
     user_profile_data = response.data
+
     view2 = UserDetailView.as_view()
     response2 = view2(request)
     user_data = response2.data
-    user_profile = UserProfile.objects.get(user=request.user)
-    address = Address.objects.filter(user=request.user)
 
-    if request.method == 'POST' and request.FILES.get('profile_picture'):
-        user_profile.profile_picture = request.FILES['profile_picture']
-        user_profile.save()
+    view3 = AddressDetailView.as_view()
+    response3 = view3(request)
+    user_address = response3.data
+
+    # user_profile = UserProfile.objects.get(user=request.user)
+    # address = Address.objects.filter(user=request.user)
+
+    # if request.method == 'POST' and request.FILES.get('profile_picture'):
+    #     user_profile.profile_picture = request.FILES['profile_picture']
+    #     user_profile.save()
     context = {'user_profile': user_profile_data,
-               'user_data':user_data,
-               'address': address,
+               'user_data': user_data,
+               'user_address': user_address,
                }
     print(user_profile_data)
     first_key, first_value = next(iter(user_profile_data.items()))
     print("First Key:", first_key, "First Value:", first_value)
-    print('USER:USER:USER:USER:USER:USER:USER:',user_data)
+    print('USER:USER:USER:USER:USER:USER:USER:', user_data)
     first_key, first_value = next(iter(user_data.items()))
     print("First Key:", first_key, "First Value:", first_value)
+    # address
+    print('ADDRESS:ADDRESS###########ADDRESS:ADDRESS:', user_address)
+    for address in user_address:
+        for key, value in address.items():
+            print(f"{key}: {value}")
+        print("\n")
+
     return render(request, 'users/profile.html', context)
 
 
@@ -355,8 +368,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import UserProfile
-from .serializers import UserProfileSerializer, UserSerializer
-import requests
+from .serializers import UserProfileSerializer, UserSerializer, AddressSerializer
+
+
 class UserProfileDetailView(APIView):
     def get(self, request, format=None):
         user_profile_data = self.request.user.userprofile
@@ -364,19 +378,12 @@ class UserProfileDetailView(APIView):
         return Response(serializer.data)
 
     def put(self, request, format=None):
-
-        user_profile = UserProfile.objects.get(user=request.user)  # فرضا کاربر جاری
+        user_profile = UserProfile.objects.get(user=request.user)
         serializer = UserProfileSerializer(user_profile, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, format=None):
-        # حذف آدرس پروفایل کاربر
-        user_profile = UserProfile.objects.get(user=request.user)  # فرضا کاربر جاری
-        user_profile.address.delete()  # فرضا address یکی از فیلدهای مدل UserProfile است
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class UserDetailView(APIView):
@@ -386,8 +393,7 @@ class UserDetailView(APIView):
         return Response(serializer.data)
 
     def put(self, request, format=None):
-
-        user = User.objects.get(user=request.user)  # فرضا کاربر جاری
+        user = User.objects.get(user=request.user)
         serializer = UserSerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -395,7 +401,26 @@ class UserDetailView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, format=None):
-        # حذف آدرس پروفایل کاربر
-        user = User.objects.get(user=request.user)  # فرضا کاربر جاری
-        user.address.delete()  # فرضا address یکی از فیلدهای مدل UserProfile است
+        user = Address.objects.get(user=request.user)
+        user.address.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class AddressDetailView(APIView):
+    def get(self, request, format=None):
+        user_address = Address.objects.filter(user=request.user)
+        serializer = AddressSerializer(user_address, many=True)
+        return Response(serializer.data)
+
+    def put(self, request, format=None):
+        user_address = Address.objects.get(user=request.user)
+        serializer = AddressSerializer(user_address, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        user_address = Address.objects.get(id=pk)
+        user_address.delete()
+        return Response(status=status.HTTP_204_NO_CONTAddress)
