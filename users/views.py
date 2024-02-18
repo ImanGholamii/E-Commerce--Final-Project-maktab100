@@ -248,16 +248,28 @@ class Logout(View):
 
 @login_required
 def profile_view(request):
+    view = UserProfileDetailView.as_view()
+    response = view(request)
+    user_profile_data = response.data
+    view2 = UserDetailView.as_view()
+    response2 = view2(request)
+    user_data = response2.data
     user_profile = UserProfile.objects.get(user=request.user)
     address = Address.objects.filter(user=request.user)
 
     if request.method == 'POST' and request.FILES.get('profile_picture'):
         user_profile.profile_picture = request.FILES['profile_picture']
         user_profile.save()
-
-    context = {'user_profile': user_profile,
+    context = {'user_profile': user_profile_data,
+               'user_data':user_data,
                'address': address,
                }
+    print(user_profile_data)
+    first_key, first_value = next(iter(user_profile_data.items()))
+    print("First Key:", first_key, "First Value:", first_value)
+    print('USER:USER:USER:USER:USER:USER:USER:',user_data)
+    first_key, first_value = next(iter(user_data.items()))
+    print("First Key:", first_key, "First Value:", first_value)
     return render(request, 'users/profile.html', context)
 
 
@@ -339,10 +351,51 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
 
 # ============ API ============
 
-class UserProfileApiView(APIView):
-    """view and edit profile"""
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import UserProfile
+from .serializers import UserProfileSerializer, UserSerializer
+import requests
+class UserProfileDetailView(APIView):
+    def get(self, request, format=None):
+        user_profile_data = self.request.user.userprofile
+        serializer = UserProfileSerializer(user_profile_data)
+        return Response(serializer.data)
 
-    def get(self, request, pk):
-        user_profile = get_object_or_404(UserProfile, pk=pk)
-        serializer = UserProfileSerializer(user_profile)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def put(self, request, format=None):
+
+        user_profile = UserProfile.objects.get(user=request.user)  # فرضا کاربر جاری
+        serializer = UserProfileSerializer(user_profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, format=None):
+        # حذف آدرس پروفایل کاربر
+        user_profile = UserProfile.objects.get(user=request.user)  # فرضا کاربر جاری
+        user_profile.address.delete()  # فرضا address یکی از فیلدهای مدل UserProfile است
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class UserDetailView(APIView):
+    def get(self, request, format=None):
+        user_data = self.request.user
+        serializer = UserSerializer(user_data)
+        return Response(serializer.data)
+
+    def put(self, request, format=None):
+
+        user = User.objects.get(user=request.user)  # فرضا کاربر جاری
+        serializer = UserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, format=None):
+        # حذف آدرس پروفایل کاربر
+        user = User.objects.get(user=request.user)  # فرضا کاربر جاری
+        user.address.delete()  # فرضا address یکی از فیلدهای مدل UserProfile است
+        return Response(status=status.HTTP_204_NO_CONTENT)
