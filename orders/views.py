@@ -14,7 +14,10 @@ class OrderApiVew(APIView):
     """ GET and POST Orders"""
 
     def get(self, request):
-        orders = Order.objects.all()
+        if request.user.is_superuser:
+            orders = Order.objects.all()
+        else:
+            orders = Order.objects.filter(customer=request.user.customer)
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -42,13 +45,19 @@ class OrderUpdateDeleteView(APIView):
     )
 
     def get(self, request, pk):
-        order_item = Order.objects.filter(id=pk)
-        serializer = OrderSerializer(order_item, many=True)
+        if request.user.is_superuser:
+            order_obj = Order.objects.filter(id=pk)
+        else:
+            order_obj = Order.objects.filter(customer=request.user.customer)
+        serializer = OrderSerializer(order_obj, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @swagger
     def put(self, request, pk):
-        order_obj = Order.objects.get(id=pk)
+        if request.user.is_superuser:
+            order_obj = Order.objects.get(id=pk)
+        else:
+            order_obj = Order.objects.get(customer=request.user.customer)
         serializer = OrderSerializer(order_obj, data=request.data, partial=False)
         if serializer.is_valid():
             serializer.save()
@@ -58,7 +67,10 @@ class OrderUpdateDeleteView(APIView):
     @swagger
     def delete(self, request, pk):
         try:
-            order_obj = Order.objects.get(id=pk)
+            if request.user.is_superuser:
+                order_obj = Order.objects.get(id=pk)
+            else:
+                order_obj = Order.objects.get(customer=request.user.customer)
         except Order.DoesNotExist:
             return Response({"error": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
 
