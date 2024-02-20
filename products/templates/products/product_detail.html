@@ -3,7 +3,6 @@
 {% load i18n %}
 {% block type-body %}"detail-body"{% endblock %}
 {% block background %}{% endblock background %}
-{#{% block category %}{% endblock category %}#}
 {% block title %} Product Details {{ product.id }} {% endblock title %}
 
 
@@ -72,39 +71,6 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <script>
-        function updateQuantity(productId, quantityChange) {
-            fetch('/en/api/orders/items/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken')
-                },
-                body: JSON.stringify({
-                    product: productId,
-                    quantities: quantityChange
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    const messageDiv = document.getElementById('message');
-                    const responseMessageDiv = document.getElementById('response-message');
-
-                    if (data.message) {
-                        responseMessageDiv.innerHTML = '';
-                        messageDiv.innerHTML = data.message;
-                        messageDiv.className = data.success ? 'message green' : 'message red';
-
-                        setTimeout(() => {
-                            messageDiv.innerHTML = '';
-                        }, 2000);
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
-    </script>
 
 
 {% endblock %}
