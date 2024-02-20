@@ -8,27 +8,13 @@
 
 
 {% block content %}
-    <style>
-        .message {
-
-            font-size: 16px;
-        }
-
-        .message.green {
-            color: green;
-        }
-
-        .message.red {
-            color: red;
-        }
-    </style>
 
     <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
                 <h2 class="text-center" style="margin-bottom: 20px;">{{ category_path }}</h2>
                 <div class="card w-175 mx-auto">
-                    <div id="response-message"></div>
+                    <div id="bubble-container"></div>
                     <div id="message" class="message"></div>
                     <img src="{{ product_images.0.image.url }}" class="card-img-top" alt="{{ product.name }}">
                     {% for image in images %}
