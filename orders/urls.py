@@ -3,7 +3,7 @@ from .views import OrderApiVew, OrderUpdateDeleteView, OrderItemApiView, OrderLi
     OrderItemUpdateDeleteApiView, check_cart
 
 urlpatterns = [
-    path('', OrderApiVew.as_view()),
+    path('', OrderApiVew.as_view(), name='add-to-cart'),
     path('<int:pk>/', OrderUpdateDeleteView.as_view()),
     path('items/', OrderItemApiView.as_view()),
     path('items/<int:pk>', OrderItemUpdateDeleteApiView.as_view()),
