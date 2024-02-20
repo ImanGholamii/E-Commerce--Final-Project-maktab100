@@ -1,13 +1,17 @@
 function adjustQuantity(productId, quantityChange) {
     updateQuantity(productId, quantityChange);
-    var messageElement = document.getElementById("message");
+    // var messageElement = document.getElementById("message");
     var message = quantityChange > 0 ? "+1" : "-1";
-    // Clear the message after 1.5 seconds
-                setTimeout(function () {
-                    messageElement.innerText = "";
-                    messageElement.className = "message"; // Reset the color
-                }, 1450);
+    var bubble = document.createElement("div");
+    bubble.textContent = message;
+    bubble.className = quantityChange > 0 ? "bubble green" : "bubble red";
 
+    document.getElementById("bubble-container").appendChild(bubble);
+
+    // Clear the message after 1.5 seconds
+    setTimeout(function () {
+        bubble.remove();
+    }, 1500);
     // Set the message and color
     messageElement.innerText = message;
     messageElement.className = quantityChange > 0 ? "message green" : "message red";
