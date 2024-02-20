@@ -137,8 +137,13 @@ class OrderItemApiView(APIView):
         order_item = self.get_object()
         order_item.quantities += 1
         order_item.save()
-        serializer = self.get_serializer(order_item)
-        return Response(serializer.data)
+        # serializer = self.get_serializer(order_item)
+        response_data = {
+            'message': 'مقدار سفارش با موفقیت کاهش یافت.',
+            'quantities': order_item.quantities
+        }
+        return JsonResponse(response_data)
+        # return Response(serializer.data)
 
     @action(detail=True, methods=['post'])
     def decrease_quantity(self, request, pk=None):
@@ -148,7 +153,12 @@ class OrderItemApiView(APIView):
             order_item.quantities -= 1
             order_item.save()
             serializer = self.get_serializer(order_item)
-            return Response(serializer.data)
+            # return Response(serializer.data)
+            response_data = {
+                'message': 'مقدار سفارش با موفقیت کاهش یافت.',
+                'quantities': order_item.quantities
+            }
+            return JsonResponse(response_data)
         else:
 
             return Response({"error": "Cannot decrease quantity further"}, status=status.HTTP_400_BAD_REQUEST)
@@ -205,29 +215,3 @@ def check_cart(request):
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
-
-
-class AddToCartView(APIView):
-    def post(self, request):
-        product_id = request.data.get('product_id')
-        quantities = request.data.get('quantity')
-        order = Order.objects.filter(customer=request.user.customer, status='pending').first()
-        if not order:
-            order = Order.objects.create(customer=request.user.customer, status='pending')
-        product = get_object_or_404(Product, id=product_id)
-        order_item, created = OrderItem.objects.get_or_create(order=order, product=product, quantities=0)
-        if not created:
-            order_item.quantities += int(quantities)
-            print('Not created:', order_item, int(quantities))
-            order_item.save()
-        else:
-            order_item.quantities += int(quantities)
-            print('order_item.quantities:', order_item.quantities, type(order_item.quantities))
-            print('else:', order_item)
-            order_item.save()
-        return JsonResponse({'message': 'محصول با موفقیت به سبد خرید اضافه شد'})
-        # serializer = OrderItemSerializer(data=request.data)
-        # if serializer.is_valid():
-        #     serializer.save()
-        #     return Response(serializer.data, status=status.HTTP_201_CREATED, )
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
