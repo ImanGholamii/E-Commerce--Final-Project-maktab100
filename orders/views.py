@@ -96,6 +96,9 @@ class OrderItemApiView(APIView):
         product_id = request.data.get('product')
         quantities = request.data.get('quantities', 0)
         print('product_id= ', product_id, quantities)
+        order = Order.objects.filter(customer=request.user.customer, status='pending').first()
+        if not order:
+            order = Order.objects.create(customer=request.user.customer, status='pending')
         product = get_object_or_404(Product, id=product_id)
 
         if request.user.is_authenticated:
@@ -109,7 +112,6 @@ class OrderItemApiView(APIView):
                 # guest_user_id = 45
                 user_id = int(guest_user_id)
                 print('guest_customer.id = ', user_id)
-        order, created = Order.objects.get_or_create(customer=user_id, status='pending')
 
         print(order)
 
