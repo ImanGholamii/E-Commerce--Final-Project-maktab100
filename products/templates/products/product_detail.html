@@ -9,12 +9,28 @@
 
 
 {% block content %}
+    <style>
+        .message {
+
+            font-size: 16px;
+        }
+
+        .message.green {
+            color: green;
+        }
+
+        .message.red {
+            color: red;
+        }
+    </style>
+
     <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
                 <h2 class="text-center" style="margin-bottom: 20px;">{{ category_path }}</h2>
                 <div class="card w-175 mx-auto">
-                <div id="response-message"></div>
+                    <div id="response-message"></div>
+                    <div id="message" class="message"></div>
                     <img src="{{ product_images.0.image.url }}" class="card-img-top" alt="{{ product.name }}">
                     {% for image in images %}
                         <img src="{{ image.url }}" class="card-img-top" alt="{{ product.name }}">
@@ -28,24 +44,23 @@
                             {% csrf_token %}
                             <input type="hidden" name="product_id" value="{{ product.id }}">
                             <div>
-                                <button type="button" onclick="decreaseQuantity()" class="btn btn-danger">
+                                <button type="button" onclick="adjustQuantity({{ product.id }}, -1)"
+                                        class="btn btn-danger quantity-button increase">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-cart-dash-fill" viewBox="0 0 16 16">
                                         <path
                                                 d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M6.5 7h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1"/>
                                     </svg>
                                 </button>
-                                <input type="text" name="quantity" id="quantity" value="1" min="1" readonly
-                                       style="width: 30px;">
-                                <button type="button" onclick="increaseQuantity()" class="btn btn-success">
+
+                                <button type="button" class="btn btn-success quantity-button increase"
+                                        onclick="adjustQuantity({{ product.id }}, 1)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
                                         <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
                                     </svg>
                                 </button>
                             </div>
-                            <br>
-                            <button type="submit" class="btn btn-primary">{% trans 'Add' %}</button>
                         </form>
 
                     </div>
@@ -53,45 +68,42 @@
             </div>
         </div>
     </div>
-    <script>
-        function decreaseQuantity() {
-            var quantityInput = document.getElementById("quantity");
-            var currentQuantity = parseInt(quantityInput.value);
-            if (currentQuantity > 1) {
-                quantityInput.value = currentQuantity - 1;
-            }
-        }
 
-        function increaseQuantity() {
-            var quantityInput = document.getElementById("quantity");
-            var currentQuantity = parseInt(quantityInput.value);
-            quantityInput.value = currentQuantity + 1;
-        }
-    </script>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#add-to-cart-form').submit(function(event) {
-                event.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    url: "{% url 'add-to-cart' %}",
-                    data: $('#add-to-cart-form').serialize(),
-                    success: function(response) {
-                        $('#response-message').text(response.message).css('color', 'green');
 
-                    setTimeout(function() {
-                        $('#response-message').fadeOut('slow');
-                    }, 1000);
-                    },
-                    error: function(xhr, errmsg, err) {
-                        console.log(xhr.status + ": " + xhr.responseText); // for debugging
+    <script>
+        function updateQuantity(productId, quantityChange) {
+            fetch('/en/api/orders/items/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({
+                    product: productId,
+                    quantities: quantityChange
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const messageDiv = document.getElementById('message');
+                    const responseMessageDiv = document.getElementById('response-message');
+
+                    if (data.message) {
+                        responseMessageDiv.innerHTML = '';
+                        messageDiv.innerHTML = data.message;
+                        messageDiv.className = data.success ? 'message green' : 'message red';
+
+                        setTimeout(() => {
+                            messageDiv.innerHTML = '';
+                        }, 2000);
                     }
-                });
-            });
-        });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
     </script>
 
 
