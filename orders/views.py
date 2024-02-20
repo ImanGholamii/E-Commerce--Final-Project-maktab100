@@ -137,13 +137,8 @@ class OrderItemApiView(APIView):
         order_item = self.get_object()
         order_item.quantities += 1
         order_item.save()
-        # serializer = self.get_serializer(order_item)
-        response_data = {
-            'message': 'مقدار سفارش با موفقیت کاهش یافت.',
-            'quantities': order_item.quantities
-        }
-        return JsonResponse(response_data)
-        # return Response(serializer.data)
+        serializer = self.get_serializer(order_item)
+        return Response(serializer.data)
 
     @action(detail=True, methods=['post'])
     def decrease_quantity(self, request, pk=None):
@@ -153,12 +148,7 @@ class OrderItemApiView(APIView):
             order_item.quantities -= 1
             order_item.save()
             serializer = self.get_serializer(order_item)
-            # return Response(serializer.data)
-            response_data = {
-                'message': 'مقدار سفارش با موفقیت کاهش یافت.',
-                'quantities': order_item.quantities
-            }
-            return JsonResponse(response_data)
+            return Response(serializer.data)
         else:
 
             return Response({"error": "Cannot decrease quantity further"}, status=status.HTTP_400_BAD_REQUEST)
