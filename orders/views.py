@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, generics
@@ -202,3 +203,29 @@ def check_cart(request):
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
+
+
+class AddToCartView(APIView):
+    def post(self, request):
+        product_id = request.data.get('product_id')
+        quantities = request.data.get('quantity')
+        order = Order.objects.filter(customer=request.user.customer, status='pending').first()
+        if not order:
+            order = Order.objects.create(customer=request.user.customer, status='pending')
+        product = get_object_or_404(Product, id=product_id)
+        order_item, created = OrderItem.objects.get_or_create(order=order, product=product, quantities=0)
+        if not created:
+            order_item.quantities += int(quantities)
+            print('Not created:', order_item, int(quantities))
+            order_item.save()
+        else:
+            order_item.quantities += int(quantities)
+            print('order_item.quantities:', order_item.quantities, type(order_item.quantities))
+            print('else:', order_item)
+            order_item.save()
+        return JsonResponse({'message': 'محصول با موفقیت به سبد خرید اضافه شد'})
+        # serializer = OrderItemSerializer(data=request.data)
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return Response(serializer.data, status=status.HTTP_201_CREATED, )
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
