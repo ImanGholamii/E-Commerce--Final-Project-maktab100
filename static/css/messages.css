@@ -29,3 +29,27 @@
         opacity: 0;
     }
 }
+/*Verify Template*/
+.verify-message .messages {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+.verify-message .messages li {
+    list-style: none;
+    padding: 10px 15px !important;
+    margin-left: 500px !important;
+    margin-right: 500px !important;
+    margin-bottom: 10px !important;
+    border-radius: 5px !important;
+    text-align: center;
+}
+
+.verify-message .messages li.list-group-item-success {
+    margin-left: 500px !important;
+    margin-right: 500px !important;
+    background-color: #a0e6a8;
+    color: #333;
+}
