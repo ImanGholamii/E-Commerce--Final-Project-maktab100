@@ -2,6 +2,11 @@ function adjustQuantity(productId, quantityChange) {
     updateQuantity(productId, quantityChange);
     var messageElement = document.getElementById("message");
     var message = quantityChange > 0 ? "+1" : "-1";
+    // Clear the message after 1.5 seconds
+                setTimeout(function () {
+                    messageElement.innerText = "";
+                    messageElement.className = "message"; // Reset the color
+                }, 1450);
 
     // Set the message and color
     messageElement.innerText = message;
@@ -23,11 +28,7 @@ function adjustQuantity(productId, quantityChange) {
             .then(data => {
 
                 document.getElementById('quantity-' + productId).innerText = data.quantities;
-                // Clear the message after 2 seconds
-                setTimeout(function () {
-                    messageElement.innerText = "";
-                    messageElement.className = "message"; // Reset the color
-                }, 2000);
+
             })
             .catch(error => console.error('Error:', error));
     }
