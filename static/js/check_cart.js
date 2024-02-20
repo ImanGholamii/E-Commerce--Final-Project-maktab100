@@ -1,35 +1,37 @@
-function adjustQuantity(productId, amount) {
+function adjustQuantity(productId, quantityChange) {
+    updateQuantity(productId, quantityChange);
     var messageElement = document.getElementById("message");
-    var message = amount > 0 ? "+1" : "-1";
+    var message = quantityChange > 0 ? "+1" : "-1";
 
     // Set the message and color
     messageElement.innerText = message;
-    messageElement.className = amount > 0 ? "message green" : "message red";
+    messageElement.className = quantityChange > 0 ? "message green" : "message red";
 
-    updateQuantity(productId, amount);
-    // AJAX request to update the quantity
-    fetch('/en/api/orders/items/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-        },
-        body: JSON.stringify({
-            product: productId,
-            quantities: amount
+    function updateQuantity(productId, quantityChange) {
+        fetch('/en/api/orders/items/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({
+                product: productId,
+                quantities: quantityChange
+            })
         })
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Clear the message after 2 seconds
-        setTimeout(function() {
-            messageElement.innerText = "";
-            messageElement.className = "message"; // Reset the color
-        }, 2000);
-    })
-    .catch(error => console.error('Error:', error));
-}
+            .then(response => response.json())
+            .then(data => {
 
+                document.getElementById('quantity-' + productId).innerText = data.quantities;
+                // Clear the message after 2 seconds
+                setTimeout(function () {
+                    messageElement.innerText = "";
+                    messageElement.className = "message"; // Reset the color
+                }, 2000);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+}
 
 
 function getCookie(name) {
