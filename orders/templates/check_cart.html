@@ -76,6 +76,17 @@
 {% endblock header %}
 
 {% block content %}
+    {% if order.status != 'pending' %}
+        <style>
+            .quantity-button {
+                display: none; /* مخفی کردن دکمه‌های کم و زیاد کردن تعداد */
+            }
+            .offer {
+                display: none; /* مخفی کردن دکمه Offer */
+            }
+        </style>
+    {% endif %}
+
     <div class="row justify-content-center">
         <div class="col-lg-6 mx-auto">
             <div class="scrollbar" style="height: 450px; overflow-y: scroll;">
@@ -83,6 +94,7 @@
                     <a class="btn btn-outline-dark" href="{% url 'index' %}">&#x2190; {% trans 'Back' %}</a>
                     <hr>
                     <h3>{% trans 'Order Summary' %}</h3>
+                    <div>{% trans 'Status:' %}&nbsp;{% trans order.status %}</div>
                     <hr>
                     {% if request.user.is_authenticated %}
                         <div>{% trans 'Customer' %}: {{ request.user }}</div>
@@ -121,7 +133,7 @@
                         <h5>{% trans 'Items:' %}<input type="hidden" id="total_quantity" value="{{ total_quantity }}">&nbsp;&nbsp;&nbsp;{{ total_quantity }}</h5>
                         <h5>{% trans 'Total:' %} {{ total_price }}</h5>
                         <hr>
-                        <a class="btn btn-dark offer" href="#">{% trans 'Offer' %}</a>
+                        <a class="btn btn-dark offer" href="{% url 'submit_order' %}">{% trans 'Offer' %}</a>
                         <hr>
                     {% else %}
                         <p>{% trans 'Your cart is empty.' %}</p>
