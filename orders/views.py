@@ -1,5 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, generics
 from rest_framework.decorators import action
@@ -9,6 +10,7 @@ from users.models import Customer, User
 from .models import Order, OrderItem
 from .serializers import OrderSerializer, OrderItemSerializer
 from rest_framework.views import APIView
+from django.contrib import messages
 
 
 class OrderApiVew(APIView):
@@ -189,16 +191,35 @@ class OrderItemUpdateDeleteApiView(APIView):
 def check_cart(request):
     """to show all ordered items in template"""
     # items = OrderItem.objects.all()
+    order = Order.objects.get(customer=request.user.customer)
     items = OrderItem.objects.filter(order__customer=request.user.id, is_deleted=False)
     print('Customer: ', request.user)
     total_quantity = sum(item.quantities for item in items)
     total_price = sum(item.product.price * item.quantities for item in items)
     context = {
+        'order': order,
         'items': items,
         'total_quantity': total_quantity,
         'total_price': total_price,
     }
     return render(request, 'check_cart.html', context=context)
+
+
+@login_required
+def submit_order(request):
+    order = Order.objects.get(customer=request.user.customer)
+    if order:
+        order.status = 'processing'
+        order.save()
+        context = {
+            'order': order
+        }
+        messages.success(request, "Order submitted successfully", 'success')
+        return render(request, 'orders/recent_orders.html', context)
+
+    else:
+        messages.error(request, 'Order ID is missing', 'danger')
+        return redirect('cart')
 
 
 # ==================
