@@ -20,7 +20,7 @@
         {% if messages %}
             <ul class="messages list-group text-center verify-message">
                 {% for message in messages %}
-                    {% if message.tags == 'error' %}
+                    {% if message.tags == 'error' or message.tags == 'danger' %}
                         <li class="list-group-item list-group-item-error">{{ message }}</li>
                     {% else %}
                         <li class="list-group-item list-group-item-success">{{ message }}</li>
