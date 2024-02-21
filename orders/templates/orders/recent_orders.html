@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}{% trans 'Recent Orders' %}{% endblock title %}
+{% block background %}{% endblock background %}
+{% block content %}
+    <style>
+        body {
+            background-color: #000;
+            color: #f14d4d;
+        }
+
+        .table {
+            background-color: #000 !important;
+            color: #fff;
+        }
+
+        .table th, .table td {
+            border: 1px solid #fff !important;
+        }
+
+        .table th {
+            background-color: #000 !important;
+            color: #fff !important;
+            border: 2px solid #fdc026 !important;
+        }
+
+        .table td {
+            background-color: #b4adad !important;
+            border: 2px solid #fdc026 !important;
+        }
+    </style>
+
+
+    {% if messages %}
+        <ul class="messages list-group text-center verify-message">
+            {% for message in messages %}
+                {% if message.tags == 'error' or message.tags == 'danger' %}
+                    <li class="list-group-item list-group-item-error">{{ message }}</li>
+                {% else %}
+                    <li class="list-group-item list-group-item-success">{{ message }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="container mt-5">
+        <h2>{% trans 'Order Status' %}</h2>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>{% trans 'Order Number' %}</th>
+                <th>{% trans 'Amount' %}</th>
+                <th>{% trans 'Status' %}</th>
+                <th>{% trans 'Created At' %}</th>
+                <th>{% trans 'Updated At' %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.calculate_total_price|floatformat:1 }}</td>
+                <td>{{ order.status }}</td>
+                <td>{{ order.created_at|date:'Y/m/d' }} {{ order.created_at|time:'H:i:s' }}</td>
+                <td>{{ order.updated_at|date:'Y/m/d' }} {{ order.updated_at|time:'H:i:s' }}</td>
+            </tr>
+            <!-- Add more rows for additional orders -->
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
