@@ -160,6 +160,17 @@
             background-color: #a8a8a8">
                 <a class="btn-edit" href="{% url 'index' %}">{% trans 'Back' %}</a></button>
         </div>
+        <div class="edit-profile-button">
+            <button class="btn btn-warning mt-3" style="padding: 0 3px;
+            background-color: #a8a8a8">
+                <a class="btn-edit" href="{% url 'cart' %}"><img class="shopping_cart" src="{% static 'images/shopping_cart_image.jpg' %}"
+                                     alt="Shopping Cart" width="30" height="auto">{% trans 'cart' %}</a></button>
+        </div>
+        <div class="edit-profile-button">
+            <button class="btn btn-warning mt-3" style="padding: 0 3px;
+            background-color: #a8a8a8">
+                <a class="btn-edit" href="{% url 'submit_order' %}">{% trans 'orders' %}</a></button>
+        </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
