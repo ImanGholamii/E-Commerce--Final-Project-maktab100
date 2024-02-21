@@ -14,7 +14,7 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from core.utils import send_otp_code
+from core.utils import send_otp_code #otp_cleaner
 from users.forms import CustomUserCreationForm, VerifyCodeForm, EmployeeCreationForm, UserProfileForm, AddressForm
 from users.models import UserProfile, OtpCode, Employee, Address
 from users.serializers import UserProfileSerializer
@@ -105,6 +105,7 @@ class UserRegisterCodeView(View):
                 return redirect('login')
             else:
                 messages.error(request, 'Wrong Code!', 'danger')
+                # otp_cleaner()
                 return redirect('verify')
         return redirect('/')
 
