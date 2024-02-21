@@ -221,7 +221,23 @@ def submit_order(request):
         messages.error(request, 'Order ID is missing', 'danger')
         return redirect('cart')
 
-
+@login_required
+def edit_order(request):
+    order = Order.objects.get(customer=request.user.customer, status='processing')
+    if order and order.status == 'processing':
+        order.status = 'pending'
+        order.save()
+        items = OrderItem.objects.filter(order__customer=request.user.id, is_deleted=False)
+        total_quantity = sum(item.quantities for item in items)
+        total_price = sum(item.product.price * item.quantities for item in items)
+        context = {
+            'order': order,
+            'items': items,
+            'total_quantity': total_quantity,
+            'total_price': total_price,
+        }
+        return render(request, 'check_cart.html', context)
+    return redirect('profile')
 # ==================
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
