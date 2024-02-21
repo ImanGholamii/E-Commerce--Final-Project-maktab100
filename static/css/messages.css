@@ -33,15 +33,13 @@
 .verify-message .messages {
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
-    max-width: 400px;
+    margin: 0 10px auto;
+
 }
 
 .verify-message .messages li {
     list-style: none;
     padding: 10px 15px !important;
-    margin-left: 500px !important;
-    margin-right: 500px !important;
     margin-bottom: 10px !important;
     border-radius: 5px !important;
     text-align: center;
@@ -53,3 +51,8 @@
     background-color: #a0e6a8;
     color: #333;
 }
+.verify-message .messages li.list-group-item-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
