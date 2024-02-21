@@ -53,6 +53,7 @@
                 <th>{% trans 'Status' %}</th>
                 <th>{% trans 'Created At' %}</th>
                 <th>{% trans 'Updated At' %}</th>
+                <th>{% trans 'Edit' %}</th>
             </tr>
             </thead>
             <tbody>
@@ -62,6 +63,13 @@
                 <td>{{ order.status }}</td>
                 <td>{{ order.created_at|date:'Y/m/d' }} {{ order.created_at|time:'H:i:s' }}</td>
                 <td>{{ order.updated_at|date:'Y/m/d' }} {{ order.updated_at|time:'H:i:s' }}</td>
+                <td>
+                    <div class="edit-profile-button">
+                        <button class="btn btn-warning mt-3" style="padding: 0 3px;
+                        background-color: #a8a8a8">
+                            <a class="btn-edit" href="{% url 'edit_order' %}">{% trans 'edit orders' %}</a></button>
+                    </div>
+                </td>
             </tr>
             <!-- Add more rows for additional orders -->
             </tbody>
