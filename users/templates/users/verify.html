@@ -6,13 +6,18 @@
 {% load static %}
 {% block content %}
     <div class="container" style="margin-top: 50px;">
-    {% if messages %}
-        <ul class="messages list-group text-center verify-message">
-            {% for message in messages %}
-                <li class="list-group-item list-group-item-success">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+        {% if messages %}
+            <ul class="messages list-group text-center verify-message">
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                        <li class="list-group-item list-group-item-error">{{ message }}</li>
+                    {% else %}
+                        <li class="list-group-item list-group-item-success">{{ message }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
         <form method="post" class="form-pad" style="margin-left: 250px;margin-right: 250px; margin-bottom: 250px;">
             {% csrf_token %}
             {{ form.as_p }}
