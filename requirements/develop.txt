@@ -1,0 +1,12 @@
+-r ./base.txt
+
+Django
+djangorestframework
+djangorestframework-simplejwt
+drf-yasg
+django-celery-beat
+django-celery-results
+django-redis
+django-timezone-field
+celery
+psycopg2-binary
