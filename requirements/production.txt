@@ -10,3 +10,4 @@ django-redis==5.4.0
 django-timezone-field==6.1.0
 celery==5.3.6
 psycopg2-binary==2.9.9
+gunicorn==21.2.0

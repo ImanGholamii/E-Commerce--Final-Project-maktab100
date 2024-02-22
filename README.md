@@ -26,6 +26,6 @@ To set up the project, ensure Python and PostgreSQL are installed. Then, you can
 ```bash
 git clone https://github.com/ImanGholamii/Final-Project-m100.git
 cd Final-Project-m100
-pip install -r requirements.txt
+env MODE=production pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
