@@ -181,3 +181,48 @@ REST_FRAMEWORK = {
 #
 # CELERY_BROKER_URL = 'redis://localhost:6379/0'
 # CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+################### DEPLOY ################### 
+# if DEBUG:
+#     STATICFILES_DIRS = [
+#         BASE_DIR / 'static'
+#     ]
+#
+#     # Cache
+#     CACHES = {
+#         "default": {
+#             "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+#         }
+#     }
+#
+#
+#     # Database
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+#
+# else:
+#     STATIC_ROOT = BASE_DIR / 'static'
+#
+#     # Cache Services:
+#     # CACHES = {
+#     #     "default": {
+#     #         "BACKEND": "django.core.cache.backends.redis.RedisCache",
+#     #         "LOCATION": REDIS_URL,
+#     #     }
+#     # }
+#
+#
+#     # Production postgresql db :
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.postgresql",
+#             "NAME": "fastfoodia",
+#             "USER": "postgres",
+#             "PASSWORD": "postgres",
+#             "HOST": "localhost",
+#             "PORT": 5432,
+#         },
+#     }
