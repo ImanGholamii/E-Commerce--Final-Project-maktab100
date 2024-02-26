@@ -96,29 +96,48 @@ class OrderItemApiView(APIView):
 
     @swagger_auto_schema(
         request_body=OrderItemSerializer,
-        responses={201: OrderItemSerializer()}
+        responses={201: OrderItemSerializer(), 403:'Forbidden: user not authenticated'}
     )
     def post(self, request):
         """Add or Remove items form Order(cart)"""
         product_id = request.data.get('product')
         quantities = request.data.get('quantities', 0)
         print('product_id= ', product_id, quantities)
-        order = Order.objects.filter(customer=request.user.customer, status='pending').first()
-        if not order:
-            order = Order.objects.create(customer=request.user.customer, status='pending')
-        product = get_object_or_404(Product, id=product_id)
-
         if request.user.is_authenticated:
             user_id = request.user.id
             print('auth_user_id=', user_id)
-
+            order = Order.objects.filter(customer=request.user.customer, status='pending').first()
+            if not order:
+                order = Order.objects.create(customer=request.user.customer, status='pending')
         else:
-            guest_user_id = request.COOKIES.get('guest_user')
-            print(guest_user_id)
-            if guest_user_id == '45':
-                # guest_user_id = 45
-                user_id = int(guest_user_id)
-                print('guest_customer.id = ', user_id)
+            request.session['guest_cart'] = {
+                'user': request.user,
+                'items': [
+                    {
+                        'product_id': product_id,
+                        'quantities': quantities
+                    }
+                ]
+            }
+        if 'guest_cart' in request.session:
+            guest_cart = request.session['guest_cart']
+            print("Guest Cart Session Data:", guest_cart)
+
+
+        product = get_object_or_404(Product, id=product_id)
+
+        # if request.user.is_authenticated:
+        #     user_id = request.user.id
+        #     print('auth_user_id=', user_id)
+        #
+        # else:
+        #     guest_user_id = request.COOKIES.get('guest_user')
+        #     print(guest_user_id)
+        #     if guest_user_id == '45':
+        #         # guest_user_id = 45
+        #         user_id = int(guest_user_id)
+        #         print('guest_customer.id = ', user_id)
+
 
         print(order)
 
