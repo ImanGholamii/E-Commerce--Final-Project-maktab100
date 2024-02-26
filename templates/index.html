@@ -196,31 +196,37 @@
                 <li class="{% if not request.GET.category %}active{% endif %}">
                     <a href="?">{% trans 'All' %}</a>
                 </li>
-                <li class="{% if request.GET.category == 'ساندویچ گرم' %}active{% endif %}">
-                    <a href="?category=ساندویچ گرم">{% trans 'Warm Sandwich' %}</a>
-                </li>
-                <li class="{% if request.GET.category == 'ساندویچ سرد' %}active{% endif %}">
-                    <a href="?category=ساندویچ سرد">{% trans 'Cold Sandwich' %}</a>
-                </li>
-                <li class="{% if request.GET.category == 'پیتزا های گوشتی' %}active{% endif %}">
-                    <a href="?category=پیتزا های گوشتی">{% trans 'Pizza' %}</a>
-                </li>
-                <li class="{% if request.GET.category == 'پیتزا سبزیجات' %}active{% endif %}">
-                    <a href="?category=پیتزا سبزیجات">{% trans 'Green Pizza' %}</a>
-                </li>
-                <li class="{% if request.GET.category == 'برگر' %}active{% endif %}">
-                    <a href="?category=برگر">{% trans 'Burger' %}</a>
-                </li>
-                <li class="{% if request.GET.category == 'نوشیدنی ها' %}active{% endif %}">
-                    <a href="?category=نوشیدنی ها">{% trans 'Drink' %}</a>
-                </li>
-                <li class="{% if request.GET.category == 'سالاد ها' %}active{% endif %}">
-                    <a href="?category=سالاد ها">{% trans 'Salad' %}</a>
-                </li>
-                <li class="{% if request.GET.category == 'سیب زمینی' %}active{% endif %}">
-                    <a href="?category=سیب زمینی">{% trans 'Fries' %}</a>
-                </li>
-
+{#                <li class="{% if request.GET.category == 'ساندویچ گرم' %}active{% endif %}">#}
+{#                    <a href="?category=ساندویچ گرم">{% trans 'Warm Sandwich' %}</a>#}
+{#                </li>#}
+{#                <li class="{% if request.GET.category == 'ساندویچ سرد' %}active{% endif %}">#}
+{#                    <a href="?category=ساندویچ سرد">{% trans 'Cold Sandwich' %}</a>#}
+{#                </li>#}
+{#                <li class="{% if request.GET.category == 'پیتزا های گوشتی' %}active{% endif %}">#}
+{#                    <a href="?category=پیتزا های گوشتی">{% trans 'Pizza' %}</a>#}
+{#                </li>#}
+{#                <li class="{% if request.GET.category == 'پیتزا سبزیجات' %}active{% endif %}">#}
+{#                    <a href="?category=پیتزا سبزیجات">{% trans 'Green Pizza' %}</a>#}
+{#                </li>#}
+{#                <li class="{% if request.GET.category == 'برگر' %}active{% endif %}">#}
+{#                    <a href="?category=برگر">{% trans 'Burger' %}</a>#}
+{#                </li>#}
+{#                <li class="{% if request.GET.category == 'نوشیدنی ها' %}active{% endif %}">#}
+{#                    <a href="?category=نوشیدنی ها">{% trans 'Drink' %}</a>#}
+{#                </li>#}
+{#                <li class="{% if request.GET.category == 'سالاد ها' %}active{% endif %}">#}
+{#                    <a href="?category=سالاد ها">{% trans 'Salad' %}</a>#}
+{#                </li>#}
+{#                <li class="{% if request.GET.category == 'سیب زمینی' %}active{% endif %}">#}
+{#                    <a href="?category=سیب زمینی">{% trans 'Fries' %}</a>#}
+{#                </li>#}
+                {% for cat in all_categories %}
+                    {% if cat.parent %}
+                        <li class="{% if request.GET.category == cat.name %}active{% endif %}">
+                            <a href="?category={{ cat.name }}">{% trans cat.name %}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
 
             </ul>
             <div id="bubble-container"></div>
