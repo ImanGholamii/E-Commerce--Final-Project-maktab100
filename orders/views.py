@@ -11,16 +11,20 @@ from .models import Order, OrderItem
 from .serializers import OrderSerializer, OrderItemSerializer
 from rest_framework.views import APIView
 from django.contrib import messages
+from rest_framework.permissions import IsAuthenticated
+
+
 
 
 class OrderApiVew(APIView):
     """ GET and POST Orders"""
-
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         if request.user.is_superuser:
             orders = Order.objects.all()
         else:
             orders = Order.objects.filter(customer=request.user.customer)
+
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -42,6 +46,7 @@ class OrderApiVew(APIView):
 
 
 class OrderUpdateDeleteView(APIView):
+    permission_classes = [IsAuthenticated]
     swagger = swagger_auto_schema(
         request_body=OrderSerializer,
         responses={200: OrderSerializer()}
@@ -83,7 +88,7 @@ class OrderUpdateDeleteView(APIView):
 
 class OrderItemApiView(APIView):
     """GET and POST order items"""
-
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         order_item = OrderItem.objects.filter(product__is_deleted=False)
         serializer = OrderItemSerializer(order_item, many=True)
@@ -158,6 +163,7 @@ class OrderItemApiView(APIView):
 
 class OrderItemUpdateDeleteApiView(APIView):
     """Update and Delete items of an Order"""
+    permission_classes = [IsAuthenticated]
     swagger = swagger_auto_schema(
         request_body=OrderItemSerializer,
         responses={200: OrderItemSerializer()}
