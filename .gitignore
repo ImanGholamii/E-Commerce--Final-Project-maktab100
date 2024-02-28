@@ -151,3 +151,5 @@ cython_debug/
 .idea/
 
 **/migrations/__init__.py
+
+secret_keys.py
