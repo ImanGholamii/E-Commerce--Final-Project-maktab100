@@ -153,3 +153,7 @@ cython_debug/
 **/migrations/__init__.py
 
 secret_keys.py
+
+identifier.sqlite
+
+db.sqlite3
